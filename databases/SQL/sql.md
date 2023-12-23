@@ -21,6 +21,21 @@ Vale ressaltar que atualmente a linguagem SQL tem suas limitações. Em tempos d
 
 ![sql_diagram](./assets/images/sql_diagram.png)
 
+|Vantages|Desvantagens|
+|:---:|:---:|
+|Suporte a grande volume de transações(Operações)[Insert, Delete, alter, select]|Não é boa opção para fazer analise|
+|Rápido|Escalabilidade(muito custoso)|
+|Integridade Relacional(Estabelece relacionamento entre valores)|Não muito eficiente quando se tratar de lidar com dados repetidos|
+|Reduzir Redundâncias|
+|Acesso Concorrente||
+
+### ACID
+|A|Atomicity|Tudo ou nada, se um conjunto de processos falhar (Transações) nenhuma delas deverá ter sucesso e o seu banco de dados não será alterado|
+|:---:|:---:|:---:|
+|C|Consistency|As mudanças de estado do banco de dados segem as regras de consistência.|
+|I|Isolation|O resultado das transações executados serão mantido, mesmo que haja uma transação concorrente|
+|D|Durability|Se a transação foi concluida com sucesso, seus efeitos permanecerão, mesmo se ocorrerem falas(rede, energia, hardware, etc.)|
+
 ## [🏗️ `DDL` - Data Definition Language](./ddl.md)
 
 ## [🪛 `DML` - Data Manipulation Language](./dml.md)
