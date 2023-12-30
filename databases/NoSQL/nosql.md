@@ -20,13 +20,13 @@
 
 ## Quatro pricipais tipos:
 
-- Key-value Database (Redis, Dynamo, Couchbase)
+- 🔑: 📦 Key-value Database (Redis, Dynamo, Couchbase)
 
     - Armazena conjunto chave/valor
 
     - Em memória, em disco ou hibrido
 
-- Colunas Ordenadas (Hbase, HyperTable, Cassandra)
+- 🏛️ Colunas Ordenadas (Hbase, HyperTable, Cassandra)
 
     - Dados orientados a colunas, Cada linha tem um ponteiro.
 
@@ -36,12 +36,12 @@
 
     - Baseado no modelo Bigtable(Google)
 
-- Banco de dados de Documentos (MongoDB, CouchDB)
+- 📄 Banco de dados de Documentos (MongoDB, CouchDB)
 
     - Não é um sistema ECM
 
     - Exemplo: suporte JSON
 
-- Banco de Dados Grafos (Neo4j)
+- 🔵 Banco de Dados Grafos (Neo4j)
 
     - Aplicações em redes socias, medicina, genética, RH, etc.
