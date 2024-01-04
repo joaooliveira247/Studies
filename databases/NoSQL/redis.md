@@ -210,3 +210,66 @@ Verifica se o campo existe.
 - `HLEN <key>`
 
 Verifica o numero de fields
+
+### `Lists`
+
+Lista de strings com chave unica que podem ser inseridas separadamente
+
+- `LPUSH <key> <value> <value> ...`
+
+Inseri valores a esquerda 
+
+`ex:`
+
+```shell
+LPUSH databases MongoDB PostgreSQL
+```
+
+- `RPUSH <key> value`
+
+Inseri valores a direita
+
+`ex:`
+
+```shell
+RPUSH databases DynamoDB
+```
+
+- `LRANGE <key> <start> <end>`
+
+Retorna o slice da list
+
+- `LINSERT <key> <arg> <pos> <value>`
+
+|Arg|Função|
+|:---:|:---:|
+|BEFORE|Antes de|
+|After|Depois de|
+
+\<pos>: item da lista
+
+`ex:`
+
+```Shell
+LINSERT databases BEFORE DynamoDB MySQL
+```
+
+- `LSET <key> <index> <value>`
+
+Atualiza valor me dado indice
+
+- `LINDEX <key> <index>`
+
+Retorna valor em dado index
+
+- `LLEN <key>`
+
+Retorna o tamanho da lista
+
+- `RPOP <key>`
+
+Remove um valor a direita
+
+- `LPOP <key>`
+
+Remove um valor a esquerda
