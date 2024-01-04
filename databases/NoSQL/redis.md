@@ -168,3 +168,45 @@ Retorna o tamanho do valor
 STRLEN 1
 >>> (integer) 1
 ```
+
+### `Hashes`
+
+Conjunto de campos/valores, associados a uma chave
+
+- `HMSET <key> <field> <value> <field> <value> ...`
+
+Define valores.
+
+`ex:`
+
+```shell
+HMSET CADASTRO Nome Luiz Profissao Engenheiro Cidade "Rio de Janeiro"
+```
+
+- `HDEL <key> <field>`
+
+Deleta um campo, para deletar basta usar o `DEL <key>`
+
+- `HGETALL <key>`
+
+Retorna todas as chaves e valores
+
+- `HMGET <key> <field> ...`
+
+Retorna somente os campos especificados
+
+- `HVALS <key>`
+
+Retorna todos os calores
+
+- `HKEYS <key>`
+
+Retorna todos os fields.
+
+- `HEXISTS <key> <field>`
+
+Verifica se o campo existe.
+
+- `HLEN <key>`
+
+Verifica o numero de fields
