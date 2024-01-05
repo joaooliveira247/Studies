@@ -337,3 +337,25 @@ se passada a flag `WITHSCORES` no final retorna os scores junto.
 - `ZREM <key> <value>`
 
 Remove um valor
+
+## TRANSACTIONS
+
+Bloco de logica para evitar falhas, semelhante ao relacional.
+
+|Função|Descrição|
+|:---:|:---:|
+|MULTI|Marca o inicio de uma transaction|
+|EXEC|Executa todos os comandos depois de MULTI|
+|DISCARD|Descarta todos os comandos depois de MULTI|
+
+```shell
+MULTI
+>>> OK
+SET FRUITS "BANANA"
+>>> QUEUED
+SET VEGETABLES "CARROT"
+>>> QUEUED
+EXEC
+>>> 1) OK
+>>> 2) OK
+```
