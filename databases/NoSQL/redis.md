@@ -273,3 +273,67 @@ Remove um valor a direita
 - `LPOP <key>`
 
 Remove um valor a esquerda
+
+### `Sets`
+
+Coleção não ordenada, não aceita valores repetidos.
+
+- `SADD <key> <value> <value> ...`
+
+Inseri valores, se o valor já existir retornará 0
+
+- `SMEMBERS <key>`
+
+Recupera valores.
+
+- `SCARD <key>`
+
+Retorna o número de membros(valores)
+
+- `SISMEMBER <key> <value>`
+
+Verifica se o \<value> faz parte do set
+
+- `SREM <key> <value> ...`
+
+Remove 1 ou n valores
+
+- Operações sobre sets
+
+|Função|Descrição|
+|:---:|:---:|
+|`SDIFF <key> <key>`|Mostra a diferença entre dois sets|
+|`SINTER <key> <key>`|Mostra a interjeição entre dois sets|
+
+### `Sets Ordenados`
+
+Valores não repetidos, ordenados baseados em score
+
+- `ZADD <key> <score> <value>`
+
+Inseri um valor com um score
+
+- `ZCARD <key>`
+
+Retorna o número de elementos
+
+- `ZRANK <key> <value>`
+
+Retorna o indice de um valor
+
+- `ZCOUNT <key> <start> <end>`
+
+Conta o número de valores em determinado intervalo dos scores
+
+- `ZSCORE <key> <value>`
+
+Retorna o score de um membro
+
+- `ZRANGE <key> <start> <end>`
+
+Retorna os membros em dado intervalo,
+se passada a flag `WITHSCORES` no final retorna os scores junto.
+
+- `ZREM <key> <value>`
+
+Remove um valor
