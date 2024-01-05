@@ -10,6 +10,10 @@ Hadoop é uma plataforma de software em Java de computação distribuída voltad
 
 - Processamento em Batch(Pode demorar muito tempo)
 
+### Ecosistema Hadoop
+
+![hadoop_img](https://www.edureka.co/blog/wp-content/uploads/2016/10/HADOOP-ECOSYSTEM-Edureka.png)
+
 ### `MapReduce`
 
 - Dividir tarefas de processamento de dados em vários nós(node)
