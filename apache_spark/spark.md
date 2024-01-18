@@ -138,4 +138,8 @@ Além disso, a plataforma também possui recursos para construção de pipelines
 - Soluções de IA generativa
 
 
+### `code examples:`
 
+[Spark SQL](./1.Explorar.ipynb)
+
+[MLib](./2.Ml.ipynb)
