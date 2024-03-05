@@ -35,6 +35,11 @@ def main() -> None:
     ic("{0} {1}".format(first_name, last_name))
     ic(f"{first_name} {last_name}")
 
+    # strings also supports slicing or any sequence operatios
+    # 'cause it's an sequence o char's
+    slice: str = "Joel Grus"
+    ic(slice[:4])
+
 
 if __name__ == "__main__":
     main()
