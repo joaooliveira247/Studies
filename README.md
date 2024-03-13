@@ -13,3 +13,7 @@
 - [<img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/apache_hadoop_logo_icon_169586.png" width=15px> Hadoop](./Hadoop/hadoop.md)
 
 - [<img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" width=15px> Spark](./apache_spark/spark.md)
+
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg" width=15px> Airflow](./airflow/README.md)
+
+- [:book: Data Science from Scratch](./DataScience/README.md)
