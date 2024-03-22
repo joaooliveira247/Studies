@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "collections"
+name = "my_collections"
 version = "0.1.0"
 description = ""
 authors = ["joaooliveira247 <joaooliveira247@gmail.com>"]
