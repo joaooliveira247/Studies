@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "collections"
+version = "0.1.0"
+description = ""
+authors = ["joaooliveira247 <joaooliveira247@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^8.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
