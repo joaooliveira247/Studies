@@ -134,10 +134,30 @@ def test_another_exec_request_raise_http_error(mock_urlopen: MagicMock):
         assert "msg error" in str(exception.value)
 
 
-def test_exec_request_log_error_message(caplog: pytest.CaptureFixture):
+def test_exec_request_log_error_message(caplog: pytest.LogCaptureFixture):
     with patch("my_collections.livros.urlopen", stub_urlopen_raise_http_error):
         result = executar_request("http://")
         error_message = "msg error"
         assert len(caplog.records) == 1
         for rec in caplog.records:
             assert error_message in rec.message
+
+
+@patch("my_collections.livros.urlopen")
+def test_exec_request_log_error_message_two(
+    mock_urlopen: MagicMock, caplog: pytest.LogCaptureFixture
+):
+    fp = mock_open()
+    mock_instace = Mock()
+    fp.close = mock_instace
+    mock_urlopen.side_effect = HTTPError(
+        mock_instace,
+        mock_instace,
+        "msg error",
+        mock_instace,
+        fp,
+    )
+    executar_request("http://")
+    assert len(caplog.records) == 1
+    for register in caplog.records:
+        assert "msg error" in register.message
