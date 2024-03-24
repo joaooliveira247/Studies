@@ -5,21 +5,39 @@ from urllib.error import HTTPError
 import pytest
 
 
-@skip("this test was skiped")
-def test_consultar_livros_retorna_formato_string() -> None:
+class StubHTTPResponse:
+    # stub fornece os dados pré-configurados, entradas diretas.
+    def read(self):
+        return b""
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, param_1, param_2, param_3):
+        return
+
+
+@patch("my_collections.livros.urlopen", return_value=StubHTTPResponse())
+def test_consultar_livros_retorna_formato_string(
+    stub_urlopen: MagicMock,
+) -> None:
     result: str = consultar_livros("Agatha Christie")
     assert isinstance(result, str) is True
 
 
-@skip("skiped")
-def test_consultar_livros_chama_preparar_dados_para_uma_vez_e_com_os_mesmos_parametros_de_consultar_livros():
+@patch("my_collections.livros.urlopen", return_value=StubHTTPResponse())
+def test_consultar_livros_chama_preparar_dados_para_uma_vez_e_com_os_mesmos_parametros_de_consultar_livros(
+    stub_urlopen: MagicMock,
+):
     with patch("my_collections.livros.preparar_dados_para_requisicao") as duble:
         consultar_livros("Agatha Christie")
         duble.assert_called_once_with("Agatha Christie")
 
 
-@skip("skiped_2")
-def test_consultar_livros_chama_obter_url_usando_parametro_retorno_preparar_dados_requisicao():
+@patch("my_collections.livros.urlopen", return_value=StubHTTPResponse())
+def test_consultar_livros_chama_obter_url_usando_parametro_retorno_preparar_dados_requisicao(
+    stub_urlopen: MagicMock,
+):
     with patch(
         "my_collections.livros.preparar_dados_para_requisicao"
     ) as duble_preparar:
@@ -37,18 +55,6 @@ def test_consultar_livros_chama_executar_request_usando_retorno_obter_url():
         with patch("my_collections.livros.executar_request") as duble_request:
             consultar_livros("Agatha Cristie")
             duble_request.assert_called_once_with("https://buscadordelivros")
-
-
-class StubHTTPResponse:
-    # stub fornece os dados pré-configurados, entradas diretas.
-    def read(self):
-        return b""
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, param_1, param_2, param_3):
-        return
 
 
 def stub_url_open(url, timeout):
