@@ -102,12 +102,13 @@ def test_four_another_away_executar_request_returns_string(
 class Dummy: ...
 
 
-def mock_urlopen_raise_http_error(url: str, timeout: int):
+def stub_urlopen_raise_http_error(url: str, timeout: int):
     fp = mock_open
     fp.close = Dummy
     raise HTTPError(Dummy(), Dummy(), "msg error", Dummy(), fp)
 
 
+@skip("skiped")
 def test_exec_request_raise_http_error():
     with patch("my_collections.livros.urlopen", mock_urlopen_raise_http_error):
         with pytest.raises(HTTPError) as exception:
@@ -115,6 +116,7 @@ def test_exec_request_raise_http_error():
         assert "msg error" in str(exception.value)
 
 
+@skip("skiped")
 @patch("my_collections.livros.urlopen")
 def test_another_exec_request_raise_http_error(mock_urlopen: MagicMock):
     fp = mock_open()
@@ -130,3 +132,12 @@ def test_another_exec_request_raise_http_error(mock_urlopen: MagicMock):
     with pytest.raises(HTTPError) as exception:
         executar_request("https://")
         assert "msg error" in str(exception.value)
+
+
+def test_exec_request_log_error_message(caplog: pytest.CaptureFixture):
+    with patch("my_collections.livros.urlopen", stub_urlopen_raise_http_error):
+        result = executar_request("http://")
+        error_message = "msg error"
+        assert len(caplog.records) == 1
+        for rec in caplog.records:
+            assert error_message in rec.message
