@@ -167,3 +167,30 @@ def test_exec_request_log_error_message_two(
     assert len(caplog.records) == 1
     for register in caplog.records:
         assert "msg error" in register.message
+
+
+def duble_make_dirs(dir):
+    raise OSError(f"Permission Error at {dir}")
+
+
+class DubleLogging:
+
+    def __init__(self) -> None:
+        self.__msg: list[str] = []
+
+    def exception(self, msg: str):
+        self.__msg.append(msg)
+
+    @property
+    def messages(self) -> list[str]:
+        return self.__msg
+
+
+def test_write_file_raise_exception_that_not_possible_create():
+    archive = "/tmp/archive"
+    content = "/books data/"
+    duble_logging = DubleLogging()
+    with patch("my_collections.livros.os.mkdir", duble_make_dirs):
+        with patch("my_collections.livros.logging", duble_logging):
+        write_archive(archive, content)
+        assert "Permission Error at /temp/" in duble_logging.messages
