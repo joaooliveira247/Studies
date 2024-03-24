@@ -1,5 +1,5 @@
 from my_collections.livros import consultar_livros, executar_request
-from unittest.mock import patch, MagicMock, mock_open
+from unittest.mock import patch, MagicMock, mock_open, Mock
 from unittest import skip
 from urllib.error import HTTPError
 import pytest
@@ -112,4 +112,21 @@ def test_exec_request_raise_http_error():
     with patch("my_collections.livros.urlopen", mock_urlopen_raise_http_error):
         with pytest.raises(HTTPError) as exception:
             executar_request("https://")
+        assert "msg error" in str(exception.value)
+
+
+@patch("my_collections.livros.urlopen")
+def test_another_exec_request_raise_http_error(mock_urlopen: MagicMock):
+    fp = mock_open()
+    mock_instance = Mock()
+    fp.close = mock_instance
+    mock_urlopen.side_effect = HTTPError(
+        mock_instance,
+        mock_instance,
+        "msg error",
+        mock_instance,
+        fp,
+    )
+    with pytest.raises(HTTPError) as exception:
+        executar_request("https://")
         assert "msg error" in str(exception.value)
