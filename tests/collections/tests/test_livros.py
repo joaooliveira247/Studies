@@ -37,7 +37,7 @@ def test_consultar_livros_chama_executar_request_usando_retorno_obter_url():
             duble_request.assert_called_once_with("https://buscadordelivros")
 
 
-class DubleHTTPResponse:
+class StubHTTPResponse:
     def read(self):
         return b""
 
@@ -48,12 +48,12 @@ class DubleHTTPResponse:
         return
 
 
-def duble_url_open(url, timeout):
-    return DubleHTTPResponse()
+def stub_url_open(url, timeout):
+    return StubHTTPResponse()
 
 
 def test_executar_request_retorna_string():
-    with patch("my_collections.livros.urlopen", duble_url_open):
+    with patch("my_collections.livros.urlopen", stub_url_open):
         result = executar_request(
             "https://buscadordelivros?author=Jk+Rowlings",
         )
