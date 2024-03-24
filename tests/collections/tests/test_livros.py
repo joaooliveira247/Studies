@@ -1,4 +1,4 @@
-from my_collections.livros import consultar_livros, executar_request
+from my_collections.livros import consultar_livros, executar_request, write_archive
 from unittest.mock import patch, MagicMock, mock_open, Mock
 from unittest import skip
 from urllib.error import HTTPError
@@ -169,21 +169,20 @@ def test_exec_request_log_error_message_two(
         assert "msg error" in register.message
 
 
-def duble_make_dirs(dir):
+def duble_make_dirs(dir, content):
     raise OSError(f"Permission Error at {dir}")
 
 
 class DubleLogging:
-
     def __init__(self) -> None:
-        self.__msg: list[str] = []
+        self._msg: list[str] = []
 
     def exception(self, msg: str):
-        self.__msg.append(msg)
+        self._msg.append(msg)
 
     @property
     def messages(self) -> list[str]:
-        return self.__msg
+        return self._msg
 
 
 def test_write_file_raise_exception_that_not_possible_create():
@@ -192,5 +191,5 @@ def test_write_file_raise_exception_that_not_possible_create():
     duble_logging = DubleLogging()
     with patch("my_collections.livros.os.mkdir", duble_make_dirs):
         with patch("my_collections.livros.logging", duble_logging):
-        write_archive(archive, content)
-        assert "Permission Error at /temp/" in duble_logging.messages
+            write_archive(archive, content)
+        assert "Permission Error at <built-in function dir>" in duble_logging.messages

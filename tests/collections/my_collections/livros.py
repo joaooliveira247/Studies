@@ -2,6 +2,7 @@ from __future__ import annotations
 from urllib.request import urlopen
 from urllib.error import HTTPError
 import logging
+import os
 
 
 def consultar_livros(author: str) -> str:
@@ -25,3 +26,11 @@ def executar_request(url: str):
         logging.exception(f"Error ({e}) to acess url: {url}")
     else:
         return result
+
+
+def write_archive(path: str, content: str):
+    dir_ = os.path.dirname(path)
+    try:
+        os.makedirs(dir_)
+    except OSError:
+        logging.exception(f"Permission Error at {dir}")
