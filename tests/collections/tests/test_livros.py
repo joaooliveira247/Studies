@@ -1,5 +1,5 @@
 from my_collections.livros import consultar_livros, executar_request
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from unittest import skip
 
 
@@ -61,10 +61,37 @@ def test_executar_request_retorna_string():
         assert isinstance(result, str)
 
 
-def test_another_way_executar_Request_retorna_string():
+def test_another_way_executar_request_retorna_string():
     with patch("my_collections.livros.urlopen") as duble_urlopen:
         duble_urlopen.return_value = StubHTTPResponse()
         result = executar_request(
             "https://buscadordelivros?author=Jk+Rowlings",
         )
         assert isinstance(result, str)
+
+
+def test_two_another_away_executar_request_returns_string():
+    with patch("my_collections.livros.urlopen", return_value=StubHTTPResponse()):
+        result = executar_request(
+            "https://buscadordelivros?author=Jk+Rowlings",
+        )
+        assert isinstance(result, str)
+
+
+@patch("my_collections.livros.urlopen", return_value=StubHTTPResponse())
+def test_three_another_away_executar_request_returns_string(duble_urlopen):
+    result = executar_request(
+        "https://buscadordelivros?author=Jk+Rowlings",
+    )
+    assert isinstance(result, str)
+
+
+@patch("my_collections.livros.urlopen")
+def test_four_another_away_executar_request_returns_string(
+    duble_urlopen: MagicMock,
+):
+    duble_urlopen.return_value = StubHTTPResponse()
+    result = executar_request(
+        "https://buscadordelivros?author=Jk+Rowlings",
+    )
+    assert isinstance(result, str)
