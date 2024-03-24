@@ -1,6 +1,8 @@
 from my_collections.livros import consultar_livros, executar_request
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, mock_open
 from unittest import skip
+from urllib.error import HTTPError
+import pytest
 
 
 @skip("this test was skiped")
@@ -95,3 +97,19 @@ def test_four_another_away_executar_request_returns_string(
         "https://buscadordelivros?author=Jk+Rowlings",
     )
     assert isinstance(result, str)
+
+
+class Dummy: ...
+
+
+def mock_urlopen_raise_http_error(url: str, timeout: int):
+    fp = mock_open
+    fp.close = Dummy
+    raise HTTPError(Dummy(), Dummy(), "msg error", Dummy(), fp)
+
+
+def test_exec_request_raise_http_error():
+    with patch("my_collections.livros.urlopen", mock_urlopen_raise_http_error):
+        with pytest.raises(HTTPError) as exception:
+            executar_request("https://")
+        assert "msg error" in str(exception.value)
