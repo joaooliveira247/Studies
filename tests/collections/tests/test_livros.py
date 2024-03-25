@@ -1,3 +1,4 @@
+from __future__ import annotations
 from my_collections.livros import consultar_livros, executar_request, write_archive
 from unittest.mock import patch, MagicMock, mock_open, Mock
 from unittest import skip
@@ -207,3 +208,39 @@ def test_write_file_log_error_when_create(
     print([type(x) for x in [stub_open, spy_exception, stub_makedirs]])
     write_archive("/bla/arquivo.json", "content here")
     spy_exception.assert_called_once_with("Permission Error at <built-in function dir>")
+
+
+class SpyFP:
+    def __init__(self) -> None:
+        self._content = None
+
+    def __enter__(self) -> SpyFP:
+        return self
+
+    def __exit__(self, param_1, param_2, param_3) -> None: ...
+
+    def write(self, content):
+        self._content = content
+
+
+@patch("my_collections.livros.open")
+def test_write_archive_call_write(stub_open: MagicMock):
+    archive = "/tmp/archive"
+    content = "/books data/"
+    spy_fp = SpyFP()
+    stub_open.return_value = spy_fp
+    write_archive(archive, content)
+    assert spy_fp._content == content
+
+
+@patch("my_collections.livros.open")
+def test_write_archive_call_write(stub_open: MagicMock):
+    archive = "/tmp/archive"
+    content = "/books data/"
+    spy_fp: MagicMock = MagicMock()
+    spy_fp.__enter__.return_value = spy_fp
+    spy_fp.__exit__.return_value = None
+    stub_open.return_value = spy_fp
+
+    write_archive(archive, content)
+    spy_fp.write.assert_called_once_with(content)
