@@ -34,3 +34,9 @@ def write_archive(path: str, content: str):
         os.makedirs(dir_)
     except OSError:
         logging.exception(f"Permission Error at {dir}")
+
+    try:
+        with open(path, "w") as fp:
+            fp.write(content)
+    except OSError as e:
+        logging.exception(f"Permission Error at {dir}")

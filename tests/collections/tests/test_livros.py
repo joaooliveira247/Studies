@@ -169,11 +169,14 @@ def test_exec_request_log_error_message_two(
         assert "msg error" in register.message
 
 
-def duble_make_dirs(dir, content):
+def duble_make_dirs(
+    dir,
+):
     raise OSError(f"Permission Error at {dir}")
 
 
 class DubleLogging:
+    # MOCK spy -> captura e armazena as informações geradas pelo test
     def __init__(self) -> None:
         self._msg: list[str] = []
 
@@ -189,7 +192,18 @@ def test_write_file_raise_exception_that_not_possible_create():
     archive = "/tmp/archive"
     content = "/books data/"
     duble_logging = DubleLogging()
-    with patch("my_collections.livros.os.mkdir", duble_make_dirs):
+    with patch("my_collections.livros.os.makedirs", duble_make_dirs):
         with patch("my_collections.livros.logging", duble_logging):
             write_archive(archive, content)
         assert "Permission Error at <built-in function dir>" in duble_logging.messages
+
+
+@patch("my_collections.livros.os.makedirs")
+@patch("my_collections.livros.logging.exception")
+@patch("my_collections.livros.open", side_effect=OSError())
+def test_write_file_log_error_when_create(
+    stub_open: MagicMock, spy_exception: MagicMock, stub_makedirs: MagicMock
+):
+    print([type(x) for x in [stub_open, spy_exception, stub_makedirs]])
+    write_archive("/bla/arquivo.json", "content here")
+    spy_exception.assert_called_once_with("Permission Error at <built-in function dir>")
