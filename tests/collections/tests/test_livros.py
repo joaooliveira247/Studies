@@ -1,5 +1,11 @@
 from __future__ import annotations
-from my_collections.livros import consultar_livros, executar_request, write_archive
+from my_collections.livros import (
+    consultar_livros,
+    executar_request,
+    write_archive,
+    Consulta,
+    download_books,
+)
 from unittest.mock import patch, MagicMock, mock_open, Mock
 from unittest import skip
 from urllib.error import HTTPError
@@ -234,7 +240,7 @@ def test_write_archive_call_write(stub_open: MagicMock):
 
 
 @patch("my_collections.livros.open")
-def test_write_archive_call_write(stub_open: MagicMock):
+def test_write_archive_call_write_2(stub_open: MagicMock):
     archive = "/tmp/archive"
     content = "/books data/"
     spy_fp: MagicMock = MagicMock()
@@ -244,3 +250,69 @@ def test_write_archive_call_write(stub_open: MagicMock):
 
     write_archive(archive, content)
     spy_fp.write.assert_called_once_with(content)
+
+
+@pytest.fixture
+def result_two_pages():
+    return [
+        """
+        {
+        "num_docs": 5,
+        "docs": [
+            {
+            "author": "Luciano Ramalho",
+            "title": "Python Fluente"
+            },
+            {
+            "author": "Nilo Ney",
+            "title": "Introdução a Programação com Python"
+            },
+            {
+            "author": "Allen B. Downey",
+            "title": "Pense em Python"
+            }
+        ]
+        }
+        """,
+        """
+        {
+        "num_docs": 5,
+        "docs": [
+            {
+            "author": "Kenneth Reitz",
+            "title": "O Guia do MOchileiro Python"
+            },
+            {
+            "author": "Wes McKinney",
+            "title": "Python Para Análise de Dados"
+            },
+        ]
+        }
+        """,
+    ]
+
+
+_T = str | None
+
+
+class DubleConsulta:
+    def __init__(self) -> None:
+        self._calls: list[tuple[str, 3]] = []
+        self.consultas: list[Consulta] = []
+
+    def Consulta(self, author: _T, title: _T, livre: _T) -> Consulta:
+        consulta = Consulta(author, title, livre)
+        self._calls.append((author, title, livre))
+        self.consultas.append(consulta)
+        return consulta
+
+    def verify(self):
+        assert len(self.consultas) == 1, "Too Many 'Consultas'"
+        assert self._calls == [(None, None, "Python")], "Too Many Calls"
+
+
+def test_download_books_instance_consulta_once():
+    duble = DubleConsulta()
+    with patch("my_collections.livros.Consulta", duble.Consulta):
+        download_books(None, None, "Python")
+        duble.verify()

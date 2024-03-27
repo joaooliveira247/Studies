@@ -75,7 +75,7 @@ class Consulta:
         data_from_request["page"] = self._page
         req = Request(self._url, data_from_request)
         if req.data:
-            return f"{req.full_url}{"?"}{urlencode(req.data)}"
+            return f"{req.full_url}{'?'}{urlencode(req.data)}"
 
 
 class Response:
@@ -111,3 +111,7 @@ class Response:
         if len(self.docs):
             return ceil(self.data.get("num_docs", 0) / self.docs_per_page)
         return 0
+
+
+def download_books(author, title, livre):
+    consulta = Consulta(author, title, livre)
