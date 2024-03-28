@@ -119,6 +119,8 @@ def download_books(author, title, livre):
     total_pages = 1
     while True:
         result = executar_request(consulta.next)
+        response = Response(result)
+        total_pages = response.pagination_total
         if consulta._page == 1:
             total_pages = 2
         if consulta._page == total_pages:

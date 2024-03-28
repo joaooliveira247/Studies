@@ -5,6 +5,7 @@ from my_collections.livros import (
     write_archive,
     Consulta,
     download_books,
+    Response,
 )
 from unittest.mock import patch, MagicMock, mock_open, Mock, call
 from unittest import skip
@@ -330,3 +331,15 @@ def test_download_books_call_exec_request_n_times(
         call("https://buscarlivros?q=python&page=1"),
         call("https://buscarlivros?q=python&page=2"),
     ]
+
+
+@patch("my_collections.livros.executar_request")
+def test_download_books_instace_response_three_times(
+    stub_exec_req: MagicMock, result_two_pages
+):
+    stub_exec_req.side_effect = result_two_pages
+    with patch("my_collections.livros.Response") as MockResposta:
+        MockResposta.side_effect = [
+            Response(result_two_pages[0]),
+            Response(result_two_pages[1]),
+        ]
