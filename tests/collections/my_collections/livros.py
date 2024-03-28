@@ -115,3 +115,11 @@ class Response:
 
 def download_books(author, title, livre):
     consulta = Consulta(author, title, livre)
+    consulta.data_from_request
+    total_pages = 1
+    while True:
+        result = executar_request(consulta.next)
+        if consulta._page == 1:
+            total_pages = 2
+        if consulta._page == total_pages:
+            break

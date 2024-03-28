@@ -6,7 +6,7 @@ from my_collections.livros import (
     Consulta,
     download_books,
 )
-from unittest.mock import patch, MagicMock, mock_open, Mock
+from unittest.mock import patch, MagicMock, mock_open, Mock, call
 from unittest import skip
 from urllib.error import HTTPError
 import pytest
@@ -311,8 +311,22 @@ class DubleConsulta:
         assert self._calls == [(None, None, "Python")], "Too Many Calls"
 
 
-def test_download_books_instance_consulta_once():
+@patch("my_collections.livros.executar_request")
+def test_download_books_instance_consulta_once(stub_exec_request: MagicMock):
     duble = DubleConsulta()
+    stub_exec_request.side_effect = result_two_pages
     with patch("my_collections.livros.Consulta", duble.Consulta):
         download_books(None, None, "Python")
         duble.verify()
+
+
+@patch("my_collections.livros.executar_request")
+def test_download_books_call_exec_request_n_times(
+    mock_exec_request: MagicMock, result_two_pages
+):
+    mock_exec_request.side_effect = result_two_pages
+    download_books(None, None, "python")
+    assert mock_exec_request.call_args_list == [
+        call("https://buscarlivros?q=python&page=1"),
+        call("https://buscarlivros?q=python&page=2"),
+    ]
