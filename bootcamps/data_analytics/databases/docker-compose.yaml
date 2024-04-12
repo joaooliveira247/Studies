@@ -10,12 +10,8 @@ services:
       MARIADB_USER: user
       MARIADB_PASSWORD: passwd
       MARIADB_ROOT_PASSWORD: passwd
-
-  adminer:
-    image: adminer
-    restart: "no"
     ports:
-      - 8080:8080
+      - "3306:3306"
 
   mongo:
     image: mongo
