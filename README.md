@@ -16,4 +16,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg" width=15px> Airflow](./airflow/README.md)
 
+- [<img src="https://cdn-icons-png.freepik.com/512/7787/7787808.png" width=15px> DataWareHouse]()
+
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width=15px/> Pytest](./tests/)
+
 - [:book: Data Science from Scratch](./DataScience/README.md)
