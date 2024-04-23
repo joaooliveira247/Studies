@@ -20,4 +20,4 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width=15px/> Pytest](./tests/)
 
-- [:book: Data Science from Scratch](./DataScience/README.md)
+- [📚 Data Science from Scratch](./DataScience/README.md)
