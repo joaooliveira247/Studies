@@ -12,6 +12,12 @@ In contrast, data warehouses often denormalize data for performance reasons. Den
 
 ## ⭐ Star Model
 
+The star schema is the simplest and most common dimensional modeling technique. In a star schema, the fact table is at the center and connected via foreign key(s) to the dimension tables. The fact table contains the numerical values or metrics being analyzed, while the dimension tables have the attributes that describe the data.
+
+![star_model](https://iterationinsights.com/wp-content/uploads/2020/07/Star-Schema-Model.png)
+
+The star schema is a straightforward and efficient method of dimensional modeling that is easy to understand and use. It is suitable for data warehouses that require fast and efficient queries.
+
 ## ❄️ Snowflake Model
 
 ## References:
