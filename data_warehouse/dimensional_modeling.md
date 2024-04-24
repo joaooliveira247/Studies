@@ -20,6 +20,14 @@ The star schema is a straightforward and efficient method of dimensional modelin
 
 ## ❄️ Snowflake Model
 
+The snowflake schema is a more complex dimensional modeling technique used when there are multiple levels of granularity within a dimension. In a snowflake schema, the dimension tables are normalized, meaning they are split into multiple tables to reduce data redundancy. This normalization results in a more complex schema that resembles a snowflake, hence the name.
+
+![snowflake](https://assets-global.website-files.com/5e6f9b297ef3941db2593ba1/614df5d249f1d56f764083ef_Screenshot%202021-09-24%20at%2017.47.02.png)
+
+For instance, the customer dimension table could be normalized in the sales data example to include separate tables for customer and address information.
+
+The snowflake schema suits large, complex data warehouses requiring extensive data analysis and reporting. However, it can be more challenging to use and maintain than the star schema.
+
 ## References:
 
 https://data-sleek.com/blog/dimensional-data-modeling/
