@@ -65,6 +65,10 @@ Online analytical processing (OLAP) and online transaction processing (OLTP) are
 |Response time|OLAP has longer response times, typically in seconds or minutes.|OLTP has shorter response times, typically in milliseconds|
 |Example applications|OLAP is good for analyzing trends, predicting customer behavior, and identifying profitability.|OLTP is good for processing payments, customer data management, and order processing.|
 
+## Content:
+
+[🗂️ Dimensional modeling](./dimensional_modeling.md)
+
 
 ## References:
 
