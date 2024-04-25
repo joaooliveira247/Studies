@@ -28,6 +28,31 @@ For instance, the customer dimension table could be normalized in the sales data
 
 The snowflake schema suits large, complex data warehouses requiring extensive data analysis and reporting. However, it can be more challenging to use and maintain than the star schema.
 
+## Elements of Dimensional Data Model:
+
+### Facts
+
+Facts are the measurable data elements that represent the business metrics of interest. For example, in a sales data warehouse, the facts might include sales revenue, units sold, and profit margins. Each fact is associated with one or more dimensions, creating a relationship between the fact and the descriptive data.
+
+### Dimension
+
+Dimensions are the descriptive data elements that are used to categorize or classify the data. For example, in a sales data warehouse, the dimensions might include product, customer, time, and location. Each dimension is made up of a set of attributes that describe the dimension. For example, the product dimension might include attributes such as product name, product category, and product price.
+
+
+### Attributes
+
+Characteristics of dimension in data modeling are known as characteristics. These are used to filter, search facts, etc. For a dimension of location, attributes can be State, Country, Zipcode, etc.
+
+### Fact Table
+
+In a dimensional data model, the fact table is the central table that contains the measures or metrics of interest, surrounded by the dimension tables that describe the attributes of the measures. The dimension tables are related to the fact table through **foreign key relationships**
+
+### Dimension Table
+
+Dimensions of a fact are mentioned by the dimension table and they are basically joined by a **foreign key**. Dimension tables are simply de-normalized tables. The dimensions can be having one or more relationships.
+
+
+
 ## References:
 
 https://data-sleek.com/blog/dimensional-data-modeling/
