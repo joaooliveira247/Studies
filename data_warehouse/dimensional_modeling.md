@@ -51,6 +51,11 @@ In a dimensional data model, the fact table is the central table that contains t
 
 Dimensions of a fact are mentioned by the dimension table and they are basically joined by a **foreign key**. Dimension tables are simply de-normalized tables. The dimensions can be having one or more relationships.
 
+## Content: 
+
+### [Type of fact tables](/fact_tables.md)
+
+### [Type of dimensional tables](./dim_tables.md)
 
 
 ## References:
