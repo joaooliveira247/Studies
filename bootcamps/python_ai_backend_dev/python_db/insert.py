@@ -6,7 +6,7 @@ def main() -> None:
     cur = get_cursor(conn)
     cur.execute(
         "INSERT INTO clientes (name, email) VALUES (?, ?);",
-        ("noobdy", "nobody@email.com"),
+        ("noobody", "nobody@email.com"),
     )
     conn.commit()
     conn.close()
