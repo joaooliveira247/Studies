@@ -9,4 +9,8 @@
  [Ask For User Input](./ask.scala)
 
  [Two types of variables](./variables.scala)
+
+ [Variable types](./variables_types.scala)
+
+ [Built-in types](./builtin_types.scala)
           
