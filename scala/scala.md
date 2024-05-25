@@ -7,4 +7,6 @@
  [Hello world](./hello.scala)
 
  [Ask For User Input](./ask.scala)
+
+ [Two types of variables](./variables.scala)
           
