@@ -13,4 +13,16 @@
  [Variable types](./variables_types.scala)
 
  [Built-in types](./builtin_types.scala)
+
+ Flux control
+
+ - [if/else if/else](./if_else.scala)
+
+ - [for loop](./for_loop.scala)
+
+ - [match expressions](./match_expressions.scala)
+
+ - [try/catch/finally](./try_catch.scala)
+
+ - [while loop](./while_loop.scala)
           
