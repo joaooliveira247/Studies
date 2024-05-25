@@ -2,6 +2,8 @@
 
 ### This repositorie is only for annotations.
 
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg" width=15px/> Scala](./scala/scala.md)
+
 - [🗄️ Banco de Dados](./databases/databases.md)
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="15px"> FastAPI](./FastAPI/)
