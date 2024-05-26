@@ -25,4 +25,15 @@
  - [try/catch/finally](./try_catch.scala)
 
  - [while loop](./while_loop.scala)
-          
+
+Domain Modeling
+
+    - OOP Domain Modeling
+
+        - [Traits](./traits.scala)
+
+        -[Classes](./classes.scala)
+
+    - [Enumerations](./enums.scala)
+
+    - [Product Types](./product_types.scala)
