@@ -37,3 +37,5 @@ Domain Modeling
     - [Enumerations](./enums.scala)
 
     - [Product Types](./product_types.scala)
+
+[Methods](./methods.scala)
