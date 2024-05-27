@@ -39,3 +39,5 @@ Domain Modeling
     - [Product Types](./product_types.scala)
 
 [Methods](./methods.scala)
+
+[First class functions](./first_class_functions.scala)
