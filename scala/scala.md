@@ -41,3 +41,5 @@ Domain Modeling
 [Methods](./methods.scala)
 
 [First class functions](./first_class_functions.scala)
+
+[Singleton Objects](./singleton_objects.scala)
