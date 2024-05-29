@@ -28,18 +28,24 @@
 
 Domain Modeling
 
-    - OOP Domain Modeling
+- OOP Domain Modeling
 
-        - [Traits](./traits.scala)
+    - [Traits](./traits.scala)
 
-        -[Classes](./classes.scala)
+    - [Classes](./classes.scala)
 
-    - [Enumerations](./enums.scala)
+- [Enumerations](./enums.scala)
 
-    - [Product Types](./product_types.scala)
+- [Product Types](./product_types.scala)
 
 [Methods](./methods.scala)
 
 [First class functions](./first_class_functions.scala)
 
 [Singleton Objects](./singleton_objects.scala)
+
+Collections
+
+- [Lists](./lists.scala)
+
+- [Tuples](./tuples.scala)
