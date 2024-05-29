@@ -49,3 +49,7 @@ Collections
 - [Lists](./lists.scala)
 
 - [Tuples](./tuples.scala)
+
+[Toplevel definitions](./toplevel_definitions.scala)
+
+- [Replace package objects](./replace_package_objects.scala)
