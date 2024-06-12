@@ -16,6 +16,23 @@ O Docker é uma plataforma de software livre que permite aos desenvolvedores des
 
 - Bibliotecas compartilhadas de contêineres:
 
+## Basic Commands
+
+|Comando|Descrição|
+|:---:|:---:|
+|`docker ps`|Lista todos os containers em execução|
+|`docker image ls`|Lista todas as imagens na maquina|
+|`docker image rm <image_name or image_id>`|Remove um ou mais containers|
+|`docker image pull <image_name>`|Baixa uma imagem de uma [fonte](https://hub.docker.com/)|
+
+## Executando o primeiro container
+
+[Docker image](https://hub.docker.com/_/hello-world)
+
+```shell
+docker run hello-world
+```
+
 # Referências
 
 https://www.redhat.com/pt-br/topics/containers/what-is-docker
