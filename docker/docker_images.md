@@ -97,5 +97,39 @@ docker inspect f9fc7e669876
 `ex`
 
 ```shell
-docker run -it b9390dd1ea18 bash
+docker run -it b9390dd1ea18 /bin/sh
+```
+
+## RUN - Dockerfile
+
+Executa comando no shell do container
+
+```Dockerfile
+FROM alpine:latest
+RUN apk add --no-cache nodejs
+RUN apk add --no-cache npm
+```
+
+*Obs:* apk é o gerenciador de pacotes do alphine
+
+### Multiline RUN
+
+```Dockerfile
+RUN command_1 && \
+    command_2 && \
+    command_3
+```
+
+```Dockerfile
+RUN command_1 \
+    && command_2 \
+    && command_3
+```
+
+```Dockerfile
+RUN <<<EOF
+    command_1
+    command_2
+    command_3
+EOF
 ```
