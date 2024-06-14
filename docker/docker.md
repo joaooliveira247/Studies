@@ -21,8 +21,8 @@ O Docker é uma plataforma de software livre que permite aos desenvolvedores des
 |Comando|Descrição|
 |:---:|:---:|
 |`docker ps`|Lista todos os containers em execução|
-|`docker image ls`|Lista todas as imagens na maquina|
-|`docker image rm <image_name or image_id>`|Remove um ou mais containers|
+|`docker image ls` or `docker images`|Lista todas as imagens na maquina|
+|`docker image rm <image_name or image_id>` or `docker rmi <image_name or image_id>`|Remove um ou mais containers|
 |`docker image pull <image_name>`|Baixa uma imagem de uma [fonte](https://hub.docker.com/)|
 
 ## Executando o primeiro container
