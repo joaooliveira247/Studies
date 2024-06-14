@@ -44,7 +44,7 @@ server.listen(3000, '0.0.0.0', () => {
 
 ### Criando o container
 
-`docker build -t <container_name> <dockerfile_path>`
+`docker build -t <container_tag> <dockerfile_path>`
 
 `ex`
 
@@ -62,4 +62,30 @@ docker build -t app-nodejs .
 
 ```shell
 docker run -p 3000:3000 app-nodejs
+```
+
+## Images tags
+
+Uma tag Docker é um rótulo aplicado a uma imagem Docker, ajudando a identificar versões ou configurações específicas da imagem
+
+`docker build -t <tag> <path>`
+
+`docker tag <iamge_id> <namespace/repository:version>`
+
+`ex`
+
+```shell
+docker tag bc6434c28e9a prod/app-nodejs:1.0.0
+```
+
+## Inspect
+
+Retornar informações de baixo nível sobre objetos Docker
+
+`docker inspect <image_id>`
+
+`ex`
+
+```shell
+docker inspect f9fc7e669876
 ```
