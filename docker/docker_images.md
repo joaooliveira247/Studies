@@ -89,3 +89,13 @@ Retornar informações de baixo nível sobre objetos Docker
 ```shell
 docker inspect f9fc7e669876
 ```
+
+## "Entrando" dentro de um container
+
+`docker run -it <image> <shell>`
+
+`ex`
+
+```shell
+docker run -it b9390dd1ea18 bash
+```
