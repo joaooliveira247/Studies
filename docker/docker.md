@@ -33,6 +33,8 @@ O Docker é uma plataforma de software livre que permite aos desenvolvedores des
 docker run hello-world
 ```
 
+## [Docker images](./docker_images.md)
+
 # Referências
 
 https://www.redhat.com/pt-br/topics/containers/what-is-docker
