@@ -169,3 +169,34 @@ LABEL <key>=<value> \
 ```Dockerfile
 docker image inspect --format="{{ json .Config.Labels }}" 10d7fb41183a
 ```
+
+## ENV - Dockerfile
+
+```Dockerfile
+FROM alpine:latest
+ENV FRONT_PROD="https://meuapp.com.br"
+```
+
+```Dockerfile
+FROM alpine:latest
+ENV FRONT_PROD "https://meuapp.com.br"
+```
+
+### multiline env
+
+```Dockerfile
+FROM alpine:latest
+ENV FRONT_PROD="https://meuapp.com.br" \
+    BACK_PROD="https://meuapp.com.br:3000"
+```
+
+### usando env como var envs no dockerfile
+
+```Dockerfile
+FROM alpine:latest
+ENV FRONT_PROD="https://meuapp.com.br" \
+    BACK_PROD="https://meuapp.com.br:3000" \
+    APP_NAME="someApp"
+LABEL app_name=${APP_NAME}
+```
+
