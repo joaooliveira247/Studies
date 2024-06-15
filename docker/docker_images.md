@@ -200,3 +200,17 @@ ENV FRONT_PROD="https://meuapp.com.br" \
 LABEL app_name=${APP_NAME}
 ```
 
+## ARG - Dockerfile
+
+`ARG` é uma instrução que define variáveis de build (build-time variables) que podem ser passadas para o processo de construção da imagem Docker. Essas variáveis podem ser usadas para personalizar a construção da imagem sem modificar diretamente o Dockerfile.
+
+```Dockerfile
+ARG ALPINE_VERSION
+FROM alpine:${ALPINE_VERSION}
+```
+
+`docker build --build-arg ALPINE_VERSION=latest -t <tag> <path>`
+
+você também pode atribuir valores padrões caso o argumento não sejá passado.
+
+`ARG ALPINE_VERSION=3.17`
