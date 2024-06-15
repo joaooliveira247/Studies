@@ -133,3 +133,39 @@ RUN <<<EOF
     command_3
 EOF
 ```
+## LABEL - Dockerfile
+
+adiciona labels/informaçãos aos metadados do container
+
+use o comando 
+
+`docker image inspect <container_id>`
+
+a flag `--format="value"` define um padrão de retorno o value usa placeholders para definir a resposta, uma padrão bem parecido com jinja.
+
+### label simples
+
+```Dockerfile
+FROM alpine:latest
+LABEL <key>=<value>
+```
+
+### multiline labels
+
+```Dockerfile
+FROM apine:latest
+LABEL <key>=<value> <key>=<value>
+```
+
+```Dockerfile
+FROM apine:latest
+LABEL <key>=<value> \
+      <key>=<value> \
+      <key>=<value>
+```
+
+`ex:`
+
+```Dockerfile
+docker image inspect --format="{{ json .Config.Labels }}" 10d7fb41183a
+```
