@@ -226,3 +226,16 @@ FROM alpine:latest
 RUN adduser -D <username>
 USER <username>
 ```
+
+## CMD - Dockerfile
+
+Especifica o comando que será executado quando um contêiner é iniciado a partir da imagem. Só pode haver uma instrução CMD por Dockerfile.
+
+```Dockerfile
+FROM alpine:latest
+CMD ["/bin/sh", "-c", "echo something"]
+```
+
+você pode passar o cmd na hora do build também.
+
+`docker build <image> <cmd>`
