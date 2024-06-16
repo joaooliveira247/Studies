@@ -214,3 +214,15 @@ FROM alpine:${ALPINE_VERSION}
 você também pode atribuir valores padrões caso o argumento não sejá passado.
 
 `ARG ALPINE_VERSION=3.17`
+
+## USER - Dockerfile
+
+Define o usuário para executar as instruções seguintes e o processo principal do contêiner.
+
+por padrão o usuário é o root
+
+```Dockerfile
+FROM alpine:latest
+RUN adduser -D <username>
+USER <username>
+```
