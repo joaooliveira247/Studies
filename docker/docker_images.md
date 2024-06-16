@@ -268,3 +268,30 @@ ADD --chown=<username>:<group> ./<pattern>?<pattern> <container_path>
 `*` - 1 ou n padrões
 
 `?` - exatamente 1 padrão
+
+## COPY - Dockerfile
+
+Mesma coisa que o `ADD`, `COPY` copia somente do `host` para `container`, sendo semanticamente mais limpo nesse processo.
+
+```Dockerfile
+FROM alpine:latest
+COPY <path> <container_path>
+```
+
+você pode adicionar as flags de permissão provenientes do OS.
+
+`--chown=<user>:<perm>` ou `chmod=777`
+
+### multi copy
+
+```Dockerfile
+FROM alpine:latest
+COPY <path> <path> <path> <container_path>
+```
+
+```Dockerfile
+FROM alpine:latest
+COPY . <container_path>
+```
+
+`.` copia tudo no mesmo diretorio q o dockerfile
