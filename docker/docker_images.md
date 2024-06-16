@@ -239,3 +239,32 @@ CMD ["/bin/sh", "-c", "echo something"]
 você pode passar o cmd na hora do build também.
 
 `docker build <image> <cmd>`
+
+## ADD - Dockerfile
+
+Copia arquivos e diretórios do host para o sistema de arquivos da imagem. `ADD` também pode extrair arquivos tar e baixar arquivos a partir de URLs.
+
+cada `ADD` gera uma camada e isso diminui a performace na hora do build
+
+```Dockerfile
+FROM alpine:latest
+RUN adduser -D <username>
+USER <username>
+ADD <path> <container_path>
+ADD url <container_path>
+ADD --chown=<username>:<group> <path> <container_path>
+```
+
+caso o alvo de ADD sejá com path parecido use
+
+```Dockerfile
+FROM alpine:latest
+RUN adduser -D <username>
+USER <username>
+ADD --chown=<username>:<group> ./<pattern>* <container_path>
+ADD --chown=<username>:<group> ./<pattern>?<pattern> <container_path>
+```
+
+`*` - 1 ou n padrões
+
+`?` - exatamente 1 padrão
