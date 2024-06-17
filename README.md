@@ -4,6 +4,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg" width=15px/> Scala](./scala/scala.md)
 
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width=15px/> Go](./golang/README.md)
+
 - [🗄️ Banco de Dados](./databases/databases.md)
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="15px"> FastAPI](./FastAPI/)
