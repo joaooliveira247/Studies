@@ -336,3 +336,14 @@ FROM alpine:latest
 COPY ./dockerfile-entrypoint.sh /start/dockerfile-entrypoint.sh
 ENTRYPOINT ["/start/dockerfile-entrypoint.sh"]
 ```
+
+## WORKDIR - Dockerfile
+
+O comando `WORKDIR` em um Dockerfile é utilizado para definir o diretório de trabalho para as instruções subsequentes dentro desse Dockerfile. Isso é fundamental para organizar a estrutura de arquivos e garantir que comandos sejam executados no contexto correto dentro do contêiner.
+
+```Dockerfile
+FROM alpine:latest
+RUN mkdir app
+WORKDIR app/
+```
+
