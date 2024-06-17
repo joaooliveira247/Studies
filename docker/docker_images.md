@@ -295,3 +295,44 @@ COPY . <container_path>
 ```
 
 `.` copia tudo no mesmo diretorio q o dockerfile
+
+## ENTRYPOINT - Dockerfile
+
+O ENTRYPOINT no Dockerfile é uma instrução usada para configurar o container de forma que ele execute um comando específico quando for iniciado. Ao contrário da instrução CMD, que pode ser substituída ao passar argumentos na linha de comando durante a execução do container, o ENTRYPOINT define um comando fixo que sempre será executado. Isso é útil para containers que devem executar uma aplicação ou script específico como seu processo principal.
+
+`CMD`: Pode ser substituído ao passar um comando na linha de comando (docker run meu_container comando_substituto).
+
+`ENTRYPOINT`: Não pode ser substituído dessa forma, mas você pode adicionar argumentos ao comando definido pelo ENTRYPOINT.
+
+```Dockerfile
+FROM alpine:latest
+ENTRYPOINT ["python", "file.py"] 
+```
+
+`docker run --entrypoint <command> <container_id> <command_arg>`
+
+### ENTRYPOINT executando shell script
+
+`dockerfile-entrypoint.sh`
+
+```shell
+#!/bin/bash
+
+echo "Load container"
+
+for i in 1 2 3 4 5; do
+    echo "count: $i"
+done
+
+echo "service in exec"
+
+sleep 5
+```
+
+`Dockerfile`
+
+```Dockerfile
+FROM alpine:latest
+COPY ./dockerfile-entrypoint.sh /start/dockerfile-entrypoint.sh
+ENTRYPOINT ["/start/dockerfile-entrypoint.sh"]
+```
