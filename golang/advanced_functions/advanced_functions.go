@@ -16,9 +16,18 @@ func variadicSumFunction(n ...int) int {
 	return total
 }
 
+func recursiveFibonnaci(pos uint) uint {
+	if pos <= 1 {
+		return pos
+	}
+	return recursiveFibonnaci(pos-2) + recursiveFibonnaci(pos-1)
+}
+
 func main() {
 	// closure
-	func (text string) {
+	func(text string) {
 		fmt.Println(text)
 	}("Hello closure")
+
+	fmt.Println(recursiveFibonnaci(10))
 }
