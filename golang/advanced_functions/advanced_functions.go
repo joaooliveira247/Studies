@@ -17,5 +17,8 @@ func variadicSumFunction(n ...int) int {
 }
 
 func main() {
-	fmt.Println(variadicSumFunction(1, 2, 3, 4, 5))
+	// closure
+	func (text string) {
+		fmt.Println(text)
+	}("Hello closure")
 }
