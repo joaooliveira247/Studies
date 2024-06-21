@@ -8,6 +8,14 @@ func mathCalc(a int, b int) (sum int, sub int) {
 	return
 }
 
+func variadicSumFunction(n ...int) int {
+	total := 0
+	for _, num := range n {
+		total += num
+	}
+	return total
+}
+
 func main() {
-	fmt.Println(mathCalc(3, 2))	
+	fmt.Println(variadicSumFunction(1, 2, 3, 4, 5))
 }
