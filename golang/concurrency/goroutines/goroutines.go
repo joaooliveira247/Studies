@@ -7,6 +7,7 @@ func write(text string) {
 		fmt.Println(text)
 	}
 }
+
 func Goroutines() {
 	// concurrency != paralelism(Thread)
 	go write("Hello World!")
