@@ -8,6 +8,7 @@ type TestCase struct {
 }
 
 func TestAddress(t *testing.T) {
+	t.Parallel()
 	testAddress := "Avenida Brasil 1507"
 	result := AddressType(testAddress)
 
@@ -17,6 +18,7 @@ func TestAddress(t *testing.T) {
 }
 
 func TestAddressWithStruct(t *testing.T) {
+	t.Parallel()
 	testCases := []TestCase{
 		{
 			"Rua das flores", "Rua",
