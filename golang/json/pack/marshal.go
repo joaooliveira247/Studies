@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 )
 
 type Dog struct {
@@ -12,7 +13,6 @@ type Dog struct {
 	Age   uint   `json:"age"`
 	Breed string `json:"breed"`
 }
-
 
 func ToJSON() {
 	d1 := Dog{"Thor", 5, "mixed-breed"}
@@ -26,12 +26,12 @@ func ToJSON() {
 	fmt.Println(bytes.NewBuffer(dog1JSON))
 
 	d2 := map[string]string{
-		"name": "Tobby",
-		"age": "7",
+		"name":  "Tobby",
+		"age":   "7",
 		"breed": "Poodle",
 	}
 
-	dog2JSON, err :=json.Marshal(d2)
+	dog2JSON, err := json.Marshal(d2)
 
 	if err != nil {
 		log.Fatal(err)
@@ -39,4 +39,26 @@ func ToJSON() {
 
 	fmt.Println(bytes.NewBuffer(dog2JSON))
 
+}
+
+type UserInfo struct {
+	UserId    int    `json:"userId"`
+	Id        int    `json:"id"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
+}
+
+func check(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func FromJSON() {
+	var userInfo UserInfo
+	data, err := os.ReadFile("./example.json")
+	check(err)
+	err = json.Unmarshal(data, &userInfo)
+	check(err)
+	fmt.Println(userInfo)
 }
