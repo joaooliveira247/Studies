@@ -9,5 +9,6 @@ services:
       MARIADB_USER: user
       MARIADB_PASSWORD: passwd
       MARIADB_ROOT_PASSWORD: passwd
+      MYSQL_DATABASE: mydatabase
     ports:
       - "3306:3306"
