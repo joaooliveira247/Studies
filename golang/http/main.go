@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	http.TextReturn()
+	http.HTMLReturn()
 }
