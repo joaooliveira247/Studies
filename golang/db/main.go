@@ -23,8 +23,29 @@ func connectDB(stringConnection string) *sql.DB {
 
 }
 
+func creteTable(db *sql.DB) {
+	tx, err := db.Begin()
+	check(err)
+	_, err = tx.Exec(
+		`
+		CREATE TABLE IF NOT EXISTS 
+			user(
+				id INTEGER AUTO_INCREMENT NOT NULL,
+				name VARCHAR(255),
+				age INTEGER,
+				email VARCHAR(255),
+				PRIMARY KEY (id)
+				);
+				`,
+	)
+	check(err)
+	err = tx.Commit()
+	check(err)
+}
+
 func main() {
 	stringConnection := "user:passwd@tcp(localhost:3306)/mydatabase?charset=utf8&parseTime=True&loc=Local"
 	db := connectDB(stringConnection)
 	defer db.Close()
+	creteTable(db)
 }
