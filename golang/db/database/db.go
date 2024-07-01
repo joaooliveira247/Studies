@@ -4,22 +4,28 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func check(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
+	log.Fatal(err)
 }
 
-func ConnectDB(stringConnection string) *sql.DB {
+func ConnectDB(stringConnection string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", stringConnection)
-	check(err)
-	check(db.Ping())
-	fmt.Printf("Connected in %s", stringConnection)
-	return db
 
+	if err != nil {
+		return nil, err
+	}
+
+	if err = db.Ping(); err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Connected in %s", stringConnection)
+
+	return db, nil
 }
 
 func CreteTable(db *sql.DB) {
