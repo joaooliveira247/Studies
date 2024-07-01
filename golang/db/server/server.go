@@ -150,3 +150,52 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+// Update an user
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	ID, err := strconv.ParseUint(params["id"], 10, 32)
+	if err != nil {
+		w.Write([]byte(fmt.Sprintf("%s value is not valid.", params["id"])))
+		return
+	}
+
+	requestBody, err := ioutil.ReadAll(r.Body)
+
+	if err != nil {
+		w.Write([]byte("Error when read body request."))
+		return
+	}
+
+	var user User
+
+	if err := json.Unmarshal(requestBody, &user); err != nil {
+		w.Write([]byte("Error when try parser json."))
+		return
+	}
+
+	db, err := database.ConnectDB(DBStringConnection)
+
+	if err != nil {
+		w.Write([]byte("Error when try connect to database."))
+	}
+
+	defer db.Close()
+
+	statement, err := db.Prepare(
+		"UPDATE user SET name = ?, age = ?, email = ? WHERE id = ?",
+	)
+	if err != nil {
+		w.Write([]byte("Error when try create statement."))
+	}
+
+	defer statement.Close()
+
+	if _, err := statement.Exec(user.Name, user.Age, user.Email, ID); err != nil {
+		w.Write([]byte("Error when try update user."))
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
