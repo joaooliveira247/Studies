@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 const DBStringConnection = "user:passwd@tcp(localhost:3306)/mydatabase?charset=utf8&parseTime=True&loc=Local"
@@ -100,7 +103,50 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewEncoder(w).Encode(users); err != nil {
 		w.Write([]byte("Error when try parser to JSON."))
-			return
+		return
 	}
 
+}
+
+// Get user by id
+func GetUserById(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	ID, err := strconv.ParseUint(params["id"], 10, 32)
+
+	if err != nil {
+		w.Write([]byte(fmt.Sprintf("%s value is not valid.", params["id"])))
+		return
+	}
+
+	db, err := database.ConnectDB(DBStringConnection)
+
+	if err != nil {
+		w.Write([]byte("Error when try connect with database."))
+		return
+	}
+
+	defer db.Close()
+
+	line, err := db.Query("SELECT * FROM user WHERE id = ?;", ID)
+
+	if err != nil {
+		w.Write([]byte("Error when try get data from database."))
+		return
+	}
+
+	var user User
+
+	if line.Next() {
+		if err := line.Scan(&user.Id, &user.Name, &user.Age, &user.Email); err != nil {
+			w.Write([]byte("Error when try parser from database."))
+			return
+		}
+	}
+
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(user); err != nil {
+		w.Write([]byte("Error when try parser to JSON."))
+		return
+	}
 }
