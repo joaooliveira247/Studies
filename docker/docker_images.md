@@ -347,3 +347,17 @@ RUN mkdir app
 WORKDIR app/
 ```
 
+## EXPOSE - Dockerfile
+
+O comando EXPOSE no Dockerfile é usado para documentar a intenção de expor uma porta ou várias portas do contêiner para permitir a comunicação com o exterior. Ele não realmente "abre" as portas, mas serve como uma indicação para outras pessoas que usam a imagem ou para ferramentas automatizadas que as portas especificadas são usadas pelo contêiner.
+
+```Dockerfile
+FROM alpine:lates
+EXPOSE 3000/tcp
+EXPOSE 3000/udp
+```
+
+`docker run -P`
+
+Pega como base oque estava no `EXPOSE`, mas gera automaticamente o bind no host.
+
