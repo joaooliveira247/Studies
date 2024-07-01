@@ -1,7 +1,7 @@
 package main
 
 import (
-	"db/database"
+	"db/server"
 	"log"
 	"net/http"
 
@@ -9,10 +9,7 @@ import (
 )
 
 func main() {
-	stringConnection := "user:passwd@tcp(localhost:3306)/mydatabase?charset=utf8&parseTime=True&loc=Local"
-	db := database.ConnectDB(stringConnection)
-	defer db.Close()
 	router := mux.NewRouter()
-	// creteTable(db)
+	router.HandleFunc("/users", server.CreateUser).Methods(http.MethodPost)
 	log.Fatal(http.ListenAndServe(":5000", router))
 }
