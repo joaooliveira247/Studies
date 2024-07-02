@@ -14,5 +14,16 @@ type Route struct {
 }
 
 func GenRouter() *mux.Router {
-	return mux.NewRouter()
+	r := mux.NewRouter()
+	return Configure(r)
+}
+
+func Configure(r *mux.Router) *mux.Router {
+	routes := userRoutes
+
+	for _, route := range routes {
+		r.HandleFunc(route.URI, route.Func).Methods(route.Method)
+	}
+
+	return r
 }
