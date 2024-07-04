@@ -5,7 +5,6 @@ import (
 	"log"
 )
 
-
 const userTable = `
 CREATE TABLE IF NOT EXISTS users(
 	id INT AUTO_INCREMENT NOT NULL,
@@ -17,3 +16,15 @@ CREATE TABLE IF NOT EXISTS users(
 	PRIMARY KEY (id)
 );
 `
+
+func CreateTables(conn *sql.DB) {
+	defer conn.Close()
+	tables := []string{
+		userTable,
+	}
+	for _, table := range tables {
+		if _, err := conn.Query(table); err != nil {
+			log.Fatal(err)
+		}
+	}
+}
