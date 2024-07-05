@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"api/src/cli"
+	"api/src/config"
+	"log"
+	"os"
+)
 
 func main() {
-	fmt.Println("Running API")
+	config.LoadEnv()
+	if err := cli.GenApp().Run(os.Args); err != nil {
+		log.Fatal(err)
+	}
 }
