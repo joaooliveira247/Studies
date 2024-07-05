@@ -2,6 +2,7 @@ package cli
 
 import (
 	"api/src/config"
+	"api/src/db"
 	"api/src/router"
 	"fmt"
 	"log"
@@ -29,7 +30,7 @@ func GenApp() *cli.App {
 				Name:  "create-table",
 				Usage: "Create all tables in database",
 				Action: func(ctx *cli.Context) error {
-					fmt.Println("Create table")
+					db.CreateTables()
 					return nil
 				},
 			},
