@@ -1,7 +1,6 @@
 package db
 
 import (
-	"database/sql"
 	"log"
 )
 
@@ -9,15 +8,19 @@ const userTable = `
 CREATE TABLE IF NOT EXISTS users(
 	id INT AUTO_INCREMENT NOT NULL,
 	name VARCHAR(255),
-	age INT,
+	user_name VARCHAR(255),
 	email VARCHAR(255),
 	password VARCHAR(255),
-	created_at DATE,
+	created_at DATE default current_timestamp(),
 	PRIMARY KEY (id)
 );
 `
 
-func CreateTables(conn *sql.DB) {
+func CreateTables() {
+	conn, err := GetConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer conn.Close()
 	tables := []string{
 		userTable,
