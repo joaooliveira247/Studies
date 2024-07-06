@@ -15,6 +15,15 @@ type User struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 }
 
+func (u *User) Prepare() error {
+	if err := u.validate(); err != nil {
+		return err
+	}
+
+	u.format()
+	return nil
+}
+
 func (u *User) validate() error {
 
 	if u.Name == "" {
