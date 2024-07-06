@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"strings"
 	"time"
 )
 
@@ -17,17 +18,23 @@ type User struct {
 func (u *User) validate() error {
 
 	if u.Name == "" {
-		return errors.New("Field Cannot be empty.")
+		return errors.New("field cannot be empty")
 	}
 	if u.UserName == "" {
-		return errors.New("Field Cannot be empty.")
+		return errors.New("field cannot be empty")
 	}
 	if u.Email == "" {
-		return errors.New("Field Cannot be empty.")
+		return errors.New("field cannot be empty")
 	}
 	if u.Password == "" {
-		return errors.New("Field Cannot be empty.")
+		return errors.New("field cannot be empty")
 	}
 
 	return nil
+}
+
+func (u *User) format() {
+	u.Name = strings.TrimSpace(u.Name)
+	u.UserName = strings.TrimSpace(u.UserName)
+	u.Email = strings.TrimSpace(u.Email)
 }
