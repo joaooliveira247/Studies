@@ -1,6 +1,7 @@
 package models
 
 import (
+	"api/src/security"
 	"errors"
 	"strings"
 	"time"
@@ -22,7 +23,9 @@ func (u *User) Prepare(process string) error {
 		return err
 	}
 
-	u.format()
+	if err := u.format(process); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -48,8 +51,17 @@ func (u *User) validate(process string) error {
 	return nil
 }
 
-func (u *User) format() {
+func (u *User) format(process string) error {
 	u.Name = strings.TrimSpace(u.Name)
 	u.UserName = strings.TrimSpace(u.UserName)
 	u.Email = strings.TrimSpace(u.Email)
+
+	if process == "create" {
+		hashPasswd, err := security.Hash(u.Password)
+		if err != nil {
+			return err
+		}
+		u.Password = string(hashPasswd)
+	}
+	return nil
 }
