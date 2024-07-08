@@ -101,3 +101,27 @@ func (u Users) SearchByID(ID uint) (models.User, error) {
 	}
 	return user, nil
 }
+
+func (u Users) Update(ID uint64, user models.User) error {
+	statement, err := u.db.Prepare(
+		`
+		UPDATE
+			users
+		SET
+			name = ?,
+			user_name = ?,
+			email = ?
+		WHERE
+			id = ?
+		`,
+	)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	if _, err = statement.Exec(user.Name, user.UserName, user.Email, ID); err != nil {
+		return err
+	}
+	return nil
+}
