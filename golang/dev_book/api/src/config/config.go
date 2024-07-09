@@ -14,6 +14,8 @@ var (
 	ConnectionStringDB = ""
 	// API running port
 	Port = 0
+	//JWT secret key
+	SecretKey = ""
 )
 
 // Load .env
@@ -37,4 +39,6 @@ func LoadEnv() {
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_NAME"),
 	)
+
+	SecretKey = os.Getenv("JWT_SECRET")
 }
