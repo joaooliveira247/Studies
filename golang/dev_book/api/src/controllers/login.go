@@ -4,6 +4,7 @@ import (
 	"api/src/db"
 	"api/src/models"
 	"api/src/repositories"
+	"api/src/token"
 	"api/src/response"
 	"api/src/security"
 	"encoding/json"
@@ -46,5 +47,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Logged"))
+	token, _ := token.CreateToken(uint64(userInDB.ID))
+	w.Write([]byte(token))
 }
