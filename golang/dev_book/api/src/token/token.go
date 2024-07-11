@@ -46,7 +46,7 @@ func extractToken(r *http.Request) string {
 
 func verificationKey(token *jwt.Token) (interface{}, error) {
 	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-		return nil, fmt.Errorf("Cannot validate token: %v", token.Header["alg"])
+		return nil, fmt.Errorf("cannot validate token: %v", token.Header["alg"])
 	}
 	return config.SecretKey, nil
 }
