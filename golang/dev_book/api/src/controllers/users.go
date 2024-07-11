@@ -5,6 +5,7 @@ import (
 	"api/src/models"
 	"api/src/repositories"
 	"api/src/response"
+	"api/src/token"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -106,6 +107,19 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		response.Erro(w, http.StatusBadRequest, err)
 		return
 	}
+
+	userIDToken, err := token.ExtractUserID(r)
+
+	if err != nil {
+		response.Erro(w, http.StatusUnauthorized, err)
+		return
+	}
+
+	if userID != userIDToken {
+		response.Erro(w, http.StatusForbidden, err)
+		return
+	}
+
 	requestBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		response.Erro(w, http.StatusUnprocessableEntity, err)
