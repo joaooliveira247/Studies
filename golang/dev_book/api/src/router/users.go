@@ -16,19 +16,19 @@ var userRoutes = []Route{
 		URI:     "/users",
 		Method:  http.MethodGet,
 		Func:    controllers.GetUsers,
-		AuthReq: false,
+		AuthReq: true,
 	},
 	{
 		URI:     "/users/{userID}",
 		Method:  http.MethodGet,
 		Func:    controllers.GetUserbyId,
-		AuthReq: false,
+		AuthReq: true,
 	},
 	{
 		URI:     "/users/{userID}",
 		Method:  http.MethodPut,
 		Func:    controllers.UpdateUser,
-		AuthReq: false,
+		AuthReq: true,
 	},
 	{
 		URI:     "/users/{userID}",
