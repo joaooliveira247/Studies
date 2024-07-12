@@ -181,3 +181,23 @@ func (u Users) Follow(userID, followID uint64) error {
 	}
 	return nil
 }
+
+func (u Users) Unfollow(userID, followID uint64) error {
+	statement, err := u.db.Prepare(
+		`DELETE IGNORE FROM 
+			followers
+		WHERE
+			users_id = ? AND follower_id = ?;
+			`,
+	)
+
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	if _, err := statement.Exec(userID, followID); err != nil {
+		return err
+	}
+	return nil
+}
