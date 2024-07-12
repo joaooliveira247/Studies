@@ -16,6 +16,20 @@ CREATE TABLE IF NOT EXISTS users(
 );
 `
 
+const followerTable = `
+CREATE TABLE IF NOT EXISTS followers(
+	users_id INT NOT NULL,
+	FOREIGN KEY (users_id)
+	REFERENCES users(id)
+	ON DELETE CASCADE,
+	follower_id INT NOT NULL,
+	FOREIGN KEY (follower_id)
+	REFERENCES users(id)
+	ON DELETE CASCADE,
+	PRIMARY KEY (users_id, follower_id)
+);
+`
+
 func CreateTables() {
 	conn, err := GetConnection()
 	if err != nil {
@@ -23,7 +37,7 @@ func CreateTables() {
 	}
 	defer conn.Close()
 	tables := []string{
-		userTable,
+		userTable, followerTable,
 	}
 	for _, table := range tables {
 		if _, err := conn.Query(table); err != nil {
