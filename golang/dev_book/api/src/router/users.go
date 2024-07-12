@@ -37,9 +37,15 @@ var userRoutes = []Route{
 		AuthReq: false,
 	},
 	{
-		URI: "/user/{userID}/follow",
+		URI: "/users/{userID}/follow",
 		Method: http.MethodPost,
 		Func: controllers.FollowUser,
+		AuthReq: true,
+	},
+	{
+		URI: "/users/{userID}/unfollow",
+		Method: http.MethodPost,
+		Func: controllers.UnfollowUser,
 		AuthReq: true,
 	},
 }
