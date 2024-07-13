@@ -207,7 +207,11 @@ func FollowUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if userID == followID {
-		response.Erro(w, http.StatusForbidden, errors.New("you can't follow yourself"))
+		response.Erro(
+			w,
+			http.StatusForbidden,
+			errors.New("you can't follow yourself"),
+		)
 	}
 
 	db, err := db.GetConnection()
@@ -242,7 +246,11 @@ func UnfollowUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if userID == followID {
-		response.Erro(w, http.StatusForbidden, errors.New("you can't unfollow yourself"))
+		response.Erro(
+			w,
+			http.StatusForbidden,
+			errors.New("you can't unfollow yourself"),
+		)
 	}
 
 	db, err := db.GetConnection()
