@@ -49,7 +49,15 @@ var userRoutes = []Route{
 		AuthReq: true,
 	},
 	{
-		URI:    "/users/{userID}/followers",
-		Method: http.MethodGet,
+		URI:     "/users/{userID}/followers",
+		Method:  http.MethodGet,
+		Func:    controllers.Followers,
+		AuthReq: true,
+	},
+	{
+		URI:     "/users/{userID}/following",
+		Method:  http.MethodGet,
+		Func:    controllers.Following,
+		AuthReq: true,
 	},
 }
