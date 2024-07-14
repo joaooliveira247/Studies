@@ -290,3 +290,18 @@ func (u Users) GetPasswordByID(userID uint64) (string, error) {
 
 	return user.Password, nil
 }
+
+func (u Users) UpdatePassword(userID uint64, newPassword string) error {
+	statement, err := u.db.Prepare(`UPDATE users SET password = ? WHERE id = ? `)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	if _, err = statement.Exec(newPassword, userID); err != nil {
+		return err
+	}
+
+	return nil
+
+}
