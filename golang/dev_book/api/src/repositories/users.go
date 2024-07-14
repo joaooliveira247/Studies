@@ -271,3 +271,22 @@ func (u Users) SearchFollowing(userID uint64) ([]models.User, error) {
 
 	return users, nil
 }
+
+func (u Users) GetPasswordByID(userID uint64) (string, error) {
+	line, err := u.db.Query(`SELECT password FROM users WHERE id = ?;`, userID)
+
+	if err != nil {
+		return "", err
+	}
+	defer line.Close()
+
+	var user models.User
+
+	if line.Next() {
+		if err = line.Scan(&user.Password); err != nil {
+			return "", err
+		}
+	}
+
+	return user.Password, nil
+}
