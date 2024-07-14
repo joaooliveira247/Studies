@@ -9,6 +9,11 @@ import (
 	"github.com/badoux/checkmail"
 )
 
+type Password struct {
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}
+
 type User struct {
 	ID        uint      `json:"id,omitempty"`
 	Name      string    `json:"name,omitempty"`
