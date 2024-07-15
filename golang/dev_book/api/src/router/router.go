@@ -22,6 +22,7 @@ func GenRouter() *mux.Router {
 func Configure(r *mux.Router) *mux.Router {
 	routes := userRoutes
 	routes = append(routes, loginRoutes)
+	routes = append(routes, postsRouters...)
 
 	for _, route := range routes {
 
