@@ -35,3 +35,39 @@ func (p Posts) CreatePost(post models.Posts) (uint64, error) {
 	}
 	return uint64(lastInsertedID), nil
 }
+
+func (p Posts) GetPostByID(postID uint64) (models.Posts, error) {
+	lines, err := p.db.Query(
+		`
+		SELECT
+			p.*, u.username 
+		FROM 
+			posts p 
+		INNER JOIN 
+			users u 
+		ON 
+			p.author_id = u.id
+		WHERE p.id = ?;
+		`, postID,
+	)
+	if err != nil {
+		return models.Posts{}, err
+	}
+	defer lines.Close()
+
+	var post models.Posts
+
+	if err = lines.Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.AuthorID,
+		&post.Likes,
+		&post.CreatedAt,
+		&post.AuthorUserName,
+	); err != nil {
+		return models.Posts{}, err
+	}
+
+	return post, nil
+}
