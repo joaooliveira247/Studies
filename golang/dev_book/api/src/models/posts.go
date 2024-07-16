@@ -30,3 +30,11 @@ func (post *Posts) validate() error {
 	}
 	return nil
 }
+
+func (post *Posts) Prepare() error {
+	if err := post.validate(); err != nil {
+		return err
+	}
+	post.format()
+	return nil
+}
