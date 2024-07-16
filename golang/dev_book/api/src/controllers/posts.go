@@ -1,13 +1,60 @@
 package controllers
 
-import "net/http"
+import (
+	"api/src/db"
+	"api/src/models"
+	"api/src/repositories"
+	"api/src/response"
+	"api/src/token"
+	"encoding/json"
+	"io"
+	"net/http"
+)
 
-func CreatePost(w http.ResponseWriter, r * http.Request) {}
+func CreatePost(w http.ResponseWriter, r *http.Request) {
+	userID, err := token.ExtractUserID(r)
+	if err != nil {
+		response.Erro(w, http.StatusUnauthorized, err)
+		return
+	}
 
-func GetPosts(w http.ResponseWriter, r * http.Request) {}
+	requestBody, err := io.ReadAll(r.Body)
+	if err != nil {
+		response.Erro(w, http.StatusUnprocessableEntity, err)
+		return
+	}
 
-func GetPostByID(w http.ResponseWriter, r * http.Request) {}
+	var post models.Posts
 
-func UpdatePost(w http.ResponseWriter, r * http.Request) {}
+	if err = json.Unmarshal(requestBody, &post); err != nil {
+		response.Erro(w, http.StatusBadRequest, err)
+		return
+	}
 
-func DeletePost(w http.ResponseWriter, r * http.Request) {}
+	post.AuthorID = userID
+
+	db, err := db.GetConnection()
+	if err != nil {
+		response.Erro(w, http.StatusInternalServerError, err)
+		return
+	}
+	defer db.Close()
+
+	repository := repositories.NewPostsRepository(db)
+
+	post.ID, err = repository.CreatePost(post)
+	if err != nil {
+		response.Erro(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	response.JSON(w, http.StatusCreated, post)
+}
+
+func GetPosts(w http.ResponseWriter, r *http.Request) {}
+
+func GetPostByID(w http.ResponseWriter, r *http.Request) {}
+
+func UpdatePost(w http.ResponseWriter, r *http.Request) {}
+
+func DeletePost(w http.ResponseWriter, r *http.Request) {}
