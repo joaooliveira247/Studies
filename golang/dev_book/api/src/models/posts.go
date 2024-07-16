@@ -1,6 +1,7 @@
 package models
 
 import (
+	"strings"
 	"time"
 )
 
@@ -12,4 +13,9 @@ type Posts struct {
 	AuthorUserName uint64 `json:"author_user_name,omitempty"`
 	Likes uint64 `json:"likes"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
+}
+
+func (post *Posts) format() {
+	post.Title = strings.TrimSpace(post.Title)
+	post.Content = strings.TrimSpace(post.Content)
 }
