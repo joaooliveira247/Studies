@@ -71,3 +71,51 @@ func (p Posts) GetPostByID(postID uint64) (models.Posts, error) {
 
 	return post, nil
 }
+
+func (p Posts) SearchPosts(userID uint64) ([]models.Posts, error) {
+	lines, err := p.db.Query(
+		`
+		SELECT DISTINCT 
+			p.*, u.user_name 
+		FROM 
+			posts p
+		INNER JOIN
+			users u
+		ON
+			u.id = p.author_id
+		INNER JOIN
+			followers f
+		ON
+			p.author_id = f.users_id
+		WHERE
+			u.id = ? OR s.follower_id = ?;
+		`, userID, userID,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer lines.Close()
+
+	var posts []models.Posts
+
+	for lines.Next() {
+		var post models.Posts
+		if err = lines.Scan(
+			&post.ID,
+			&post.Title,
+			&post.Content,
+			&post.AuthorID,
+			&post.Likes,
+			&post.CreatedAt,
+			&post.AuthorUserName,
+		); err != nil {
+			return nil, err
+		}
+		posts = append(posts, post)
+	}
+
+	return posts, nil
+
+}
