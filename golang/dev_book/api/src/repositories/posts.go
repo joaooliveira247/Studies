@@ -177,7 +177,7 @@ func (p Posts) GetUserPosts(userID uint64) ([]models.Posts, error) {
 
 	for lines.Next() {
 		var post models.Posts
-		if lines.Scan(
+		if err = lines.Scan(
 			&post.ID,
 			&post.Title,
 			&post.Content,
