@@ -119,3 +119,19 @@ func (p Posts) SearchPosts(userID uint64) ([]models.Posts, error) {
 	return posts, nil
 
 }
+
+
+func (p Posts) UpdatePost(postID uint64, post models.Posts) error {
+	statement, err := p.db.Prepare(
+		`UPDATE posts SET title = ?, content = ? WHERE id = ?;`,
+	)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	if _, err = statement.Exec(post.Title, post.Content, postID); err != nil {
+		return err
+	}
+	return nil
+}
