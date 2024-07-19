@@ -135,3 +135,18 @@ func (p Posts) UpdatePost(postID uint64, post models.Posts) error {
 	}
 	return nil
 }
+
+func (p Posts) DeletePost(postID uint64) error {
+	statement, err := p.db.Prepare(
+		`DELETE FROM posts WHERE id = ?;`,
+	)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	if _, err = statement.Exec(postID); err != nil {
+		return err
+	}
+	return nil
+}
