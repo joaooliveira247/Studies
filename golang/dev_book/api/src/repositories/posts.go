@@ -120,7 +120,6 @@ func (p Posts) SearchPosts(userID uint64) ([]models.Posts, error) {
 
 }
 
-
 func (p Posts) UpdatePost(postID uint64, post models.Posts) error {
 	statement, err := p.db.Prepare(
 		`UPDATE posts SET title = ?, content = ? WHERE id = ?;`,
@@ -149,4 +148,48 @@ func (p Posts) DeletePost(postID uint64) error {
 		return err
 	}
 	return nil
+}
+
+func (p Posts) GetUserPosts(userID uint64) ([]models.Posts, error) {
+	lines, err := p.db.Query(
+		`
+		SELECT
+			p.*, u.user_name 
+		FROM 
+			posts p
+		INNER JOIN
+			users u
+		ON
+			p.author_id = u.id
+		WHERE
+			p.id = ?;
+		`,
+		userID,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer lines.Close()
+
+	var posts []models.Posts
+
+	for lines.Next() {
+		var post models.Posts
+		if lines.Scan(
+			&post.ID,
+			&post.Title,
+			&post.Content,
+			&post.AuthorID,
+			&post.Likes,
+			&post.CreatedAt,
+			&post.AuthorUserName,
+		); err != nil {
+			return nil, err
+		}
+		posts = append(posts, post)
+	}
+
+	return posts, nil
 }
