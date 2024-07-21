@@ -361,3 +361,9 @@ EXPOSE 3000/udp
 
 Pega como base oque estava no `EXPOSE`, mas gera automaticamente o bind no host.
 
+
+## `Docker image history`
+
+exibe o histórico de uma imagem Docker, mostrando as camadas (layers) que compõem a imagem e informações sobre cada camada, como o comando que foi executado para criar a camada, o autor, a data de criação, o tamanho da camada, entre outros detalhes. Esse comando é útil para entender como uma imagem foi construída e para depurar problemas relacionados à construção de imagens Docker.
+
+`docker image history <image>`
