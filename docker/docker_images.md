@@ -430,3 +430,15 @@ Se por algum motivo você precisar forçar a reconstrução de todas as camadas,
 `docker build --no-cache -t my-image`
 
 Isso desabilitará o uso do cache e garantirá que todas as camadas sejam reconstruídas do zero.
+
+## Instruções que geram camadas
+
+|Geram|Não Geram|
+|:---:|:---:|
+|FROM|LABEL|
+|RUN|ENV|
+|ADD|ARG|
+|COPY|USER|
+|WORKDIR|CMD|
+|VOLUME|ENTRYPOINT|
+||EXPOSE|
