@@ -442,3 +442,47 @@ Isso desabilitará o uso do cache e garantirá que todas as camadas sejam recons
 |WORKDIR|CMD|
 |VOLUME|ENTRYPOINT|
 ||EXPOSE|
+
+## Herança
+
+No Docker, o conceito de "herança" pode ser entendido de forma semelhante à herança em programação orientada a objetos, mas aplicado a imagens Docker. Isso é realizado através do uso de arquivos Dockerfile, que especificam como construir uma imagem a partir de outra imagem base. Aqui está uma explicação detalhada:
+
+Dockerfile
+Um Dockerfile é um script de texto que contém uma série de instruções para construir uma imagem Docker. A instrução `FROM` no Dockerfile é usada para especificar a imagem base da qual a nova imagem será construída. Esse é o principal mecanismo de "herança" em Docker.
+
+Exemplo
+Considere o seguinte exemplo de Dockerfile:
+
+```Dockerfile
+# Especifica a imagem base
+FROM python:3.9-slim
+
+# Configura o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos necessários para o contêiner
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+
+# Define o comando padrão a ser executado quando o contêiner é iniciado
+CMD ["python", "app.py"]
+```
+
+Neste exemplo:
+
+- A instrução FROM python:3.9-slim indica que a imagem base é python:3.9-slim. Esta imagem base já contém o Python 3.9 instalado.
+
+- As instruções seguintes (WORKDIR, COPY, RUN e CMD) são usadas para adicionar funcionalidades adicionais à imagem base, como instalar dependências e copiar arquivos.
+
+Herança em Ação
+
+A herança no Docker é poderosa porque permite reutilizar imagens existentes como base para construir novas imagens, promovendo a reutilização e a modularidade. Por exemplo, você pode ter uma imagem base comum para todas as suas aplicações Python, e diferentes Dockerfiles que herdam dessa imagem base, adicionando apenas as dependências e código específicos de cada aplicação.
+
+Vantagens da Herança no Docker
+
+- Reutilização de Código: Reutilizar imagens base evita a duplicação de esforços e promove a consistência.
+
+- Manutenção Facilitada: Atualizar a imagem base automaticamente propaga as atualizações para todas as imagens que herdam dela.
+
+- Eficiência: As imagens Docker são construídas em camadas, o que significa que partes da imagem que não mudaram são reutilizadas, economizando tempo e espaço.
