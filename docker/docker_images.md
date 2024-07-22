@@ -367,3 +367,66 @@ Pega como base oque estava no `EXPOSE`, mas gera automaticamente o bind no host.
 exibe o histórico de uma imagem Docker, mostrando as camadas (layers) que compõem a imagem e informações sobre cada camada, como o comando que foi executado para criar a camada, o autor, a data de criação, o tamanho da camada, entre outros detalhes. Esse comando é útil para entender como uma imagem foi construída e para depurar problemas relacionados à construção de imagens Docker.
 
 `docker image history <image>`
+
+## Layers (Camadas)
+
+Uma imagem Docker é composta por uma série de camadas. Cada instrução no Dockerfile (como RUN, COPY, ADD, etc.) cria uma nova camada na imagem. Essas camadas são empilhadas uma sobre a outra para formar a imagem final. As camadas são fundamentais para o funcionamento eficiente do Docker, pois permitem a reutilização de partes da imagem.
+
+Por exemplo, considere o seguinte Dockerfile:
+
+```Dockerfile
+dockerfile
+Copy code
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y python3
+COPY . /app
+CMD ["python3", "/app/app.py"]
+```
+
+Este Dockerfile geraria uma imagem com várias camadas:
+
+- A camada base a partir da imagem ubuntu:latest.
+
+- Uma camada criada pela instrução RUN apt-get update.
+
+- Uma camada criada pela instrução RUN apt-get install -y python3.
+
+- Uma camada criada pela instrução COPY . /app.
+
+- A camada final que define o comando CMD ["python3", "/app/app.py"].
+
+## Cache Layers (Camadas de Cache)
+
+Docker utiliza um mecanismo de cache para acelerar o processo de construção de imagens. Quando você constrói uma imagem, Docker armazena em cache cada camada criada. Se você modificar o Dockerfile e reconstruir a imagem, Docker tentará reutilizar as camadas em cache sempre que possível. Isso é chamado de cache layer.
+
+Por exemplo, se você modificar apenas a última instrução CMD no Dockerfile acima e reconstruir a imagem, Docker reutilizará as camadas em cache para as instruções anteriores (FROM, RUN apt-get update, RUN apt-get install -y python3, COPY . /app), e apenas reconstruirá a camada modificada. Isso acelera significativamente o processo de construção, pois evita a recompilação de camadas que não foram alteradas.
+
+No entanto, é importante entender como o Docker determina se uma camada em cache pode ser reutilizada:
+
+1. Instruções FROM: Se a imagem base mudou, todas as camadas seguintes serão invalidadas.
+
+2. Instruções RUN, COPY, ADD: Docker verifica o comando e os arquivos envolvidos. Se os comandos ou arquivos mudaram, a camada será reconstruída e as camadas subsequentes também.
+
+3. Instruções ENV, EXPOSE, VOLUME, etc.: Mudanças nestas instruções invalidarão as camadas que as seguem.
+Exemplo de Uso do Cache
+Considere este Dockerfile modificado:
+
+```Dockerfile
+Copy code
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y python3
+COPY . /app
+CMD ["python3", "/app/new_app.py"]  # Modificamos o CMD
+```
+
+Ao reconstruir a imagem, Docker usará as camadas em cache para as instruções FROM, RUN apt-get update, RUN apt-get install -y python3, e COPY . /app, e apenas reconstruirá a camada CMD.
+
+Forçando a Não Utilização do Cache
+Se por algum motivo você precisar forçar a reconstrução de todas as camadas, você pode usar a opção --no-cache:
+
+
+`docker build --no-cache -t my-image`
+
+Isso desabilitará o uso do cache e garantirá que todas as camadas sejam reconstruídas do zero.
