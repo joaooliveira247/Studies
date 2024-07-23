@@ -546,3 +546,78 @@ Benefícios das Camadas
 - Rápida Construção: Ao construir uma nova imagem, o Docker reutiliza camadas existentes que não foram modificadas, acelerando o processo.
 
 - Flexibilidade: A camada de escrita permite modificar o contêiner em tempo de execução sem afetar a imagem base.
+
+## Multi-stage build
+
+Os builds multi-stage são uma funcionalidade do Docker que permite usar múltiplas declarações FROM em seu Dockerfile. Isso é útil para criar imagens Docker mais eficientes e menores. A ideia principal é separar o ambiente de construção do ambiente de execução.
+
+Por que Usar Builds Multi-Stage?
+
+1. Reduzir o Tamanho da Imagem: Ao separar as etapas de construção e execução, você pode descartar dependências e ferramentas de construção desnecessárias, resultando em uma imagem final menor.
+
+2. Melhorar a Segurança: Ao minimizar o número de camadas e pacotes de software na imagem final, a superfície de ataque é reduzida.
+
+3. Otimizar o Desempenho: Imagens menores podem ser puxadas e implantadas mais rapidamente.
+
+Como Funciona
+
+Um build multi-stage permite copiar artefatos de uma etapa para outra. Aqui está um exemplo de Dockerfile que demonstra um build multi-stage:
+
+```Dockerfile
+# Primeira etapa: estágio de construção
+FROM golang:1.16-alpine AS builder
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia o código fonte para dentro do container
+COPY . .
+
+# Constrói a aplicação Go
+RUN go build -o myapp .
+
+# Segunda etapa: cria uma imagem leve
+FROM alpine:latest
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia o binário do estágio de construção
+COPY --from=builder /app/myapp .
+
+# Comando para executar a aplicação
+CMD ["./myapp"]
+```
+Explicação
+
+1. Primeira Etapa: Estágio de Construção
+
+- A imagem base é golang:1.16-alpine.
+
+- O diretório de trabalho é definido como /app.
+
+- O código fonte é copiado para dentro do container.
+
+- A aplicação Go é construída usando o comando go build, produzindo um executável chamado myapp.
+
+2. Segunda Etapa: Estágio de Execução
+
+- A imagem base é alpine:latest, uma imagem base muito menor.
+
+- O diretório de trabalho é definido como /app.
+
+- O binário myapp é copiado da primeira etapa para a segunda usando `COPY --from=builder /app/myapp .`.
+
+- O comando `CMD ["./myapp"]` especifica o executável a ser executado quando o container iniciar.
+
+Benefícios Desta Abordagem
+
+- Eficiência: Apenas o binário final e os arquivos necessários são incluídos na imagem de execução.
+
+- Separação de Responsabilidades: O ambiente de construção pode ser tão complexo quanto necessário, enquanto o ambiente de execução permanece limpo e minimalista.
+
+Caso de Uso no Mundo Real
+
+Os builds multi-stage são particularmente úteis em pipelines de integração contínua/implantação contínua (CI/CD) onde você precisa construir, testar e implantar aplicações de forma eficiente. Eles são amplamente utilizados com linguagens e frameworks que exigem uma etapa de compilação, como Go, Java e C++.
+
+
