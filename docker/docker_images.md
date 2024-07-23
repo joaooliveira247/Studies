@@ -486,3 +486,63 @@ Vantagens da Herança no Docker
 - Manutenção Facilitada: Atualizar a imagem base automaticamente propaga as atualizações para todas as imagens que herdam dela.
 
 - Eficiência: As imagens Docker são construídas em camadas, o que significa que partes da imagem que não mudaram são reutilizadas, economizando tempo e espaço.
+
+## Camadas de Imagem Docker
+
+Uma imagem Docker é composta por uma série de camadas, onde cada camada representa uma instrução no Dockerfile. Essas camadas são empilhadas umas sobre as outras para formar a imagem final.
+
+### Camadas de Leitura
+
+- Imutabilidade: As camadas de uma imagem Docker são imutáveis e somente leitura. Cada camada armazena as mudanças feitas pela instrução correspondente no Dockerfile (por exemplo, adicionar um arquivo, instalar um pacote, etc.).
+
+- Compartilhamento: Como as camadas são somente leitura e imutáveis, elas podem ser compartilhadas entre diferentes contêineres e imagens, economizando espaço em disco e acelerando o processo de construção.
+
+### Camada de Escrita
+
+- Sistema de Arquivos Union: Quando um contêiner é criado a partir de uma imagem, uma nova camada de escrita é adicionada no topo da pilha de camadas somente leitura. Esta camada é conhecida como a camada de contêiner.
+
+- Persistência: Todas as mudanças feitas no sistema de arquivos de um contêiner (como criação, modificação ou exclusão de arquivos) são feitas nesta camada de escrita.
+
+- Volatilidade: A camada de escrita é volátil, o que significa que todas as mudanças feitas serão perdidas quando o contêiner for excluído. Para dados que precisam ser persistidos, recomenda-se o uso de volumes Docker.
+
+Exemplo Prático
+
+Considere um contêiner baseado em uma imagem Python:
+
+1. Imagem Base: python:3.9-slim
+
+- Camada 1: Sistema operacional base (por exemplo, Debian)
+
+- Camada 2: Python 3.9 instalado
+
+2. Instruções Adicionais no Dockerfile:
+
+- `WORKDIR /app`: Define o diretório de trabalho
+
+- `COPY requirements.txt /app/`: Copia o arquivo requirements.txt
+
+- `RUN pip install -r requirements.txt`: Instala as dependências
+
+`COPY . /app`: Copia o código da aplicação
+
+3. Camada de Contêiner:
+
+- Quando o contêiner é iniciado, uma nova camada de escrita é adicionada.
+
+- Modificações no contêiner, como criação de novos arquivos ou instalação de pacotes adicionais, são feitas nesta camada de escrita.
+
+### Visualização de Camadas
+
+Você pode visualizar as camadas de uma imagem Docker usando o comando docker history seguido pelo nome da imagem:
+
+```sh
+docker history python:3.9-slim
+```
+
+Benefícios das Camadas
+
+- Eficiência de Armazenamento: Como as camadas são compartilhadas, a utilização de espaço em disco é minimizada.
+
+- Rápida Construção: Ao construir uma nova imagem, o Docker reutiliza camadas existentes que não foram modificadas, acelerando o processo.
+
+- Flexibilidade: A camada de escrita permite modificar o contêiner em tempo de execução sem afetar a imagem base.
