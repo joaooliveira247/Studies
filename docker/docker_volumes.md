@@ -85,3 +85,89 @@ Neste exemplo:
 `target=/app/logs` é onde os logs estarão acessíveis dentro do contêiner.
 
 Esses exemplos mostram como usar a opção --mount para configurar bind mounts, permitindo que diretórios e arquivos do host sejam acessíveis dentro de contêineres Docker
+
+## Volumes
+
+Docker volumes são uma forma de persistir dados gerados e usados pelos contêineres Docker. Eles permitem que você armazene dados fora do ciclo de vida de um contêiner, garantindo que esses dados não sejam perdidos quando o contêiner é removido. Existem três principais tipos de armazenamento em Docker:
+
+Volumes: São gerenciados pelo Docker e armazenados na máquina host, mas em um local separado do sistema de arquivos do contêiner. Eles são a forma mais recomendada de persistir dados, pois são fáceis de usar e podem ser compartilhados entre contêineres.
+
+### Criando e usando volumes
+Para criar um volume:
+
+bash
+Copy code
+docker volume create nome_do_volume
+Para usar um volume em um contêiner:
+
+```bash
+docker run -d -v nome_do_volume:/caminho_no_container imagem
+```
+
+Exemplos
+
+- Criar um volume e usar em um contêiner:
+
+```bash
+docker volume create meus_dados
+docker run -d -v meus_dados:/var/lib/mysql mysql
+```
+
+Montar um diretório específico do host (bind mount):
+
+```bash
+docker run -d -v /caminho/no/host:/caminho/no/container nginx
+```
+
+Mostra especificações do volume
+
+```bash
+docker volume inspect volume_name
+```
+
+
+### Outras formas
+
+certifique-se de verificar onde a imagem geralmente monta os dados.
+
+```bash
+docker run -d --mount type=volume,source=meu_volume,target=/app/data nginx
+
+```
+
+### Usando a instrução VOLUME no Dockerfile
+
+A sintaxe básica para VOLUME no Dockerfile é a seguinte:
+
+```dockerfile
+VOLUME ["/caminho/no/container"]
+```
+
+Você pode especificar um ou mais diretórios que serão montados como volumes. Aqui estão alguns exemplos:
+
+Exemplo Básico
+
+```dockerfile
+# Usando a imagem base do nginx
+FROM nginx:latest
+
+# Definindo um volume para o diretório /app
+VOLUME ["/app"]
+
+# Copiando arquivos de configuração para o contêiner
+COPY . /app
+
+# Definindo o diretório de trabalho
+WORKDIR /app
+```
+
+Neste exemplo:
+
+VOLUME ["/app"] define que o diretório /app dentro do contêiner será um volume.
+Os dados em /app serão persistidos fora do ciclo de vida do contêiner.
+
+### Removendo todos os volumes
+
+```bash
+docker volume prune --all
+```
