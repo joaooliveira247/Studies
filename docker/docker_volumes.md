@@ -171,3 +171,13 @@ Os dados em /app serão persistidos fora do ciclo de vida do contêiner.
 ```bash
 docker volume prune --all
 ```
+
+## TMPFS
+
+temporary filesystem) é uma forma de montar um sistema de arquivos em memória no Docker, que é útil para armazenar dados temporários que não precisam ser persistidos após a reinicialização do contêiner. Você pode usar tmpfs para melhorar o desempenho ao evitar a escrita no disco e para garantir que os dados não sejam mantidos após o ciclo de vida do contêiner.
+
+Embora você não possa definir um tmpfs diretamente no Dockerfile, você pode configurar um tmpfs mount ao iniciar um contêiner usando a linha de comando docker run ou em um arquivo de configuração do Docker Compose.
+
+```bash
+docker run -d --mount type=tmpfs,target=/app,tmpfs-size=100m,tmpfs-mode=1777 nginx
+```
