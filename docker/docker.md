@@ -35,6 +35,10 @@ docker run hello-world
 
 ## [Docker images](./docker_images.md)
 
+## [Docker volumes](./docker_volumes.md)
+
+## [Docker containers](./docker_containers.md)
+
 # Referências
 
 https://www.redhat.com/pt-br/topics/containers/what-is-docker
