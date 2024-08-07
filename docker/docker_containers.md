@@ -31,6 +31,22 @@ docker run <options> image <options>
 
 `-P` bind de porta no `EXPOSE` no host é definida a que estiver disponivel
 
+`-e` ou `--env` define variavel de ambiente sobreescreve a do dockerfile(KEY=VALUE)
+
+`--env-file` pode pegar .env de um arquivo
+
+`-w` ou `--workdir` define WORKDIR no docker run sovreescreve o do dockerfile
+
+#### bind mount no run
+
+```bash
+docker run -v <host_path>:<container_path>
+```
+
+```bash
+docker run --mount type=bind,src=<host_path>,target=<container_path>
+```
+
 ## Parada
 
 ```bash
@@ -98,4 +114,30 @@ docker exec <options> <container> <command> <args>
 #### Options
 
 `-it` interactive terminal (bash/sh/zsh) não esqueça de verificar qual a imagem usada disponibiliza
+
+`-e` ou `--env` define variavel de ambiente sobreescreve a do dockerfile(KEY=VALUE) OBS: disponivel só no terminal interativo
+
+`--env-file` pode pegar .env de um arquivo OBS: disponivel só no terminal interativo
+
+## Copy
+
+copia arquivos para o container
+
+```bash
+docker cp <host_path> <container>:<container_path>
+```
+
+copia arquivos para o host
+
+```bash
+docker cp <container>:<container_path> <host_path>
+```
+
+## Diff
+
+Mostra as diferenças entre a base(`FROM`) e o container
+
+```bash
+docker diff <container>
+```
 
