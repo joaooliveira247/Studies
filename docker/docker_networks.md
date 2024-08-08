@@ -1,6 +1,8 @@
 # Networks
 
-Redes Docker são um componente crucial das capacidades de rede do Docker, permitindo que os containers se comuniquem entre si, com o sistema host e com redes externas. Aqui está uma visão abrangente das redes Docker:
+Redes Docker são um componente crucial das capacidades de rede do Docker, permitindo que os containers se comuniquem entre si, com o sistema host e com redes externas.
+
+`OBS`: Para usar o host de ponte use `host.docker.internal`
 
 ## Tipos de Redes Docker
 
