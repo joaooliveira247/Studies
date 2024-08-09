@@ -312,3 +312,117 @@ Você pode especificar mais de um arquivo env_file, se necessário, listando-os 
 - Precedência: Se uma variável de ambiente estiver definida tanto no env_file quanto diretamente no docker-compose.yml (na seção environment), o valor definido diretamente no docker-compose.yml terá precedência.
 
 - Uso das Variáveis: As variáveis definidas no env_file são acessíveis dentro do contêiner como variáveis de ambiente. Por exemplo, no contêiner, você pode acessar DATABASE_URL e outras variáveis definidas.
+
+## Networks
+
+No Docker Compose, a configuração de networks permite que você gerencie como os contêineres se conectam uns aos outros e a outros recursos de rede. Com networks, você pode definir redes personalizadas, controlar o isolamento entre os serviços, e conectar contêineres a redes externas.
+
+### Tipos de Redes no Docker Compose
+
+#### Bridge (Ponte):
+
+É o tipo de rede padrão no Docker. Contêineres na mesma rede bridge podem se comunicar entre si usando seus nomes de serviço ou endereços IP. Este tipo de rede é isolado do host e de outras redes a menos que explicitamente configurado para permitir acesso.
+
+#### Host:
+
+No modo host, o contêiner compartilha a pilha de rede do host, ou seja, ele se conecta diretamente à rede do host sem um namespace de rede isolado. Isso é útil para serviços que precisam de desempenho de rede elevado.
+
+#### None:
+
+O contêiner não recebe uma interface de rede. Isso é útil para contêineres que não precisam de acesso à rede.
+
+#### Overlay:
+
+Usado em ambientes Docker Swarm, permite que contêineres em diferentes hosts Docker se comuniquem de maneira segura. Não é normalmente usado em configurações simples de Docker Compose.
+Definindo Redes no Docker Compose
+1. Criando Redes Personalizadas
+Você pode definir redes personalizadas no arquivo docker-compose.yml para controlar como os serviços se comunicam.
+
+Exemplo básico:
+
+```yaml
+version: '3.8'
+
+services:
+  web:
+    image: my-web-app
+    networks:
+      - frontend
+    ports:
+      - "8080:80"
+
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
+```
+
+`networks:`: A seção networks no final do arquivo define as redes personalizadas frontend e backend.
+
+`networks: - frontend`: Dentro do serviço web, isso conecta o contêiner à rede frontend.
+
+`networks: - backend`: Conecta o contêiner db à rede backend.
+
+2. Conectando Múltiplas Redes
+Um serviço pode ser conectado a várias redes, permitindo que ele se comunique com diferentes grupos de contêineres.
+
+Exemplo:
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    image: my-app
+    networks:
+      - frontend
+      - backend
+
+  web:
+    image: nginx
+    networks:
+      - frontend
+
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
+```
+
+Neste exemplo:
+
+O serviço app está conectado a ambas as redes frontend e backend, permitindo que ele se comunique com ambos os serviços web e db.
+
+O serviço web só pode se comunicar com app via frontend.
+
+O serviço db só pode se comunicar com app via backend.
+
+3. Configurando Redes Externas
+Você também pode conectar seus contêineres a redes que foram criadas fora do escopo do Docker Compose.
+
+Exemplo:
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    image: my-app
+    networks:
+      - external_network
+
+networks:
+  external_network:
+    external: true
+```
+
+Aqui, external_network refere-se a uma rede já existente no Docker. Se a rede não existir, o Docker Compose não a criará automaticamente, e o comando falhará.
+
