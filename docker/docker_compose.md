@@ -426,3 +426,48 @@ networks:
 
 Aqui, external_network refere-se a uma rede já existente no Docker. Se a rede não existir, o Docker Compose não a criará automaticamente, e o comando falhará.
 
+## Command
+
+A instrução command no Docker Compose permite substituir o comando padrão que é executado quando um contêiner é iniciado.
+
+Como Funciona a Instrução command
+
+- Substituir o Comando Padrão: Quando você define um command em um serviço no docker-compose.yml, ele substitui o comando ou a entrada definida no CMD do Dockerfile ou na configuração padrão da imagem Docker usada.
+
+- Execução do Comando: O comando especificado será executado quando o contêiner iniciar. Se o comando terminar, o contêiner para de rodar.
+
+### Exemplo de Uso
+
+Considere um serviço que usa uma imagem Docker de uma aplicação Node.js. Por padrão, essa imagem pode ter o seguinte CMD:
+
+```Dockerfile
+CMD ["node", "index.js"]
+```
+
+Se você quiser substituir isso no docker-compose.yml, pode fazer o seguinte:
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    image: node:18
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["node", "server.js"]
+```
+
+Neste exemplo, o command especifica que, em vez de executar node index.js, o contêiner deve executar node server.js ao ser iniciado.
+
+Quando Usar command
+
+- Override de Comando: Quando você precisa substituir o comando padrão da imagem para testar, depurar, ou executar uma versão diferente de um comando.
+
+- Automação de Tarefas: Para executar scripts de inicialização, tarefas cron, ou outros processos automatizados dentro do contêiner.
+
+- Entrypoint Customizado: Para configurar uma lógica de entrada específica antes de executar o comando principal.
+
+### Sem command
+
+Se você não especificar um command no docker-compose.yml, o Docker Compose usará o comando definido no Dockerfile da imagem, seja ele definido com CMD ou ENTRYPOINT.
