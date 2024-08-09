@@ -30,7 +30,7 @@ services:
 
 Neste exemplo, temos dois serviços: web e db. O serviço web depende do db e expõe a porta 8080 no host, mapeada para a porta 80 no contêiner. O serviço db usa a imagem do PostgreSQL e define variáveis de ambiente para configurar o banco de dados.
 
-### Build
+## Build
 
 Exemplo de um Dockerfile:
 
@@ -122,4 +122,138 @@ Sempre que você fizer alterações no Dockerfile ou nos arquivos envolvidos no 
 
 ```bash
 docker-compose up --build
+```
+
+## Volumes
+
+Volumes no Docker Compose são usados para persistir dados gerados e utilizados por contêineres. Eles permitem que os dados sejam salvos em locais que não são removidos quando o contêiner é destruído, facilitando o armazenamento persistente e o compartilhamento de dados entre múltiplos contêineres.
+
+### Tipos de Volumes no Docker Compose
+
+#### Named Volumes (Volumes Nomeados):
+
+Os volumes nomeados são gerenciados pelo Docker e são criados fora do ciclo de vida dos contêineres. Eles são reutilizáveis entre diferentes contêineres e são úteis para persistir dados entre reinicializações.
+Bind Mounts:
+
+Um bind mount mapeia um diretório ou arquivo específico do host (sua máquina) para um diretório no contêiner. Ele é útil para desenvolvimento, pois permite que você compartilhe seu código-fonte com o contêiner.
+
+Exemplo de Configuração de Volumes no Docker Compose
+
+1. Named Volumes
+Aqui está um exemplo de como definir e usar volumes nomeados em um arquivo `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+volumes:
+  db-data:
+```
+
+`db-data:/var/lib/postgresql/data`: Aqui, db-data é um volume nomeado que é montado no caminho /var/lib/postgresql/data dentro do contêiner.
+
+`volumes:`: A seção volumes no final do arquivo define o volume `db-data`, que o Docker gerencia.
+
+2. Bind Mounts
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    image: my-web-app
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8080:80"
+```
+
+`./src:/app/src`: Este bind mount mapeia o diretório src do host (onde o código-fonte está localizado) para o diretório /app/src dentro do contêiner. Isso permite que as mudanças feitas no código local sejam refletidas imediatamente no contêiner.
+
+3. Usando Ambos em um Projeto
+Você pode combinar named volumes e bind mounts em um mesmo projeto:
+
+```yaml
+version: '3.8'
+
+services:
+  web:
+    image: my-web-app
+    volumes:
+      - ./src:/app/src    # Bind mount para código-fonte
+      - app-data:/app/data # Volume nomeado para dados persistentes
+    ports:
+      - "8080:80"
+
+volumes:
+  app-data:
+```
+
+## Restart
+
+O Docker Compose oferece várias opções para reiniciar automaticamente os contêineres em caso de falha, ou para garantir que eles sejam reiniciados quando o sistema for reiniciado. Isso é feito através da opção restart no arquivo docker-compose.yml.
+
+### Opções de Reinício (restart)
+
+`no`:
+
+Não reinicia automaticamente o contêiner. Este é o comportamento padrão.
+
+`always`:
+
+Sempre reinicia o contêiner, independentemente do código de saída. Ele será reiniciado automaticamente se for interrompido ou se o Docker for reiniciado.
+
+`on-failure`:
+
+Reinicia o contêiner apenas se ele sair com um código de falha diferente de zero. Você pode especificar o número máximo de tentativas de reinício com on-failure:N.
+
+`unless-stopped`:
+
+Similar ao always, exceto que o contêiner não será reiniciado se ele foi parado manualmente (com docker stop) ou se o Docker não for reiniciado.
+Exemplo de Configuração restart no docker-compose.yml
+
+Aqui está um exemplo de como usar a opção restart no docker-compose.yml:
+
+```yaml
+version: '3.8'
+
+services:
+  web:
+    image: my-web-app
+    ports:
+      - "8080:80"
+    restart: always
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    restart: on-failure:5
+```
+
+`restart: always`: O serviço web será reiniciado sempre que parar, mesmo que seja devido a uma falha ou reinicialização do Docker.
+
+`restart: on-failure:5`: O serviço db será reiniciado até 5 vezes se falhar com um código de erro diferente de zero.
+Reinício Manual
+Além da configuração automática, você também pode reiniciar contêineres manualmente com os seguintes comandos:
+
+### Reiniciar todos os serviços:
+
+```bash
+docker-compose restart
+```
+
+### Reiniciar um serviço específico:
+
+```bash
+docker-compose restart <service_name>
 ```
