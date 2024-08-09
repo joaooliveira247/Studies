@@ -471,3 +471,84 @@ Quando Usar command
 ### Sem command
 
 Se você não especificar um command no docker-compose.yml, o Docker Compose usará o comando definido no Dockerfile da imagem, seja ele definido com CMD ou ENTRYPOINT.
+
+## Depends on
+
+A instrução depends_on no Docker Compose define as dependências de inicialização entre os serviços. Isso significa que ela especifica que um serviço depende de outro e, portanto, o serviço dependente só começará após o serviço do qual ele depende ter sido iniciado.
+
+Como Funciona depends_on
+
+- Ordem de Inicialização: depends_on garante que os serviços sejam iniciados na ordem correta, mas não garante que o serviço dependido esteja pronto para aceitar conexões. Isso significa que depends_on não espera o serviço estar totalmente inicializado, apenas que o contêiner tenha sido iniciado.
+
+### Exemplo de Uso
+
+Imagine que você tem uma aplicação web que depende de um banco de dados PostgreSQL. Aqui está como o docker-compose.yml poderia ser configurado:
+
+```yaml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: mydb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    image: my-web-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: example
+      DB_NAME: mydb
+
+volumes:
+  db_data:
+```
+
+### Explicação:
+
+Serviço `db`: É o serviço de banco de dados PostgreSQL.
+
+Serviço `web`: É o serviço da aplicação web, que depende do serviço db para funcionar corretamente.
+
+`depends_on: - db`: Esta linha especifica que o serviço web depende do serviço db. O Docker Compose garantirá que o contêiner db seja iniciado antes do contêiner web.
+
+### Limitações de depends_on
+
+depends_on não garante que o serviço dependido esteja pronto para aceitar conexões. Isso é importante porque, mesmo que o contêiner do banco de dados tenha sido iniciado, ele pode não estar pronto para aceitar conexões imediatamente.
+
+### Garantir que o Serviço Está Pronto
+
+Para garantir que um serviço está realmente pronto, você pode usar scripts ou ferramentas como wait-for-it, dockerize, ou escrever um script de inicialização personalizado que verifica a disponibilidade do serviço antes de continuar.
+
+Exemplo com wait-for-it
+
+Aqui está um exemplo usando wait-for-it para garantir que o banco de dados esteja pronto:
+
+```yaml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: mydb
+
+  web:
+    image: my-web-app
+    depends_on:
+      - db
+    entrypoint: ["./wait-for-it.sh", "db:5432", "--", "./start-web-app.sh"]
+```
+
+Neste exemplo, o script wait-for-it.sh espera que o banco de dados esteja pronto antes de iniciar a aplicação web.
