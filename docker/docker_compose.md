@@ -257,3 +257,58 @@ docker-compose restart
 ```bash
 docker-compose restart <service_name>
 ```
+
+## env_file
+
+A opção env_file no Docker Compose permite que você carregue variáveis de ambiente a partir de um arquivo .env para seus contêineres. Isso é útil para manter suas configurações, como senhas, tokens ou outras variáveis de ambiente, fora do código-fonte, facilitando a configuração do ambiente de execução.
+
+Como Usar env_file no Docker Compose
+Criar um Arquivo .env:
+
+Crie um arquivo .env no diretório do seu projeto, ou em um local onde você deseja armazenar suas variáveis de ambiente.
+Exemplo de um arquivo .env:
+
+```dotenv
+DATABASE_URL=postgres://user:password@db:5432/mydatabase
+API_KEY=your_api_key_here
+APP_ENV=production
+```
+
+Configurar o docker-compose.yml:
+
+No arquivo docker-compose.yml, utilize a opção env_file para especificar o arquivo que contém as variáveis de ambiente.
+Exemplo de um docker-compose.yml utilizando env_file:
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    image: my-web-app
+    env_file:
+      - .env
+    ports:
+      - "8080:80"
+  
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
+```
+
+`env_file`: - .env: Este comando informa ao Docker Compose para carregar as variáveis de ambiente do arquivo .env e passá-las para o contêiner.
+
+Você pode especificar mais de um arquivo env_file, se necessário, listando-os como uma matriz (array).
+
+### Como Funciona
+
+- Precedência: Se uma variável de ambiente estiver definida tanto no env_file quanto diretamente no docker-compose.yml (na seção environment), o valor definido diretamente no docker-compose.yml terá precedência.
+
+- Uso das Variáveis: As variáveis definidas no env_file são acessíveis dentro do contêiner como variáveis de ambiente. Por exemplo, no contêiner, você pode acessar DATABASE_URL e outras variáveis definidas.
