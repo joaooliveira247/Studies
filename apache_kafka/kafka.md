@@ -31,6 +31,14 @@ capacidade com recursos
 de cluster e
 particionamento
 
+#
+
+> Definições
+>
+>[Clusters](./clusters.md)
+>
+>
+
 ## Principais Conceitos e Componentes do Kafka:
 
 1. Tópicos (Topics):
