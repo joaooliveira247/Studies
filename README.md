@@ -2,17 +2,22 @@
 
 ### This repositorie is only for annotations.
 
+## Languages
+
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg" width=15px/> Scala](./scala/scala.md)
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width=15px/> Go](./golang/README.md)
 
-- [🗄️ Banco de Dados](./databases/databases.md)
+## [🗄️ Banco de Dados](./databases/databases.md)
 
-- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="15px"> FastAPI](./FastAPI/)
+## Frameworks
+
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="15px">     FastAPI](./FastAPI/)
+
+
+## Tools
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original-wordmark.svg" width="15px"> Pandas](./pandas/pandas/)
-
-- [<img src="https://refactoring.guru/favicon.png" width="15px"> Design Patterns](./design_patterns/)
 
 - [<img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/apache_hadoop_logo_icon_169586.png" width=15px> Hadoop](./Hadoop/hadoop.md)
 
@@ -26,4 +31,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width=15px/> Pytest](./tests/)
 
+## Books
+
 - [📚 Data Science from Scratch](./DataScience/README.md)
+
+- [<img src="https://refactoring.guru/favicon.png" width="15px"> Design Patterns](./design_patterns/)
