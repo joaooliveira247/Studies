@@ -31,6 +31,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width=15px/> Pytest](./tests/)
 
+- [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg" width="15px"/> Kafka](./apache_kafka/kafka.md)
+
 ## Books
 
 - [📚 Data Science from Scratch](./DataScience/README.md)
