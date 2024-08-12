@@ -2,6 +2,35 @@
 
 O Apache Kafka é uma plataforma distribuída de streaming de eventos que é usada para construir pipelines de dados em tempo real e aplicativos de streaming. Originalmente desenvolvido pela LinkedIn e depois doado à Apache Software Foundation, o Kafka é uma ferramenta essencial em arquiteturas de microsserviços, big data e processamento de dados em tempo real.
 
+### Caracteristicas Gerais
+
+- Os dados são publicados
+um única vez
+
+- Quem tem Interesse nos
+dados “assina” e consome
+só o que interessa
+
+- Produtores e
+Consumidores
+desacoplados
+
+- Podem trabalhar em
+ritmos diferentes
+
+- Consumidores podem ler
+dados mais de uma vez
+
+- Indisponibilidade do
+Produtor não afeta o
+processo
+
+- Além disso, Kafka traz alto
+disponibilidade e
+capacidade com recursos
+de cluster e
+particionamento
+
 ## Principais Conceitos e Componentes do Kafka:
 
 1. Tópicos (Topics):
