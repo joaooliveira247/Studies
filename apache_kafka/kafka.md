@@ -38,6 +38,8 @@ particionamento
 >[Clusters](./clusters.md)
 >
 >[Particionamento](./particionamento.md)
+>
+>[Mensageria](./mensageria.md)
 
 ## Principais Conceitos e Componentes do Kafka:
 
