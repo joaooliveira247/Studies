@@ -96,3 +96,65 @@ Cria, exclui, altera ou exibe informações de um tópico.
 ```bash
 ./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
 ```
+
+## `kafka-console-producer.sh`
+
+`flags`
+
+|`flag`|Descrição|
+|:---:|:---:|
+|`--topic`|Nome do tópico|
+|`--bootstrap-server`|Servidor Kafka para conectar|
+|`--from-beginning`|Lê do inicio do tópico se ainda não houve uma leitura|
+|`--group`|O grupo de consumo|
+|`--isolation-level`|read_committed para ler mensagens confirmadas/read_uncommitted para ler todas mensagens(default)|
+|`--offset`|offset a partir de qual se quer ler as mensagens. Pode também ser: `earliest`: desde o inicio/`latest`do fim(default)|
+|`--partition`|Partição para ler as mensagens. Inicia do fim, a não ser que o `offset` sejá definido|
+
+### Exemplos
+
+#### Consumir do inicio
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --from-beginning
+```
+
+#### Producer
+
+```bash
+./kafka-console-producer.sh --bootstrap-server 127.0.0.1:9092  --topic mensagens
+```
+
+#### Consumir com off set
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 0 --offset 2
+```
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 1 --offset 2
+```
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 2 --offset 2
+```
+
+#### Max messagens 
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 2 --offset 2 --max-messagens 1
+```
+
+#### consumir de partições
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 0
+```
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 1
+```
+
+```bash
+./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 2
+```
