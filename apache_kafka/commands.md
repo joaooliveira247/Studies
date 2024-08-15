@@ -158,3 +158,68 @@ Cria, exclui, altera ou exibe informações de um tópico.
 ```bash
 ./kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic mensagens --partions 2
 ```
+
+## `kafka-consumer-groups.sh`
+
+`flags`
+
+|`flag`|Descrição|
+|:---:|:---:|
+|`--topic`|Nome do tópico|
+|`--bootstrap-server`|Servidor Kafka para conectar|
+|`--describe`|Mostra detalhes do tópico|
+|`--list`|Lista todos os tópicos|
+|`--group`|Nome do grupo|
+|`--reset-offsets`|Reseta offsets do tópico|
+
+### Exemplos
+
+#### Cria um consumidor com um grupo
+
+```bash
+./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic mensagens --group consumidores
+```
+
+
+#### Cria outro consumidor com o mesmo grupo
+
+```bash
+./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic mensagens --group consumidores
+```
+
+
+#### Cria um consumidor do mesmo topico mas de outro grupo
+
+```bash
+./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic mensagens --group novosconsumidores
+```
+
+#### Mostra consumers groups
+
+```bash
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+```
+
+#### Descrever grupos
+
+```bash
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group consumidores
+```
+
+#### Abre um novo consumidor usando from beggining
+
+```bash
+./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic mensagens --group consumidores --from-beginning
+```
+
+#### Reset do offset
+
+```bash
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group consumidores --topic mensagens --reset-offsets --to-earliest --execute 
+```
+
+#### Novo consumidor para o grupo, as mensagens devem ser lidas desde o inicio
+
+```bash
+./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic mensagens --group consumidores
+```
