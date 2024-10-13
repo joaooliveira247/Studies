@@ -38,6 +38,13 @@ O Minikube é uma ferramenta que permite rodar um cluster Kubernetes local em um
 
 `minikube stop` - Para o cluster
 
+`minikube expose` - Expoe um app
+
+Exemplo
+
+kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port 80
+
+
 ## kubectl
 
 O kubectl é a interface de linha de comando (CLI) para interagir com o Kubernetes. Ele permite que os usuários gerenciem e inspecionem recursos de um cluster Kubernetes, como pods, serviços, deployments, namespaces, e muito mais. Com o kubectl, é possível executar uma variedade de operações, desde criar e deletar recursos até depurar e monitorar o comportamento de aplicações dentro do cluster.
@@ -107,7 +114,7 @@ Remove recursos de um cluster.
 Exemplo
 
 ```bash
-kubectl delete pod <pod_name>
+kubectl delete pod <pod_name>/<deployment>
 ```
 
 deleta um pod específico.
@@ -132,6 +139,14 @@ Exemplo
 
 ```bash
 kubectl exec -it <pod_name> -- /bin/bash
+```
+
+`kubectl expose`
+
+Exemplo
+
+```bash
+kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port 80
 ```
 
 abre um shell interativo dentro de um container.
