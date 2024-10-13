@@ -56,6 +56,11 @@ kubectl get pods
 
 exibe todos os pods em execução.
 
+flags:
+
+- `-o wide` exibe pods em execução com informações mais detalhadas
+
+
 
 `kubectl describe`
 
