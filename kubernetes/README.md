@@ -141,6 +141,8 @@ Exemplo
 kubectl exec -it <pod_name> -- /bin/bash
 ```
 
+abre um shell interativo dentro de um container.
+
 `kubectl expose`
 
 Exemplo
@@ -149,7 +151,21 @@ Exemplo
 kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port 80
 ```
 
-abre um shell interativo dentro de um container.
+`kubectl port-forward [resource-type]/[resource-name] [local-port]:[pod-port]`
+
+- [resource-type]: Tipo do recurso, como `pod` ou `service`.
+
+- [resource-name]: Nome do Pod ou Serviço ao qual você deseja se conectar.
+
+- [local-port]: A porta na sua máquina local que será mapeada.
+
+- [pod-port]: A porta no Pod que está sendo redirecionada.
+
+Exemplo
+
+```bash
+kubectl port-forward pod/go-app-pod 8080:8080
+```
 
 ## Conteudos
 
