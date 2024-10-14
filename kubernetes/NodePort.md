@@ -74,3 +74,75 @@ kubectl apply -f nginx-nodeport.yaml
     - Depende do IP dos nós, o que pode não ser ideal para um ambiente de produção em larga escala.
 
     - Exposição limitada às portas no intervalo 30000–32767.
+
+## NodePort + Pod + Local container example
+
+### Dockerfile
+
+```Dockerfile
+# Usa a imagem do Alpine como base
+FROM golang:alpine
+
+# Configura o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia os arquivos do diretório atual para o diretório de trabalho do container
+COPY . .
+
+# Baixa as dependências
+RUN go mod tidy
+
+# Compila o binário
+RUN go build -o myapp .
+
+# Comando para rodar o binário quando o container iniciar
+CMD ["./myapp"]
+```
+
+### Yaml
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-app-pod
+spec:
+  containers:
+    - name: go-app-container
+      image: go-app:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+      volumeMounts:
+        - name: go-app-source
+          mountPath: /app
+  volumes:
+    - name: go-app-source
+      hostPath:
+        path: /path/para/seu/dockerfile/local # Ajuste este caminho para o local do seu código Go
+        type: Directory
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-app-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30007 # Escolha um NodePort entre 30000-32767
+  selector:
+    app: go-app
+```
+
+### Run
+
+```bash
+docker build -t go-app:latest .
+```
+
+```bash
+kubectl apply -f pod-go-app.yaml
+```
