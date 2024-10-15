@@ -27,6 +27,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width=15px/> Docker](./docker/docker.md)
 
+- [<img width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" /> Kubernetes](./kubernetes/README.md)
+
 - [<img src="https://cdn-icons-png.freepik.com/512/7787/7787808.png" width=15px> DataWareHouse](./data_warehouse/data_warehouse.md)
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width=15px/> Pytest](./tests/)
