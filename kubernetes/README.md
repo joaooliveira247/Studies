@@ -1,4 +1,4 @@
-# <img width="25px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" /> Kubernets
+# <img width="25px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" /> Kubernetes
 
 Kubernetes (K8s) é uma plataforma open-source para automação da implantação, escalonamento e gestão de aplicações containerizadas. Ele foi originalmente desenvolvido pelo Google e é agora mantido pela CNCF (Cloud Native Computing Foundation).
 
