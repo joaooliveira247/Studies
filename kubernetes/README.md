@@ -172,3 +172,5 @@ kubectl port-forward pod/go-app-pod 8080:8080
 ### [Yaml](./yaml.md)
 
 ### [NodePort](./NodePort.md)
+
+### [Persistent Volumes (PV) e Persistent Volume Claims (PVC)](./pv_pvc.md)
