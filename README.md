@@ -35,6 +35,8 @@
 
 - [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg" width="15px"/> Kafka](./apache_kafka/kafka.md)
 
+- [<img width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" /> Terraform](./terraform/README.md)
+
 ## Books
 
 - [📚 Data Science from Scratch](./DataScience/README.md)
