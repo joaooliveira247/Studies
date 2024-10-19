@@ -153,6 +153,55 @@ resource "aws_instance" "example" {
 }
 ```
 
+## [`TERRAFORM`](https://developer.hashicorp.com/terraform/language/terraform)
+
+### 1. `required_version`
+
+Especifica a versão mínima do Terraform necessária para executar o código. Isso ajuda a garantir que todos os usuários estejam usando uma versão compatível do Terraform.
+
+```hcl
+terraform {
+  required_version = ">= 1.2.0"
+}
+```
+
+### 2. `required_providers`
+
+Usado para declarar explicitamente os provedores que serão usados no projeto, suas fontes (como o registro oficial do Terraform ou um registro privado) e suas versões mínimas. Isso garante que a versão correta do provedor seja utilizada.
+
+```hcl
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.0"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 3.0"
+    }
+  }
+}
+```
+
+### 3. `backend`
+
+Define onde o estado do Terraform será armazenado. Isso é especialmente importante em ambientes de colaboração, onde o estado precisa ser compartilhado entre várias pessoas ou ambientes.
+
+Exemplo de configuração de backend no S3:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket = "my-terraform-state"
+    key    = "path/to/my/key"
+    region = "us-west-2"
+  }
+}
+```
+
+### [EXEMPLO](./terraform_example.tf)
+
 
 
 
