@@ -14,10 +14,36 @@ Terraform se integra a diversos provedores de serviços. Cada provedor contém r
 Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informações sobre os recursos gerenciados, permitindo rastrear mudanças e aplicar apenas as modificações necessárias.
 
 ### Comandos principais
+
 - **`terraform init`**: Inicializa o ambiente, baixando provedores e módulos necessários.
+
 - **`terraform plan`**: Gera um plano das mudanças a serem feitas, permitindo revisão antes da aplicação.
+ 
+  - `--out <file>.<ext>`: salva a saido do plan em um arquivo.
+  
+- **`terraform show <file>`**: mostra oq foi gerado de um out. 
+  
 - **`terraform apply`**: Aplica as mudanças para provisionar ou atualizar a infraestrutura.
+
+  - `-destroy`: Apaga oque foi gerado pelo apply.
+  
+  - `-auto-approve`: sem necessidade de confirmação
+  
+  - `<file>`: file é o tipo de gerado pelo `plan out`, não é necessario confirmar usando o plan
+
 - **`terraform destroy`**: Destrói todos os recursos definidos no código.
+
+- **`terraform providers`**: lista os providers usados em um projeto .tf
+
+- **`terraform fmt`**: formata os arquivos `.tf`
+
+  - `--check`: mostra quais arquivos são necessaios as mudanças
+  
+  - `--diff`: faz as alterações e mostra quais foram realizadas
+  
+- **`terraform validate`:** verifica se as configurações são validas. só funciona apos usar o `terraform init`
+
+
 
 ### Módulos
 Permitem organizar e reutilizar blocos de configuração para padronizar a infraestrutura em múltiplos ambientes.
