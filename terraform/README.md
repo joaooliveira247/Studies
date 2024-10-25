@@ -228,7 +228,95 @@ terraform {
 
 ### [EXEMPLO](./terraform_example.tf)
 
+## Variaveris
 
+As variáveis em Terraform são usadas para parametrizar e reutilizar configurações, permitindo que você crie módulos e scripts mais flexíveis. Elas permitem definir valores que podem ser modificados sem precisar alterar diretamente o código de infraestrutura.
 
+### Tipos de Variáveis
 
-          
+Em Terraform, as variáveis podem ser definidas de três formas:
+
+- Entrada (`input variables`): Definidas pelo usuário e usadas para passar dados para as configurações. São declaradas usando o bloco variable.
+
+- Locais (`locals`): Usadas para criar valores temporários dentro de um módulo.
+
+- Saída (`output variables`): Exibem informações de um módulo ou script, retornando valores ao final da execução.
+Declaração de Variáveis de Entrada
+
+Para definir uma variável de entrada, usa-se a sintaxe:
+
+```hcl
+variable "nome_da_variavel" {
+  description = "Descrição da variável"
+  type        = string
+  default     = "valor padrão"
+}
+```
+
+`description`: Descreve a variável (opcional).
+
+`type`: Define o tipo da variável, que pode ser string, number, bool, list, map, entre outros.
+
+`default`: Define um valor padrão para a variável (opcional).
+
+### Atribuição de Valores
+
+Os valores das variáveis podem ser passados de várias formas:
+
+1\. Arquivo `.tfvars`: Você pode criar um arquivo chamado terraform.tfvars (ou outro nome com a extensão .tfvars) para definir valores de variáveis.
+
+Exemplo de terraform.tfvars:
+
+```hcl
+nome_da_variavel = "valor"
+```
+
+Ao executar o Terraform, ele automaticamente lê o arquivo terraform.tfvars.
+
+2\. Linha de Comando (CLI): É possível passar variáveis diretamente pelo CLI usando a opção `-var`.
+
+Exemplo:
+
+```bash
+terraform apply -var="nome_da_variavel=valor"
+```
+
+Isso substitui o valor da variável sem a necessidade de um arquivo `.tfvars`.
+
+3\. Variáveis de Ambiente: Você pode definir variáveis de ambiente com o prefixo `TF_VAR_` seguido do nome da variável.
+
+Exemplo:
+
+```bash
+export TF_VAR_nome_da_variavel="valor"
+terraform apply
+```
+
+### Exemplo Completo
+
+Aqui está um exemplo completo usando variáveis:
+
+Arquivo `variables.tf`:
+
+```hcl
+variable "instance_type" {
+  description = "O tipo da instância EC2"
+  type        = string
+  default     = "t2.micro"
+}
+```
+
+Arquivo `main.tf`:
+
+```hcl
+resource "aws_instance" "example" {
+  ami           = "ami-12345678"
+  instance_type = var.instance_type
+}
+```
+
+Você pode passar o valor da variável pela CLI assim:
+
+```bash
+terraform apply -var="instance_type=t3.medium"
+```
