@@ -320,3 +320,31 @@ Você pode passar o valor da variável pela CLI assim:
 ```bash
 terraform apply -var="instance_type=t3.medium"
 ```
+
+## Terraform State
+
+O Terraform State é um componente essencial no uso do Terraform, pois armazena o mapeamento entre os recursos gerenciados pela configuração e os recursos reais no ambiente de infraestrutura. Aqui estão os principais pontos:
+
+- `Armazenamento do Estado`: O estado do Terraform contém metadados sobre os recursos provisionados, incluindo IDs, dependências e outros atributos. O Terraform usa essas informações para saber o que já foi criado e para gerenciar o ciclo de vida dos recursos.
+
+- `Gerenciamento de Mudanças`: O estado permite que o Terraform calcule de forma eficiente as diferenças entre o que está no código de configuração e o que está efetivamente provisionado. Isso possibilita o uso de comandos como terraform plan para prever mudanças.
+
+- `Backends de Estado`: O estado pode ser armazenado localmente ou em backends remotos, como S3, GCS, Azure Blob Storage, etc. Usar um backend remoto é recomendado em equipes, pois facilita a colaboração e garante que o estado seja compartilhado corretamente entre os membros.
+
+`Bloqueio de Estado`: Quando armazenado remotamente, o Terraform pode usar mecanismos de bloqueio (locking) para garantir que dois processos não alterem o estado ao mesmo tempo, evitando condições de corrida.
+
+`Segurança e Sensibilidade`: O estado pode conter informações sensíveis, como chaves e senhas. Por isso, é importante protegê-lo adequadamente, usando criptografia e acessos restritos.
+
+`Manipulação do Estado`: É possível usar comandos como terraform state list, terraform state show, e terraform state rm para inspecionar e modificar manualmente o estado, se necessário.
+
+### [`Local State`](./local_state)
+
+O Local State no Terraform refere-se ao estado que é armazenado localmente no sistema de arquivos, em vez de em um backend remoto. Aqui estão os pontos principais sobre o Local State:
+
+- `Arquivo de Estado`: Quando você usa o estado local, o Terraform salva as informações sobre os recursos provisionados em um arquivo chamado terraform.tfstate. Este arquivo é criado na pasta onde você executa os comandos Terraform, e contém todo o estado da infraestrutura gerenciada.
+
+- `Uso Individual`: O local state é mais adequado para projetos individuais ou ambientes de desenvolvimento, onde apenas uma pessoa está modificando a infraestrutura. Como o estado está armazenado localmente, ele não é compartilhado entre diferentes membros de uma equipe.
+
+- `Risco de Corrupção`: Em casos onde múltiplos usuários estão trabalhando no mesmo projeto, o uso do estado local pode levar a problemas de sincronização e corrupção do estado, já que não há um mecanismo de controle de acesso ou bloqueio, como há em backends remotos.
+
+- `Backups`: O estado local é mais suscetível a perdas de dados, por exemplo, se o arquivo for acidentalmente excluído ou o sistema tiver algum problema. Embora o Terraform faça backup automático do arquivo terraform.tfstate (geralmente nomeado como terraform.tfstate.backup), a perda de ambos os arquivos pode resultar em perda de controle sobre os recursos provisionados.
