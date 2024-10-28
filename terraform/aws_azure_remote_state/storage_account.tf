@@ -11,6 +11,10 @@ resource "azurerm_storage_account" "storage_account" {
   account_tier             = var.azure_account_tier
   location                 = azurerm_resource_group.resource_group.location
   resource_group_name      = azurerm_resource_group.resource_group.name
+  
+  blob_properties {
+    versioning_enabled = true
+  }
 
   tags = local.common_tags
 }
