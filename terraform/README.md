@@ -348,3 +348,44 @@ O Local State no Terraform refere-se ao estado que é armazenado localmente no s
 - `Risco de Corrupção`: Em casos onde múltiplos usuários estão trabalhando no mesmo projeto, o uso do estado local pode levar a problemas de sincronização e corrupção do estado, já que não há um mecanismo de controle de acesso ou bloqueio, como há em backends remotos.
 
 - `Backups`: O estado local é mais suscetível a perdas de dados, por exemplo, se o arquivo for acidentalmente excluído ou o sistema tiver algum problema. Embora o Terraform faça backup automático do arquivo terraform.tfstate (geralmente nomeado como terraform.tfstate.backup), a perda de ambos os arquivos pode resultar em perda de controle sobre os recursos provisionados.
+
+### [`Remote State`](./remote_state)
+
+O remote state no Terraform, usando o provider azurerm, refere-se ao armazenamento do estado do Terraform em um local remoto, em vez de mantê-lo localmente. Isso é crucial para colaboração em equipe e manter a integridade do estado da infraestrutura, permitindo que múltiplos usuários acessem e modifiquem o mesmo estado de forma segura e simultânea.
+
+No caso do Azure, o estado remoto geralmente é armazenado em uma conta de armazenamento no Azure Blob Storage. Aqui está um resumo de como configurar o remote state usando o provider azurerm:
+
+### Configuração da Conta de Armazenamento:
+
+- Você precisa criar uma conta de armazenamento no Azure.
+
+- Nessa conta, crie um contêiner onde o estado do Terraform será armazenado.
+
+### Configuração no Terraform:
+
+- No arquivo de configuração do Terraform, defina o backend como azurerm e configure os detalhes do armazenamento.
+
+### Exemplo básico de configuração:
+
+```hcl
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "nome-do-grupo-de-recursos"
+    storage_account_name  = "nome-da-conta-de-armazenamento"
+    container_name        = "nome-do-container"
+    key                   = "terraform.tfstate"
+  }
+}
+```
+
+### Autenticação:
+
+- O Terraform precisa de permissões para acessar a conta de armazenamento do Azure. Isso pode ser feito configurando a autenticação via uma conta de serviço ou utilizando as credenciais locais (como az login).
+
+### Benefícios:
+
+- Colaboração: Facilita o trabalho em equipe ao garantir que todos acessem o mesmo estado da infraestrutura.
+
+- Segurança: O estado remoto pode ser protegido usando permissões no Azure e criptografia no Blob Storage.
+
+- Automação: Facilita a automação dos pipelines CI/CD ao fornecer um local centralizado para o estado da infraestrutura.
