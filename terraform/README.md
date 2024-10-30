@@ -461,3 +461,51 @@ terraform refresh
 ```
 
 No Terraform 0.15 e posterior, o terraform apply já inclui automaticamente a etapa de atualização do estado, então o uso do terraform refresh tornou-se menos comum.
+
+`terraform init -flags`
+
+`-reconfigure`
+
+A flag -reconfigure força o Terraform a reconfigurar o backend ao executar o terraform init. Isso é útil quando você deseja alterar a configuração do backend (por exemplo, mudar de um backend local para um backend remoto como o S3 ou Azure Storage), ou se você quer garantir que o backend seja configurado a partir das opções atuais, mesmo que o Terraform já tenha sido inicializado anteriormente.
+
+Exemplo de uso:
+
+```bash
+terraform init -reconfigure
+```
+
+Neste caso, o Terraform ignora qualquer configuração de backend previamente usada e reconfigura o backend com base nas opções atuais fornecidas no código.
+
+`-migrate-state`
+
+A flag -migrate-state é usada quando você deseja migrar o estado do Terraform de um backend para outro. Quando você altera a configuração do backend (como mover o estado de um backend local para um S3, por exemplo), o Terraform precisa migrar o arquivo de estado antigo para o novo backend.
+
+Ao utilizar essa flag durante a inicialização, o Terraform fará a migração automática do estado existente para o novo backend definido na configuração.
+
+Exemplo de uso:
+
+```bash
+terraform init -migrate-state
+```
+
+Isso instruirá o Terraform a mover o arquivo de estado existente para o novo backend.
+
+`-backend`
+
+A flag -backend permite habilitar ou desabilitar o uso de backend. Se você passar -backend=false, o Terraform não usará nenhum backend para armazenar o arquivo de estado remotamente, e o estado será mantido localmente.
+
+Exemplo de uso:
+
+```bash
+terraform init -backend=false
+```
+
+Esse comando inicializa o projeto sem usar um backend remoto, mantendo o estado localmente (geralmente em um arquivo terraform.tfstate na máquina onde o comando foi executado).
+
+Quando usar essas flags:
+
+Use `-reconfigure` se você estiver alterando ou reconfigurando o backend.
+
+Use `-migrate-state` se você estiver mudando de backend e precisar migrar o estado existente.
+
+Use `-backend=false` se você quiser manter o estado localmente e não usar um backend remoto.
