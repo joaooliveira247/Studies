@@ -509,3 +509,17 @@ Use `-reconfigure` se você estiver alterando ou reconfigurando o backend.
 Use `-migrate-state` se você estiver mudando de backend e precisar migrar o estado existente.
 
 Use `-backend=false` se você quiser manter o estado localmente e não usar um backend remoto.
+
+`terraform force-unlock`
+
+O comando terraform force-unlock é utilizado para forçar a liberação de um lock em um estado de Terraform que ficou preso, geralmente durante uma operação. O Terraform bloqueia o arquivo de estado para garantir que apenas uma operação possa modificar a infraestrutura por vez, prevenindo mudanças conflitantes.
+
+No entanto, se uma operação for interrompida inesperadamente (por exemplo, devido a um erro de rede ou falha no processo), o lock pode não ser liberado automaticamente. Nesses casos, o comando force-unlock é necessário para liberar manualmente o lock.
+
+Sintaxe:
+
+```bash
+terraform force-unlock <LOCK_ID>
+```
+
+`LOCK_ID: É o ID do bloqueio que você deseja forçar a liberar. O Terraform fornece esse ID quando ocorre o bloqueio, ou você pode encontrá-lo no backend remoto.
