@@ -5,12 +5,15 @@ Terraform é uma ferramenta de **infraestrutura como código** (IaC) desenvolvid
 ## Principais Conceitos
 
 ### Arquivos de configuração
+
 A infraestrutura é descrita em arquivos `.tf`, onde você define recursos como servidores, redes e bancos de dados, além de suas dependências.
 
 ### Provedores
+
 Terraform se integra a diversos provedores de serviços. Cada provedor contém recursos específicos que podem ser gerenciados.
 
 ### State (estado)
+
 Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informações sobre os recursos gerenciados, permitindo rastrear mudanças e aplicar apenas as modificações necessárias.
 
 ### Comandos principais
@@ -18,17 +21,17 @@ Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informa
 - **`terraform init`**: Inicializa o ambiente, baixando provedores e módulos necessários.
 
 - **`terraform plan`**: Gera um plano das mudanças a serem feitas, permitindo revisão antes da aplicação.
- 
+
   - `--out <file>.<ext>`: salva a saido do plan em um arquivo.
-  
-- **`terraform show <file>`**: mostra oq foi gerado de um out. 
-  
+
+- **`terraform show <file>`**: mostra oq foi gerado de um out.
+
 - **`terraform apply`**: Aplica as mudanças para provisionar ou atualizar a infraestrutura.
 
   - `-destroy`: Apaga oque foi gerado pelo apply.
-  
+
   - `-auto-approve`: sem necessidade de confirmação
-  
+
   - `<file>`: file é o tipo de gerado pelo `plan out`, não é necessario confirmar usando o plan
 
 - **`terraform destroy`**: Destrói todos os recursos definidos no código.
@@ -38,20 +41,21 @@ Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informa
 - **`terraform fmt`**: formata os arquivos `.tf`
 
   - `--check`: mostra quais arquivos são necessaios as mudanças
-  
+
   - `--diff`: faz as alterações e mostra quais foram realizadas
-  
+
 - **`terraform validate`:** verifica se as configurações são validas. só funciona apos usar o `terraform init`
 
-
-
 ### Módulos
+
 Permitem organizar e reutilizar blocos de configuração para padronizar a infraestrutura em múltiplos ambientes.
 
 ### Backends remotos
+
 Terraform pode usar backends remotos (como S3 ou o Terraform Cloud) para armazenar o arquivo de estado de forma segura e colaborativa.
 
 ## Benefícios
+
 - **Automatização**: Reduz o esforço manual na gestão de infraestrutura.
 - **Idempotência**: Garante que a infraestrutura seja aplicada de maneira consistente, independentemente de quantas vezes o código for executado.
 - **Colaboração**: Pode ser utilizado por equipes de forma colaborativa, permitindo ajustes na infraestrutura com rastreamento de alterações.
@@ -61,6 +65,7 @@ Terraform pode usar backends remotos (como S3 ou o Terraform Cloud) para armazen
 Seriam arquivos para guardar variáveis de escopo global, funcionariam quase como constantes.
 
 ## Casos de Uso
+
 - Provisionamento de infraestrutura em nuvem.
 - Gestão de redes, servidores, bancos de dados e outros recursos.
 - Automação de pipelines de CI/CD para infraestrutura.
@@ -241,7 +246,7 @@ Em Terraform, as variáveis podem ser definidas de três formas:
 - Locais (`locals`): Usadas para criar valores temporários dentro de um módulo.
 
 - Saída (`output variables`): Exibem informações de um módulo ou script, retornando valores ao final da execução.
-Declaração de Variáveis de Entrada
+  Declaração de Variáveis de Entrada
 
 Para definir uma variável de entrada, usa-se a sintaxe:
 
@@ -390,7 +395,6 @@ terraform {
 
 - Automação: Facilita a automação dos pipelines CI/CD ao fornecer um local centralizado para o estado da infraestrutura.
 
-
 ## Outros Comandos
 
 `terraform show`
@@ -426,9 +430,34 @@ Exemplo de uso:
 ```bash
 terraform state list
 terraform state show azurerm_public_ip.public_ip
-``
+```
 
+`terraform import`
 
+O comando terraform import permite importar recursos que já existem na infraestrutura para serem gerenciados pelo Terraform. Isso é útil quando você tem recursos criados manualmente ou por outros sistemas e deseja começar a gerenciá-los com Terraform sem ter que recriá-los.
 
+O comando não gera automaticamente o código Terraform para os recursos importados. Após a importação, você precisa adicionar manualmente a configuração correspondente no arquivo .tf.
 
+Exemplo de uso:
 
+```bash
+terraform import aws_s3_bucket.my_bucket my-existing-bucket-name
+```
+
+OBS: seria como fazer um `backend` na mão
+
+`terraform refresh`
+
+O comando terraform refresh atualiza o arquivo de estado do Terraform com o estado real dos recursos na infraestrutura. Ele sincroniza o que está no arquivo de estado local com o que realmente existe no provedor de nuvem ou infraestrutura.
+
+Esse comando verifica os recursos existentes e seus atributos no provedor, atualizando o estado do Terraform para refletir qualquer mudança que tenha ocorrido fora do Terraform, como modificações feitas manualmente.
+
+Importante: Este comando não aplica mudanças nem modifica a infraestrutura, ele apenas atualiza o estado interno do Terraform.
+
+Exemplo de uso:
+
+```bash
+terraform refresh
+```
+
+No Terraform 0.15 e posterior, o terraform apply já inclui automaticamente a etapa de atualização do estado, então o uso do terraform refresh tornou-se menos comum.
