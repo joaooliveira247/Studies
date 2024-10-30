@@ -389,3 +389,46 @@ terraform {
 - Segurança: O estado remoto pode ser protegido usando permissões no Azure e criptografia no Blob Storage.
 
 - Automação: Facilita a automação dos pipelines CI/CD ao fornecer um local centralizado para o estado da infraestrutura.
+
+
+## Outros Comandos
+
+`terraform show`
+
+O comando terraform show é utilizado para exibir informações detalhadas sobre o estado atual de uma infraestrutura gerenciada pelo Terraform. Ele pode ser utilizado para exibir tanto o arquivo de estado gerado pelo Terraform quanto os planos de execução.
+
+- Arquivo de estado: O `terraform show` exibe as informações sobre os recursos atualmente gerenciados, seus atributos e valores. Isso é útil para entender o estado real da infraestrutura após a aplicação de mudanças.
+
+-Plano de execução: Também pode ser usado para revisar um plano gerado por terraform plan, permitindo uma verificação visual das mudanças que serão feitas na infraestrutura.
+
+Exemplo de uso:
+
+```bash
+terraform show terraform.tfstate
+```
+
+`terraform state`
+
+O comando `terraform state` é utilizado para interagir diretamente com o arquivo de estado do Terraform. O estado mantém um mapeamento entre os recursos configurados no código Terraform e os recursos reais criados na infraestrutura. Através do comando terraform state, é possível inspecionar e gerenciar esse estado.
+
+Ele oferece várias subcomandos úteis, como:
+
+- `terraform state list`: Lista todos os recursos que estão sendo gerenciados no arquivo de estado.
+
+- `terraform state show <resource>`: Exibe detalhes sobre um recurso específico gerenciado no estado.
+
+- `terraform state mv`: Move um recurso de um lugar para outro no estado, útil em refatorações de código.
+
+`terraform state rm`: Remove um recurso do estado sem destruí-lo fisicamente, usado em casos onde o recurso deve parar de ser gerenciado pelo Terraform, mas continuar existindo na infraestrutura.
+
+Exemplo de uso:
+
+```bash
+terraform state list
+terraform state show azurerm_public_ip.public_ip
+``
+
+
+
+
+
