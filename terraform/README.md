@@ -523,3 +523,88 @@ terraform force-unlock <LOCK_ID>
 ```
 
 `LOCK_ID: É o ID do bloqueio que você deseja forçar a liberar. O Terraform fornece esse ID quando ocorre o bloqueio, ou você pode encontrá-lo no backend remoto.
+
+## Provisioners
+
+Provisioners são usados para executar comandos ou scripts em recursos provisionados, geralmente após sua criação. Eles permitem configurar detalhes específicos que vão além da configuração principal do recurso. Embora úteis, devem ser usados com cautela, pois introduzem ações imperativas em uma ferramenta declarativa.
+
+### 1\. local-exec Provisioner
+
+O local-exec executa comandos na máquina onde o Terraform é executado (local), não no recurso provisionado. Ele é útil para tarefas como gerar logs ou enviar notificações.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+
+  provisioner "local-exec" {
+    command = "echo 'Instance created!' > instance_creation.log"
+  }
+}
+```
+
+Neste exemplo, o comando cria um log local (instance_creation.log) na máquina que executa o Terraform após a criação da instância.
+
+### 2\. remote-exec Provisioner
+
+O remote-exec executa comandos diretamente no recurso provisionado, como uma VM ou instância de servidor. Ele é frequentemente usado para configurar ou instalar software.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("~/.ssh/id_rsa")
+    host        = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y nginx"
+    ]
+  }
+}
+```
+
+Aqui, o remote-exec usa SSH para se conectar à instância AWS e instala o servidor Nginx.
+
+### 3\. file Provisioner
+
+O file provisioner copia arquivos ou diretórios do sistema local para o recurso remoto, útil para mover arquivos de configuração ou scripts.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("~/.ssh/id_rsa")
+    host        = self.public_ip
+  }
+
+  provisioner "file" {
+    source      = "app/config.yaml"
+    destination = "/etc/myapp/config.yaml"
+  }
+}
+```
+
+Este exemplo copia o arquivo config.yaml do sistema local para o diretório /etc/myapp/ na instância AWS.
+
+### Cuidados ao Usar Provisioners
+
+- Use-os como último recurso: Provisioners são recomendados apenas quando não há outra forma de alcançar a configuração desejada, pois podem tornar a infraestrutura menos reprodutível.
+
+- Ferramentas alternativas: Para configurações complexas, use ferramentas como Ansible ou Chef, que são especializadas em gerenciar configurações de software.
