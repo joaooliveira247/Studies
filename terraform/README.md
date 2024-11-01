@@ -731,6 +731,90 @@ Neste caso, o módulo é buscado em um arquivo .zip armazenado no S3.
 - Git: source = "git::https://github.com/user/repo.git?ref=tag"
 - S3: source = "s3::https://s3.amazonaws.com/bucket/path.zip"
 
+### `terraform get`
+
+O comando terraform get no Terraform é utilizado para baixar e atualizar os módulos referenciados nas configurações do seu projeto. Módulos no Terraform são conjuntos reutilizáveis de recursos que ajudam a organizar e simplificar a infraestrutura como código. O terraform get garante que todos os módulos necessários estejam disponíveis localmente para que o Terraform possa aplicá-los corretamente.
+
+Principais Funcionalidades do terraform get
+
+- Download de Módulos: Baixa módulos de fontes remotas especificadas nas configurações, como o Terraform Registry, repositórios Git, ou armazenamento em nuvem (por exemplo, Amazon S3).
+
+- Atualização de Módulos: Atualiza os módulos existentes para suas versões mais recentes, conforme definido nas configurações do seu projeto.
+
+- Gerenciamento de Dependências: Garante que todas as dependências de módulos sejam resolvidas e baixadas, mantendo a consistência do ambiente.
+
+Sintaxe Básica
+
+```bash
+terraform get [opções] [diretório]
+```
+
+`[diretório]`: Opcional. Especifica o diretório onde o Terraform deve procurar as configurações. Se não for especificado, o comando será executado no diretório atual.
+
+Principais Flags
+
+`-update`: Força a atualização de todos os módulos para a versão mais recente disponível, ignorando o cache local.
+
+```bash
+terraform get -update
+```
+
+`-json`: Retorna a saída no formato JSON, útil para integração com outras ferramentas ou scripts.
+
+```bash
+terraform get -json
+```
+
+`-lock` e `-lock-timeout`: Controla o bloqueio do estado durante a operação, garantindo que outras operações concorrentes não interfiram.
+
+```bash
+terraform get -lock=true -lock-timeout=30s
+```
+
+#### Exemplo de Uso
+
+1\. Baixando Módulos Necessários
+Suponha que você tenha a seguinte configuração no seu main.tf que utiliza um módulo do Terraform Registry:
+
+```hcl
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.19.0"
+
+  name                 = "example-vpc"
+  cidr                 = "10.0.0.0/16"
+  azs                  = ["us-east-1a", "us-east-1b"]
+  public_subnets       = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets      = ["10.0.3.0/24", "10.0.4.0/24"]
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+}
+```
+
+Para baixar esse módulo, você executaria:
+
+```bash
+terraform get
+```
+
+Este comando irá:
+
+Conectar-se ao Terraform Registry.
+Baixar o módulo terraform-aws-modules/vpc/aws na versão 3.19.0.
+Armazenar o módulo no diretório .terraform/modules dentro do seu projeto.
+
+2\. Atualizando Módulos para a Versão Mais Recente
+Se você deseja atualizar todos os módulos para suas versões mais recentes conforme especificado nas configurações, utilize a flag -update:
+
+```bash
+terraform get -update
+```
+
+Isso forçará o Terraform a verificar e baixar as versões mais recentes dos módulos, substituindo quaisquer versões antigas no cache local.
+
+Considerações Importantes
+Automatização com terraform init: A partir das versões mais recentes do Terraform (0.13 e posteriores), o comando terraform init já incorpora as funcionalidades do terraform get. Portanto, geralmente, você não precisa executar terraform get separadamente, a menos que tenha necessidades específicas de gerenciamento de módulos.
+
 ### Resumo
 
 Módulos: Permitem organizar e reaproveitar configurações de infraestrutura.
