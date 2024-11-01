@@ -608,3 +608,74 @@ Este exemplo copia o arquivo config.yaml do sistema local para o diretório /etc
 - Use-os como último recurso: Provisioners são recomendados apenas quando não há outra forma de alcançar a configuração desejada, pois podem tornar a infraestrutura menos reprodutível.
 
 - Ferramentas alternativas: Para configurações complexas, use ferramentas como Ansible ou Chef, que são especializadas em gerenciar configurações de software.
+
+## Modules
+
+Módulos no Terraform são blocos de código reutilizáveis que permitem organizar e compartilhar configurações de infraestrutura. Eles encapsulam um conjunto de recursos e variáveis, facilitando a manutenção e reaproveitamento da configuração em diferentes partes do projeto ou em outros projetos.
+
+Vantagens dos Módulos
+
+- Reutilização: Você pode usar o mesmo módulo em várias partes do projeto, evitando duplicação de código.
+
+- Organização: Ajuda a estruturar a infraestrutura em componentes lógicos, tornando o código mais fácil de entender e modificar.
+
+- Escalabilidade: Permite que equipes padronizem configurações e escalem a infraestrutura de maneira consistente.
+
+Estrutura Básica de um Módulo
+
+Um módulo Terraform geralmente contém:
+
+main.tf: Define os recursos principais.
+
+variables.tf: Declara as variáveis de entrada para personalizar o módulo.
+
+outputs.tf: Declara as saídas que o módulo retorna.
+
+### Local Modules
+
+Exemplo Básico de Módulo
+
+Estrutura de Pastas
+
+```plaintext
+.
+├── main.tf
+├── s3_bucket/
+│ └── bucket.tf
+│ ├── variables.tf
+│ └── outputs.tf
+└── variables.tf
+```
+
+`s3_bucket/bucket.tf`
+
+```hcl
+resource "aws_s3_bucket" "example" {
+bucket = var.bucket_name
+}
+```
+
+`s3_bucket/outputs.tf`
+
+```hcl
+output "bucket_id" {
+value = aws_s3_bucket.example.id
+}
+```
+
+
+Usando o Módulo no `main.tf`
+
+```hcl
+module "s3_bucket" {
+source = "./modules/s3_bucket"
+bucket_name = "my-unique-bucket-name"
+}
+```
+
+### Remote Module
+
+Resumo
+Módulos: Permitem organizar e reaproveitar configurações de infraestrutura.
+Estrutura: Inclui main.tf, variables.tf, e outputs.tf.
+Uso: Facilitam a padronização, escalabilidade e manutenção da infraestrutura em Terraform.
