@@ -663,7 +663,6 @@ value = aws_s3_bucket.example.id
 }
 ```
 
-
 Usando o Módulo no `main.tf`
 
 ```hcl
@@ -675,7 +674,65 @@ bucket_name = "my-unique-bucket-name"
 
 ### Remote Module
 
-Resumo
+Para usar um módulo remoto no Terraform, você pode especificar a fonte do módulo como um repositório Git, um bucket no Amazon S3, ou diretamente do Terraform Registry. Usar módulos remotos facilita a centralização de configurações, permitindo que outros projetos ou equipes utilizem o mesmo módulo sem a necessidade de duplicá-lo localmente.
+
+Exemplo Usando um Módulo Remoto do Terraform Registry
+O Terraform Registry possui muitos módulos prontos para uso, como configurações de VPC, RDS, e S3. Para usar um módulo do Registry, basta referenciá-lo em seu main.tf com o parâmetro source.
+
+#### Exemplo: Criando uma VPC Usando um Módulo do Terraform Registry
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.19.0"
+
+  name                 = "example-vpc"
+  cidr                 = "10.0.0.0/16"
+  azs                  = ["us-east-1a", "us-east-1b"]
+  public_subnets       = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets      = ["10.0.3.0/24", "10.0.4.0/24"]
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+}
+```
+
+Neste exemplo:
+
+O módulo VPC é baixado do Terraform Registry (especificado em source = "terraform-aws-modules/vpc/aws").
+A variável version controla a versão do módulo, garantindo consistência.
+
+#### Exemplo Usando um Módulo de um Repositório Git
+
+Também é possível referenciar módulos armazenados em repositórios Git. Para isso, é necessário fornecer a URL do repositório e, opcionalmente, um branch, tag, ou commit específico.
+
+```hcl
+module "s3_bucket" {
+  source      = "git::https://github.com/user/terraform-s3-bucket-module.git?ref=v1.0"
+  bucket_name = "my-remote-bucket"
+  acl         = "private"
+}
+```
+
+### Exemplo Usando um Módulo de um Bucket S3
+
+```hcl
+module "example" {
+  source = "s3::https://s3.amazonaws.com/mybucket/terraform/modules/example.zip"
+}
+```
+
+Neste caso, o módulo é buscado em um arquivo .zip armazenado no S3.
+
+- Terraform Registry: source = "terraform-aws-modules/vpc/aws"
+- Git: source = "git::https://github.com/user/repo.git?ref=tag"
+- S3: source = "s3::https://s3.amazonaws.com/bucket/path.zip"
+
+### Resumo
+
 Módulos: Permitem organizar e reaproveitar configurações de infraestrutura.
 Estrutura: Inclui main.tf, variables.tf, e outputs.tf.
 Uso: Facilitam a padronização, escalabilidade e manutenção da infraestrutura em Terraform.
