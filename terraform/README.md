@@ -820,3 +820,111 @@ Automatização com terraform init: A partir das versões mais recentes do Terra
 Módulos: Permitem organizar e reaproveitar configurações de infraestrutura.
 Estrutura: Inclui main.tf, variables.tf, e outputs.tf.
 Uso: Facilitam a padronização, escalabilidade e manutenção da infraestrutura em Terraform.
+
+## Meta-arguments
+
+meta-argumentos são utilizados dentro de blocos para controlar o comportamento dos recursos, módulos e outros blocos. Eles permitem modificar a execução e a configuração dos recursos sem alterar diretamente os parâmetros principais. Aqui estão os meta-argumentos principais usados no Terraform e onde você pode aplicá-los:
+
+1\. `depends_on`
+
+Onde usar: Dentro de blocos de recursos e módulos.
+
+O que faz: Define dependências explícitas, garantindo que um recurso ou módulo só seja criado ou atualizado após outro recurso ou módulo estar pronto.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+ami = "ami-123456"
+instance_type = "t2.micro"
+
+depends_on = [aws_security_group.example]
+}
+```
+
+2\. `count`
+
+Onde usar: Em blocos de recursos e módulos.
+
+O que faz: Cria múltiplas instâncias de um recurso ou módulo com base no valor definido. Um valor maior que 1 cria várias instâncias, enquanto 0 impede a criação.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+ami = "ami-123456"
+instance_type = "t2.micro"
+
+count = 3
+}
+```
+
+3\. `for_each`
+
+Onde usar: Em blocos de recursos e módulos.
+
+O que faz: Itera sobre uma coleção (lista, mapa ou set) e cria uma instância para cada item. Diferente do count, ele usa chaves específicas para cada instância.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+ami = "ami-123456"
+instance_type = "t2.micro"
+
+for_each = toset(["web", "db", "cache"])
+
+tags = {
+  Name = each.key
+}
+}
+```
+
+4\. `provider`
+
+Onde usar: Em blocos de recursos e módulos.
+
+O que faz: Define qual provedor usar para um recurso específico, útil quando há várias instâncias de um mesmo provedor (por exemplo, múltiplas contas AWS).
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+ami = "ami-123456"
+instance_type = "t2.micro"
+
+provider = aws.eu_west_1
+}
+```
+
+5. `lifecycle`
+
+Onde usar: Em blocos de recursos.
+
+O que faz: Controla como o Terraform gerencia o ciclo de vida de um recurso, com atributos como create_before_destroy, prevent_destroy, e ignore_changes.
+
+Exemplo:
+
+```hcl
+resource "aws_instance" "example" {
+ami = "ami-123456"
+instance_type = "t2.micro"
+
+lifecycle {
+create_before_destroy = true
+prevent_destroy = true
+ignore_changes = [tags]
+}
+}
+```
+
+6. `provider_meta`
+
+Onde usar: Em blocos de recursos e módulos.
+
+O que faz: Permite a passagem de informações adicionais para o provedor, principalmente para provedores que precisam de configurações adicionais em certos contextos. Este meta-argumento é menos usado e depende do suporte do provedor.
+
+### Resumo
+
+Blocos de recurso podem ter: `depends_on`, `count`, `for_each`, `provider`, e `lifecycle`.
+Blocos de módulo podem ter: `depends_on`, `count`, `for_each`, e `provider`.
