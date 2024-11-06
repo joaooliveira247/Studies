@@ -928,3 +928,43 @@ O que faz: Permite a passagem de informações adicionais para o provedor, princ
 
 Blocos de recurso podem ter: `depends_on`, `count`, `for_each`, `provider`, e `lifecycle`.
 Blocos de módulo podem ter: `depends_on`, `count`, `for_each`, e `provider`.
+
+## Funções e Expressões
+
+### 1\. Conditional Expressions
+
+As expressões condicionais em Terraform seguem uma estrutura condition ? true_value : false_value, permitindo definir valores condicionalmente. É útil para aplicar lógica baseada em condições, sem a necessidade de estruturas complexas de controle. Exemplo:
+
+```hcl
+instance_type = var.environment == "production" ? "t3.large" : "t3.micro"
+```
+
+Aqui, o tipo de instância depende do valor da variável `environment`.
+
+### 2\. For Expressions
+
+for expressions permitem iterar sobre listas ou mapas para transformar dados ou filtrá-los. Podem ser aplicados em arrays e mapas para criar novas estruturas de dados. Exemplo:
+
+```hcl
+instance_names = [for i in range(3) : "instance-${i}"]
+```
+
+Nesse exemplo, é criada uma lista com nomes de instância numerados.
+
+Também é possível usar uma condição para filtrar elementos:
+
+```hcl
+instance_ids = [for instance in aws_instance.example : instance.id if instance.tags["env"] == "prod"]
+```
+
+### 3\. Splat Expressions
+
+Splat expressions (`*`) são usadas para acessar propriedades de todos os elementos em uma lista ou conjunto de objetos. É útil para simplificar expressões que acessam múltiplos itens. Exemplo:
+
+```hcl
+instance_ids = aws_instance.example[*].id
+```
+
+Esse exemplo coleta todos os IDs de instância do recurso aws_instance.example. As splat expressions são equivalentes a for expressions mais simples e são frequentemente mais concisas.
+
+
