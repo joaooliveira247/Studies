@@ -967,4 +967,140 @@ instance_ids = aws_instance.example[*].id
 
 Esse exemplo coleta todos os IDs de instância do recurso aws_instance.example. As splat expressions são equivalentes a for expressions mais simples e são frequentemente mais concisas.
 
+## Dynamic Blocks
 
+dynamic blocks são estruturas que permitem gerar blocos repetidos dentro de um recurso ou módulo de maneira programática, tornando o código mais dinâmico e reutilizável. Em vez de definir manualmente cada bloco, você pode usar um for_each ou for para iterar sobre uma lista ou mapa de dados, criando blocos com base nessas informações. Isso é especialmente útil para configurações complexas onde o número de blocos pode variar ou depende de variáveis de entrada, como configurar múltiplos ingress ou egress em recursos de segurança.
+
+Aqui está um exemplo básico de como um dynamic block pode ser usado:
+
+```hcl
+resource "aws_security_group" "example" {
+ name = "example"
+
+ dynamic "ingress" {
+   for_each = var.ingress_rules
+   content {
+     from_port   = ingress.value.from_port
+     to_port     = ingress.value.to_port
+     protocol    = ingress.value.protocol
+     cidr_blocks = ingress.value.cidr_blocks
+   }
+ }
+}
+```
+
+Nesse exemplo, um bloco ingress é gerado para cada item na variável ingress_rules, o que facilita a manutenção e evita repetição no código.
+
+## Terraform console
+
+O terraform console é uma ferramenta interativa de linha de comando no Terraform que permite avaliar expressões, explorar variáveis, recursos e outputs em tempo real. É especialmente útil para testar e depurar expressões Terraform sem precisar aplicar mudanças na infraestrutura.
+
+Ao iniciar o terraform console dentro de um diretório de configuração, você pode executar comandos para visualizar valores e interagir com o estado atual. Por exemplo:
+
+```bash
+terraform console
+```
+
+### Dentro do console, você pode:
+
+#### Visualizar variáveis:
+
+```bash
+> var.my_variable
+```
+
+#### Consultar recursos e outputs:
+
+```bash
+> aws_instance.example.id
+```
+
+#### Avaliar expressões complexas:
+
+```bash
+> length(var.list_of_items)
+> [for i in var.list_of_items : upper(i)]
+```
+
+#### Manipular dados (listas, mapas, strings, etc.):
+
+```bash
+> { for k, v in var.map_variable : k => upper(v) }
+```
+
+O terraform console permite assim testar transformações e entender o comportamento das configurações antes de aplicar as mudanças, facilitando a verificação de dados e o uso de expressões complexas.
+
+## Built-in functions
+
+O Terraform oferece uma variedade de funções _built-in_ para manipulação de dados e ajudar na criação de configurações mais dinâmicas. Essas funções estão organizadas em categorias como strings, números, listas, mapas, lógica e outros tipos. Aqui estão algumas das principais:
+
+### 1. Funções de String
+
+- `join(separator, list)`: Junta elementos de uma lista em uma única string com um separador especificado.
+
+- `split(separator, string)`: Divide uma string em uma lista com base em um separador.
+
+- `replace(string, substring, replacement)`: Substitui todas as ocorrências de uma substring em uma string por outra substring.
+
+- `upper(string)`, `lower(string)`: Converte a string para maiúsculas ou minúsculas.
+
+### 2. Funções de Número
+
+- `abs(number)`: Retorna o valor absoluto de um número.
+
+- `min(number1, number2, ...)`, `max(number1, number2, ...)`: Retorna o menor ou maior valor de uma lista de números.
+
+### 3. Funções de Lista
+
+- `length(list)`: Retorna o número de elementos em uma lista.
+
+- `contains(list, element)`: Verifica se um elemento está presente em uma lista.
+
+- `element(list, index)`: Retorna o elemento no índice especificado.
+
+- `flatten(list)`: Converte uma lista de listas em uma lista plana.
+
+### 4. Funções de Mapas
+
+- `lookup(map, key, default)`: Procura uma chave em um mapa e retorna o valor associado ou um valor padrão.
+
+- `merge(map1, map2, ...)`: Combina múltiplos mapas em um único mapa.
+
+- `keys(map)`, `values(map)`: Retorna uma lista com as chaves ou valores de um mapa.
+
+### 5. Funções de Lógica
+
+- `coalesce(val1, val2, ...)`: Retorna o primeiro valor não nulo de uma lista.
+
+- `alltrue(list)`, `anytrue(list)`: Retorna verdadeiro se todos ou qualquer elemento da lista for verdadeiro.
+
+### 6. Funções de Manipulação de Path
+
+- `basename(path)`: Extrai o nome do arquivo de um caminho.
+
+- `dirname(path)`: Extrai o caminho do diretório de um caminho de arquivo.
+
+### 7. Funções de Tempo
+
+- `timestamp()`: Retorna a data e hora atual no formato UTC.
+
+- `timeadd(timestamp, duration)`: Adiciona uma duração de tempo a um timestamp e retorna a nova data.
+
+### 8. Funções de Criptografia
+
+- `md5(input)`, `sha1(input)`, `sha256(input)`: Gera hashes de uma string de entrada.
+
+- `bcrypt(input, cost)`: Gera um hash bcrypt da string de entrada (com custo especificado).
+
+### Exemplo de uso:
+
+```hcl
+variable "names" {
+  type = list(string)
+  default = ["alice", "bob", "charlie"]
+}
+
+output "upper_names" {
+  value = [for name in var.names : upper(name)]
+}
+```
