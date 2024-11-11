@@ -23,15 +23,15 @@ Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informa
 - **`terraform plan`**: Gera um plano das mudanças a serem feitas, permitindo revisão antes da aplicação.
 
   - `--out <file>.<ext>`: salva a saido do plan em um arquivo.
-  
+
   - `-replace`: Esse comando permite marcar um recurso específico para ser recriado, mesmo que não tenha mudado na configuração. O Terraform irá destruí-lo e recriá-lo. Útil para forçar a substituição de um recurso quando necessário. Exemplo:
-  
+
     ```bash
     terraform plan -replace="aws_instance.example"
     ```
-  
+
   - `-target`: Esse comando planeja mudanças apenas para um recurso específico ou conjunto de recursos, ignorando o restante da infraestrutura. É útil para focar em uma atualização sem afetar outros recursos. Exemplo:
-  
+
     ```bash
     terraform plan -target="aws_instance.example"
     ```
@@ -1248,3 +1248,18 @@ resource "aws_subnet" "example_subnet" {
 ```
 
 ### [Exemplo 2](./azure_project/vm/main.tf)
+
+## Time Sleep
+
+você pode usar o recurso time_sleep para inserir uma pausa ou atraso durante a aplicação da infraestrutura. Isso pode ser útil em cenários onde você precisa esperar um tempo específico antes de realizar outra operação, como após a criação de um recurso que pode demorar a estar completamente disponível.
+
+Exemplo de time_sleep
+
+```hcl
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [aws_instance.example]
+  create_duration = "30s"
+}
+```
+
+Neste exemplo, o recurso time_sleep aguarda 30 segundos após a criação de aws_instance.example antes de continuar com os próximos recursos ou operações. Isso ajuda a garantir que o próximo recurso ou ação só seja executado após o tempo determinado.
