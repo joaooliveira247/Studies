@@ -1204,3 +1204,35 @@ Após selecionar o workspace, aplique as configurações:
 terraform apply
 ```
 
+## Data Source
+
+um data source é um bloco de configuração que permite obter informações de recursos que já existem fora do gerenciamento direto do Terraform ou que são gerados em tempo de execução. Ele é útil para consultar e reutilizar dados de infraestrutura existentes ou externos, sem necessidade de recriar esses recursos.
+
+Os data sources são frequentemente usados para:
+
+Obter informações sobre recursos já existentes, como IPs de sub-redes, IDs de instâncias, ou dados de configuração de VPCs.
+Utilizar esses dados em outras configurações do Terraform, permitindo a integração e automação sem duplicação de informações.
+Exemplo de data source
+
+Suponha que você queira obter o ID de uma VPC existente e usá-lo para criar uma nova sub-rede. O data source aws_vpc permite buscar a VPC por um filtro:
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+data "aws_vpc" "example" {
+  filter {
+    name   = "tag:Name"
+    values = ["my-vpc"]
+  }
+}
+
+resource "aws_subnet" "example_subnet" {
+  vpc_id            = data.aws_vpc.example.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+}
+```
+
+### [Exemplo 2](./azure_project/vm/main.tf)
