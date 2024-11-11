@@ -1104,3 +1104,103 @@ output "upper_names" {
   value = [for name in var.names : upper(name)]
 }
 ```
+
+## Workspaces
+
+O conceito de workspaces no Terraform é uma funcionalidade que permite criar e gerenciar diferentes estados independentes para o mesmo conjunto de configurações. Isso é especialmente útil quando você quer usar a mesma infraestrutura em ambientes diferentes, como dev, staging e production, sem duplicar o código de configuração.
+
+Cada workspace tem seu próprio estado, ou seja, as alterações feitas em um workspace não afetam o estado dos outros. O workspace padrão é chamado de default, mas é possível criar outros usando o comando:
+
+```bash
+Copy code
+terraform workspace new <nome-do-workspace>
+```
+
+Depois de criar um workspace, você pode alternar entre eles com:
+
+```bash
+terraform workspace select <nome-do-workspace>
+```
+
+E listar todos os workspaces com:
+
+```bash
+terraform workspace list
+```
+
+### Exemplo
+
+exemplo básico para configurar dois workspaces em Terraform, um para dev (desenvolvimento) e outro para prod (produção). Vamos considerar uma configuração simples que cria uma instância EC2 na AWS.
+
+1. Arquivo de configuração: `main.tf`
+
+Este é um arquivo de configuração Terraform para criar uma instância EC2. Ele também usa variáveis para configurar recursos específicos para cada workspace.
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI ID
+  instance_type = var.instance_type
+  tags = {
+    Name = "${terraform.workspace}-instance"
+  }
+}
+```
+
+2. Definindo variáveis específicas para dev e prod
+
+Você pode configurar variáveis para cada workspace diretamente no código usando o terraform.workspace. Nesse caso, vamos alterar o tipo de instância com base no workspace.
+
+```hcl
+variable "instance_type" {
+  type    = string
+  default = terraform.workspace == "prod" ? "t2.large" : "t2.micro"
+}
+```
+
+3. Criando e alternando entre os workspaces
+
+Para configurar e usar workspaces, siga estes passos no terminal:
+
+1. Inicializar o Terraform:
+
+```bash
+terraform init
+```
+
+2. Criar o workspace de dev:
+
+```bash
+terraform workspace new dev
+```
+
+3. Criar o workspace de prod:
+
+```bash
+terraform workspace new prod
+```
+
+4. Selecionar um workspace:
+
+Para alternar entre os ambientes, você pode selecionar o workspace desejado:
+
+```bash
+terraform workspace select dev
+```
+
+5. Aplicar a configuração:
+
+Após selecionar o workspace, aplique as configurações:
+
+```bash
+terraform apply
+```
+
