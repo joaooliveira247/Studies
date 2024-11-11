@@ -23,6 +23,18 @@ Terraform mantém um arquivo de estado (`terraform.tfstate`) que contém informa
 - **`terraform plan`**: Gera um plano das mudanças a serem feitas, permitindo revisão antes da aplicação.
 
   - `--out <file>.<ext>`: salva a saido do plan em um arquivo.
+  
+  - `-replace`: Esse comando permite marcar um recurso específico para ser recriado, mesmo que não tenha mudado na configuração. O Terraform irá destruí-lo e recriá-lo. Útil para forçar a substituição de um recurso quando necessário. Exemplo:
+  
+    ```bash
+    terraform plan -replace="aws_instance.example"
+    ```
+  
+  - `-target`: Esse comando planeja mudanças apenas para um recurso específico ou conjunto de recursos, ignorando o restante da infraestrutura. É útil para focar em uma atualização sem afetar outros recursos. Exemplo:
+  
+    ```bash
+    terraform plan -target="aws_instance.example"
+    ```
 
 - **`terraform show <file>`**: mostra oq foi gerado de um out.
 
