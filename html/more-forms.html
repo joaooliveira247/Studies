@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More about forms</title>
+  </head>
+  <body>
+    <h1>More About Forms</h1>
+
+    <h2>label</h2>
+
+    <form action="_self.html" method="get">
+      <label>
+        Name:
+        <input type="text" name="name" />
+      </label>
+      <hr />
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" />
+      <hr />
+      <span> gender </span>
+      <br />
+      <label for="woman">
+        <input type="radio" name="gender" value="woman" id="woman" />
+        <span>Woman</span>
+      </label>
+      <label for="man">
+        <input type="radio" name="gender" value="man" id="man" />
+        <span>Man</span>
+      </label>
+      <hr />
+      <span> Dev Type </span>
+      <br />
+      <label for="backend">
+        <input type="checkbox" name="devType" value="backend" id="backend" />
+        <span>Backend</span>
+      </label>
+      <label for="frontend">
+        <input type="checkbox" name="devType" value="frontend" id="frontend" />
+        <span>Frontend</span>
+      </label>
+      <label for="devops">
+        <input type="checkbox" name="devType" value="devops" id="devops" />
+        <span>Devops</span>
+      </label>
+      <hr />
+      <span> Country </span>
+      <select name="country" id="country">
+        <option value="">Select</option>
+        <option value="usa">United States</option>
+        <option value="brazil">Brazil</option>
+        <option value="china">China</option>
+        <option value="india">India</option>
+      </select>
+      <hr />
+      <label for="uploadFile">
+        <input type="file" id="uploadFile" />
+        <span>file upload</span>
+      </label>
+      <hr />
+      <input type="submit" />
+    </form>
+
+    <h2>fieldset e legend</h2>
+
+    <form action="">
+      <fieldset>
+        <legend>Login</legend>
+        <label for="login">
+          <span>Login: </span>
+          <input type="text" id="login" />
+        </label>
+        <label for="password">
+          <span>Password: </span>
+          <input type="password" id="password" />
+        </label>
+      </fieldset>
+    </form>
+  </body>
+</html>
