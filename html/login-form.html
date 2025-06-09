@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login form exercise</title>
+  </head>
+  <body>
+    <h1>Form Exercise</h1>
+    <form method="get">
+      <fieldset>
+        <legend>Personal Data</legend>
+        <div id="nameFieldForm">
+          <label for="name">
+            <span>Name</span>
+            <br />
+          </label>
+          <input type="text" name="name" />
+        </div>
+        <div id="emailFieldForm">
+          <label for="email">
+            <span>Email</span>
+            <br />
+          </label>
+          <input type="email" name="email" />
+        </div>
+        <div id="termsFieldForm">
+          <input type="checkbox" name="email" value="true" />
+          <label for="email">
+            <span>I agree with terms and conditions</span>
+          </label>
+        </div>
+        <div id="passwordFieldForm">
+          <label for="password">
+            <span>Password</span>
+            <br />
+          </label>
+          <input type="password" name="password" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Additional Data</legend>
+        <div id="additionalDataForm">
+          <div id="personLegalChoice">
+            <input type="radio" name="personLegalType" value="PP"/>
+            <span>Physics Person</span>
+            <input type="radio" name="personLegalType" value="JP"/>
+            <span>Juridic Person</span>
+          </div>
+        </div>
+      </fieldset>
+      <br>
+      <input type="submit" value="Continue">
+    </form>
+  </body>
+</html>
