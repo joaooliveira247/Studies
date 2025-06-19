@@ -1,0 +1,16 @@
+/* CSS do exercício Classe e ID */
+#topo {
+    background: yellow;
+}
+
+#rodape {
+    border: 2px solid grey;
+}
+
+.curso {
+    background: lightgrey;
+}
+
+.curso-destaque {
+    background: orange;
+}
