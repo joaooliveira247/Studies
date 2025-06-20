@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cascade & Inheritance</title>
+    <style>
+      p {
+        color: red;
+      }
+      /* cascade ↓ */
+      /* se o estilo estiver definido no corpo do html o ultimo executado sera aqui e não no link */
+      p {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cascade & Inheritance</h1>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa possimus
+      at nisi placeat, corrupti optio est ex impedit fugit! Cupiditate possimus
+      eos corporis quasi obcaecati vero ex adipisci qui! Quibusdam!
+    </p>
+
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere dolore
+      modi harum iusto beatae facilis est dolorem cupiditate? Velit laudantium
+      impedit suscipit temporibus autem, ratione fugiat rem saepe similique
+      quia.
+    </p>
+
+    <div id="inheritance-father">
+      <p id="inheritance-son">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae earum,
+        ex blanditiis magnam iusto nihil modi cum, unde veritatis facilis eius?
+        Aspernatur iste sapiente magni cupiditate voluptatibus molestias autem
+        assumenda.
+      </p>
+    </div>
+  </body>
+</html>
