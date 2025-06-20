@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Css Measure</title>
+    <style>
+      body {
+        border: 6px green solid;
+      }
+      .pixel {
+        border: 1px solid black;
+        background: red;
+        padding: 8px;
+        width: 200px;
+      }
+
+      .percentage {
+        border: 1px solid black;
+        background: red;
+        padding: 8px;
+        width: 50%;
+      }
+
+      #area {
+        border: 3px solid purple;
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pixel">Pixel</div>
+    <div class="percentage">Percentage</div>
+    <hr />
+
+    <div id="area">
+      Area
+      <div class="pixel">Pixel</div>
+      <div class="percentage">Percentage</div>
+    </div>
+  </body>
+</html>
