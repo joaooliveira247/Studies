@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pseudo Classes & Pseudo Elements</title>
+    <style>
+      /* Pseudo classes */
+      /* a:hover {
+            background-color: purple;
+        } */
+      a,
+      a:link {
+        text-decoration: none;
+        color: green;
+        padding: 0.5em 1em;
+      }
+      a:hover {
+        background-color: green;
+        color: white;
+      }
+      /* links não visitados */
+
+      /* a:link {
+            color: grey;
+        } */
+      /* links visitados */
+      a:visited {
+        color: red;
+      }
+
+      /* links ativos */
+      a:active {
+        background-color: yellow;
+      }
+      /* Forms */
+      input:checked {
+        margin-left: 20px;
+      }
+
+      input:focus {
+        background-color: lightblue;
+        color: white;
+      }
+
+      input:required {
+        border: 2px solid red;
+      }
+
+      /* Pseudo Elementos */
+      p::first-line {
+        background-color: yellowgreen;
+      }
+
+      p::first-letter {
+        font-size: 25px;
+      }
+
+      p::selection {
+        background-color: brown;
+      }
+      h2::before {
+        content: "(";
+      }
+      h2::after {
+        content: ")";
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus nisi
+      eum et earum qui ipsum harum facilis commodi sapiente, nostrum
+      repellendus, assumenda perferendis distinctio, corporis rem numquam minus
+      ipsa incidunt.
+    </p>
+    <div>Div Content</div>
+    <h2>H2 Contents</h2>
+    <a href="">Google</a> | <a href="dsdasdadsdsads.com">Facebook</a> |
+    <a href="">Instagram</a>
+
+    <h2>Form</h2>
+
+    <input type="checkbox" /> Accept
+    <br />
+    <input type="radio" name="choice" value="Yes" /> Yes
+    <input type="radio" name="choice" value="No" /> No
+    <br />
+    <input type="text" required placeholder="Type your Name" />
+  </body>
+</html>
