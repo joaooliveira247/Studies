@@ -37,10 +37,62 @@
       div#promo {
         background-color: purple;
       }
+
+      /* child selector */
+
+      div > h1 {
+        background-color: orange;
+      }
+
+      li > a {
+        text-decoration: none;
+      }
+      /* cascade selector */
+
+      div h1 {
+        background-color: orange;
+      }
+      /* next brother selector*/
+      h1+p {
+        background-color: yellow;
+      }
+      /* next geral brother */
+      h1~p {
+        background-color: aqua;
+      }
     </style>
   </head>
   <body>
-    <h1 class="destaque title">Page Title</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque quas
+      veritatis sed voluptas beatae expedita error modi placeat, odit assumenda
+      voluptatum velit sit rerum et illo odio unde dolorum! Aspernatur.
+    </p>
+    <h1>Next brother selector</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+      accusantium porro nesciunt accusamus totam repellendus fuga non fugiat
+      cumque rerum, ipsa, dignissimos pariatur assumenda. Quidem repellendus
+      accusamus voluptates eum quo.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+      exercitationem consequuntur repudiandae, quisquam ab quas hic fuga ex
+      dicta laboriosam, dolor vero mollitia, dolore magni nemo laudantium
+      debitis commodi expedita.
+    </p>
+    <div style="border: 1px solid black">
+      <h1>Page Title</h1>
+      <span style="background-color: grey">
+        <h1>Page Title 2</h1>
+      </span>
+    </div>
+
+    <ul>
+      <li><a href="">Home</a></li>
+      <li><a href="">About</a></li>
+    </ul>
+    <h1 class="destaque title">Page Title 3</h1>
 
     <h2 class="title">Title One</h2>
 
