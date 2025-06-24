@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More About Selectors Exercises</title>
+
+    <style>
+        h1 {
+            color: green;
+        }
+
+        h1+p {
+            border-top: 4px solid gray;
+            padding-top: 10px;
+        }
+
+        p > a {
+            background-color: blueviolet;
+            color: white;
+        }
+
+        p.destaque {
+            color: blueviolet;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Page Title</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit rerum
+      assumenda tempora excepturi aut quasi vero, saepe reiciendis dolor sed,
+      corrupti, ab est nam commodi. Rerum harum ad itaque dolorum?
+      <a href="">Read More</a>
+      <a href="">Likes(10)</a>
+    </p>
+
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+
+    <h2>Sub-Title</h2>
+
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae rem autem
+      dolorum, suscipit enim soluta aliquam. Iste eos eligendi a reprehenderit
+      voluptas autem deleniti ipsam hic qui, ullam, provident praesentium?
+    </p>
+
+    <p class="destaque">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero ex aperiam
+      consequuntur dignissimos ad voluptatibus molestias, similique, vel
+      laboriosam harum adipisci odit tenetur dolores impedit delectus natus
+      incidunt. Porro, repellat?
+    </p>
+  </body>
+</html>
