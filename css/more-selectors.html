@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More About Selectors</title>
+    <style>
+      /* universal selector */
+      * {
+        border: 1px solid red;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        padding: 16px;
+        border: 1px dotted blue;
+      }
+
+      /* text selector */
+      h1,
+      h2 {
+        border: 1px solid green;
+      }
+
+      /* class selector */
+      .destaque {
+        background-color: red;
+      }
+
+      h1.title {
+        color: white;
+      }
+
+      /* id selector */
+
+      div#promo {
+        background-color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="destaque title">Page Title</h1>
+
+    <h2 class="title">Title One</h2>
+
+    <p class="destaque">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque
+      asperiores ex, repellat laboriosam aliquid a placeat numquam! Rerum
+      repudiandae numquam facilis aperiam nobis. Voluptates error dolor iusto
+      ullam, sapiente quibusdam.
+    </p>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis fuga
+      libero maiores expedita itaque accusamus quo accusantium distinctio
+      eligendi. Corrupti voluptatem obcaecati officia cupiditate quaerat
+      accusamus deleniti provident nesciunt sapiente.
+    </p>
+
+    <h2>Title Two</h2>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+      doloribus molestiae expedita repellat, nesciunt at sequi facere velit
+      voluptates distinctio tempore temporibus reprehenderit officia. Expedita
+      praesentium magnam similique iusto voluptates.
+    </p>
+
+    <div id="promo">
+      <h2>Title three</h2>
+
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem
+        repellat dicta maiores ab accusamus nam animi nesciunt magnam id
+        mollitia culpa voluptates ullam, repellendus temporibus explicabo
+        velit. Voluptatum, atque ducimus!
+      </p>
+    </div>
+
+    <span id="promo">Teste</span>
+  </body>
+</html>
