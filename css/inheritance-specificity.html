@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inheritance-specificity</title>
+    <style>
+      /* Herança */
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        border: 1px solid red;
+        background-color: blueviolet;
+        padding: 3em;
+      }
+
+      /* todo seletor abaixo herdara de body; padding, margin, border, font-size n é herdado */
+
+      h1 {
+        color: violet;
+        border: inherit;
+      }
+
+      .destaque {
+        background-color: yellowgreen;
+      }
+
+      /* attribute selector */
+
+      p[class] {
+        color: white;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Title</h1>
+    <p class="destaque">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos doloremque
+      optio praesentium illum iste eaque deleniti, illo mollitia soluta odit
+      rem temporibus incidunt adipisci libero facilis quaerat quis? Voluptates,
+      fugit?
+    </p>
+  </body>
+</html>
