@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posicionamento</title>
+    <style>
+      body {
+        background-color: purple;
+      }
+
+      #container {
+        width: 700px;
+        background-color: white;
+        margin: 10px auto;
+        padding: 10px;
+      }
+
+      .border {
+        border: 1px solid red;
+      }
+
+      .static {
+        position: static;
+      }
+
+      .rel {
+        position: relative;
+        /* margin-top: 40px; */
+        /* top: 20px;
+        /* top: 20px;
+        left: 30px; */
+        /* right: 30px; */
+        /* bottom: 50px; */
+      }
+
+      .absol {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        position: relative;
+      }
+
+      .fixed {
+        position: fixed;
+        width: 200px;
+        height: 120px;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+
+      <div style="background-color: green;" class="fixed">
+        <h3>chat</h3>
+        <button>Send Message</button>
+      </div>
+      <h1 class="border">Absolut Flux</h1>
+
+      <p class="border absol" style="background-color: lightskyblue">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
+        accusantium cumque fuga facilis aut labore. Cumque autem aut iure
+        earum, ducimus placeat natus ratione incidunt adipisci porro. Quasi,
+        sunt explicabo?
+      </p>
+      <h1 class="border">Relative Flux</h1>
+
+      <p class="border rel" style="background-color: lightgreen">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
+        accusantium cumque fuga facilis aut labore. Cumque autem aut iure
+        earum, ducimus placeat natus ratione incidunt adipisci porro. Quasi,
+        sunt explicabo?
+      </p>
+      <h1 class="border static">Normal Flux</h1>
+
+      <p class="border static">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
+        accusantium cumque fuga facilis aut labore. Cumque autem aut iure
+        earum, ducimus placeat natus ratione incidunt adipisci porro. Quasi,
+        sunt explicabo?
+      </p>
+    </div>
+  </body>
+</html>
