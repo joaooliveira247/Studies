@@ -1,0 +1,48 @@
+body {
+    background: #bfbdae00 url("../img/fundo.png");
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    border: 1px solid red;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#nav {
+    background-color: #c5c5b2;
+}
+
+#content {
+    background: #e8e8d9;
+    padding: 1.5em;
+    box-sizing: border-box;
+}
+
+ul>li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+li::after {
+    content: "|";
+    margin-left: 10px;
+}
+
+li:last-child::after {
+    content: "";
+}
+
+h1 {
+    color: #828271;
+    font-size: 1.3em;
+}
