@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positioning Exercise</title>
+    <style>
+      body {
+        background-color: lightskyblue;
+        margin: 0;
+        padding: 0;
+      }
+
+      #container {
+        width: 700px;
+        background-color: white;
+        margin: 1em auto;
+        padding: 0.8em;
+        position: relative;
+      }
+
+      #menu {
+        background-color: #0497f3;
+        padding: 1em;
+      }
+
+      a {
+        padding: 0.5em;
+        text-decoration: none;
+        color: white;
+      }
+
+      a:hover {
+        background-color: white;
+        color: #0497f3;
+      }
+
+      .new {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .chat {
+        background-color: violet;
+        width: 150px;
+        height: 200px;
+        padding: 0.5em;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+        <img src="./img/novo.png" width="100px" class="new">
+      <div id="menu">
+        <img src="./img/logo-magalu.png" width="100px" />
+        <a href="">Home</a>
+        <a href="">About</a>
+        <a href="">Products</a>
+        <a href="">Cart</a><a href="">Contact</a>
+      </div>
+
+      <div>
+        <h1>Page Title</h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel est,
+          provident eaque molestiae, quis alias nam ad veniam perferendis,
+          numquam blanditiis. Modi, doloremque deserunt amet molestias veniam
+          tempora consequatur reprehenderit?
+        </p>
+        <h1>Page Title</h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel est,
+          provident eaque molestiae, quis alias nam ad veniam perferendis,
+          numquam blanditiis. Modi, doloremque deserunt amet molestias veniam
+          tempora consequatur reprehenderit?
+        </p>
+        <h1>Page Title</h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel est,
+          provident eaque molestiae, quis alias nam ad veniam perferendis,
+          numquam blanditiis. Modi, doloremque deserunt amet molestias veniam
+          tempora consequatur reprehenderit?
+        </p>
+        <h1>Page Title</h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel est,
+          provident eaque molestiae, quis alias nam ad veniam perferendis,
+          numquam blanditiis. Modi, doloremque deserunt amet molestias veniam
+          tempora consequatur reprehenderit?
+        </p>
+      </div>
+    </div>
+    <div class="chat">
+        <h3>Chat</h1>
+        <textarea name="" id="" cols="15" rows="5"></textarea>
+        <button>Send Message</button>
+    </div>
+  </body>
+</html>
