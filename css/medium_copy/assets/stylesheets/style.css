@@ -1,0 +1,161 @@
+body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#header {
+    background-color: #c5e3fe;
+    border-bottom: 1px solid black;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.container {
+    width: 1145px;
+    margin: 0 auto;
+    padding: 1.4rem 0;
+}
+
+ul#nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 475px;
+    float: right;
+}
+
+ul#nav-bar li a {
+    float: left;
+    color: black;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+ul#nav-bar li.detach a {
+    color: white;
+    border-radius: 1.2rem;
+    background-color: black;
+}
+
+ul#nav-bar li.detach a:hover {
+    color: #c5e3fe;
+}
+
+ul#nav-bar li a:hover {
+    color: #4c799f;
+}
+
+#detach {
+    background-color: #c5e3fe;
+    border-bottom: 1px solid black;
+    margin-top: 4.7rem;
+}
+
+#detach-area {
+    width: 55%;
+}
+
+#detach button {
+    display: block;
+    margin-top: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid black;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.background-detach {
+    background: url(../img/fundo-topo.png) no-repeat right bottom;
+    background-size: 24rem;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 100;
+    margin: 0;
+    letter-spacing: -0.1rem;
+}
+
+h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.tendencies-title {
+    background: url(../img/icone-tendencia.png) no-repeat left / contain;
+    padding: 0.2rem 0 0.2rem 2rem;
+}
+
+#tendencies {
+    padding-top: 0.8rem;
+}
+
+#tendencies::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.item-tendencie {
+    width: 26%;
+    padding-left: 7%;
+    margin-bottom: 2rem;
+    position: relative;
+    float: left;
+}
+
+.number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+h3, h4 {
+    margin: 0.2rem;
+}
+
+h4 {
+    font-weight: 100;
+}
+
+.icon {
+    padding-left: 1.5rem;
+}
+
+.img1 {
+    background: url(../img/icone1.png) no-repeat left / contain ;
+
+}
+.img2 {
+    background: url(../img/icone2.png) no-repeat left / contain ;
+
+}
+.img3 {
+    background: url(../img/icone3.png) no-repeat left / contain ;
+
+}
+.img4 {
+    background: url(../img/icone4.png) no-repeat left / contain ;
+
+}
+.img5 {
+    background: url(../img/icone5.png) no-repeat left / contain ;
+
+}
+.img6 {
+    background: url(../img/icone6.png) no-repeat left / contain ;
+
+}
+
+#footer {
+    background-color: #c5e3fe;
+    border-top: 1px solid black;
+
+}
