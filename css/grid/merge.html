@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merge grid</title>
+    <style>
+      body {
+        font-size: 3rem;
+        background-color: black;
+        color: white;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 20px;
+      }
+
+      .item1 {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+
+      .item2 {
+        grid-row-start: 2;
+        grid-row-end: 4;
+      }
+
+      .grid > div {
+        border: 3px solid yellowgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+  </body>
+</html>
