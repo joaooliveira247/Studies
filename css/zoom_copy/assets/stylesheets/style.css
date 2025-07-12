@@ -1,0 +1,129 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'header header' 'cover-content cover-img' 'org-img org-content';
+    gap: 20px 20px;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'header' 'cover-content' 'cover-img' 'org-img' 'org-content';
+    gap: 20px 20px;
+}
+header {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+}
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+section#cover-content {
+    grid-area: cover-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+section#cover-img {
+    grid-area: cover-img;
+}
+
+section#cover-img > img, section#org-img{
+    max-width: 100%;
+}
+section#org-img {
+    grid-area: org-img;
+}
+section#org-content {
+    grid-area: org-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+footer {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background: #f2f2f2;
+    padding: 30px 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav {
+    display: flex;
+    flex-grow: 1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+ul a:link, a:visited {
+    padding: 10px;
+    text-decoration: none;
+    color: #484848;
+    font-size: 1.2rem;
+}
+
+ul a:hover {
+    padding: 10px;
+    text-decoration: none;
+    color: #0B5CFF;
+}
+
+.button {
+    text-decoration: none;
+    color: #0B5CFF;
+    border: 2px  solid #0B5CFF;
+    border-radius: 25px;
+    padding: 5px 20px;
+    align-self: flex-start;
+}
+
+.button:hover {
+    background: #c9dbff
+}
+
+.button.detach {
+    background: #0B5CFF;
+    color: white;
+}
+.button.detach:hover {
+    background: #2d73ff;
+}
+
+/* typograph */
+
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+.text-detach {
+    color:  #2d73ff;
+}
