@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="loginForm">
+      <input type="text" name="name" placeholder="name" />
+      <hr />
+      <select name="gender" id="">
+        <option value="Female">Female</option>
+        <option value="Male"></option>
+      </select>
+    </form>
+
+    <script>
+      function exec() {
+        console.log("exec");
+      }
+
+      const form = document.loginForm;
+      const enter = form.name;
+      const select = form.gender;
+      // enter.addEventListener('input', exec);
+      //     enter.addEventListener('cut', exec);
+      //   enter.addEventListener('copy', exec);
+      //   enter.addEventListener('paste', exec);
+      // enter.addEventListener('select', exec);
+      select.addEventListener("change", exec);
+    </script>
+  </body>
+</html>
