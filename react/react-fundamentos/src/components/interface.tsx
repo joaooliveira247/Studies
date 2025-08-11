@@ -22,12 +22,13 @@ function Menu() {
     );
 }
 
-export function Header() {
+export function Header(props: any) {
     return (
         <div className="bg-blue-700">
             <h1>
                 Logo
             </h1>
+            <p>{props.title}</p>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ipsa, commodi quidem animi nemo velit quis magnam magni alias! Exercitationem mollitia iure praesentium amet, rem officia perspiciatis ab! Odit!</p>
             {Menu()}
         </div>
