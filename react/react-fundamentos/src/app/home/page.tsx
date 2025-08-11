@@ -1,23 +1,16 @@
-export function Acomodacao() {
-    return (
-        <div>
-            <span>Image</span>
-            <h1>Hello</h1>
-            <p>desc</p>
-        </div>
-    );
-}
-
+import { Acomodacao, Button, Header } from "@/components/interface";
 
 export default function Home() {
     const firstName = "john";
     return (
         <div>
-            {Acomodacao()}
+            {Header()}
             <hr />
             {Acomodacao()}
             <hr />
             {firstName}
+            <hr />
+            {Button()}
         </div>
     );
 }
