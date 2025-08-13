@@ -34,3 +34,13 @@ export function Header(props: any) {
         </div>
     );
 }
+
+
+export function Content(props: any) {
+    return (
+        <div className="bg-amber-200">
+            <h1>Content</h1>
+            {props.children}
+        </div>
+    );
+}
