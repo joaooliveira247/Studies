@@ -30,3 +30,8 @@ body {
   @apply hover:bg-purple-400;
   @apply text-white;
 }
+
+.text-field {
+  @apply bg-gray-200 p-1;
+  @apply rounded-md;
+}
