@@ -26,7 +26,12 @@ export function MenuItem(props: any) {
     return <Link href={props.url}>{props.text}</Link>;
 }
 
-export function Header(props: any) {
+interface HeaderProps {
+    title: string;
+    className?: string;
+}
+
+export function Header(props: HeaderProps) {
     return (
         <div className={props.className}>
             <h1>Logo</h1>
