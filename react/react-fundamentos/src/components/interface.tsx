@@ -28,7 +28,7 @@ export function MenuItem(props: any) {
 
 export function Header(props: any) {
     return (
-        <div className="bg-blue-700">
+        <div className={props.className}>
             <h1>Logo</h1>
             <p>{props.title}</p>
             <p>
