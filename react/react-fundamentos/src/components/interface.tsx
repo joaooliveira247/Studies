@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Acomodacao() {
     return (
         <div>
@@ -9,32 +11,36 @@ export function Acomodacao() {
 }
 
 export function Button() {
+    return <button>Common Button</button>;
+}
+
+export function Menu() {
     return (
-        <button>Common Button</button>
+        <div className="bg-yellow-500">
+            <MenuItem text="Home" url="/home" />
+        </div>
     );
 }
 
-function Menu() {
-    return (
-        <div className="bg-yellow-500">
-            Acomodações | Experiências
-        </div>
-    );
+export function MenuItem(props: any) {
+    return <Link href={props.url}>{props.text}</Link>;
 }
 
 export function Header(props: any) {
     return (
         <div className="bg-blue-700">
-            <h1>
-                Logo
-            </h1>
+            <h1>Logo</h1>
             <p>{props.title}</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ipsa, commodi quidem animi nemo velit quis magnam magni alias! Exercitationem mollitia iure praesentium amet, rem officia perspiciatis ab! Odit!</p>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos
+                eum ipsa, commodi quidem animi nemo velit quis magnam magni
+                alias! Exercitationem mollitia iure praesentium amet, rem
+                officia perspiciatis ab! Odit!
+            </p>
             {Menu()}
         </div>
     );
 }
-
 
 export function Content(props: any) {
     return (
