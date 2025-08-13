@@ -1,10 +1,14 @@
 "use client";
 
-export default function Page() {
-    let num = 0;
+import { useState } from "react";
 
+export default function Page() {
+    // let num = 0;
+
+    let [num, setNum] = useState(0);
     function increment() {
-        num += 1;
+        // num += 1;
+        setNum(num + 1);
         console.log(num);
     }
 
