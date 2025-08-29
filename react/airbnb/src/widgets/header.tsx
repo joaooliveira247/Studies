@@ -1,5 +1,7 @@
-import Logo from "@/components/logo/logo";
+import Logo from "@/components/logo";
 import Link from "next/link";
+import ButtonIcon from "@/components/buttonIcon";
+import { IconUserCircle } from "@/assets/icons";
 
 const header = () => {
     return (
@@ -13,7 +15,11 @@ const header = () => {
                     Experiências
                 </Link>
             </div>
-            <button className="rounded-md border-2">Entrar</button>
+            <ButtonIcon
+                icone={<IconUserCircle aria-label="icone usuario" size={20} />}
+            >
+                Entrar
+            </ButtonIcon>
         </div>
     );
 };
