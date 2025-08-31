@@ -1,16 +1,20 @@
 import Header from "@/widgets/header";
+import NavBar from "@/widgets/NavBar";
 import SearchBar from "@/widgets/SearchBar";
 
 export default function Home() {
     return (
         <div>
-            <div>
+            <header className="container mx-auto">
                 <Header />
                 <SearchBar />
-            </div>
-            <hr className="mt-5" />
+            </header>
+            <hr className="my-3" />
+            <main className="container mx-auto">
+                <NavBar />
+            </main>
             <div className="border-green-500 border-2">Content</div>
-            <div className="border-yellow-500 border-2">Footer</div>
+            <footer className="border-purple-500 border-2">footer</footer>
         </div>
     );
 }
