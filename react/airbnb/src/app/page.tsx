@@ -1,4 +1,5 @@
 import Accommodations from "@/widgets/accommodation";
+import Footer from "@/widgets/Footer";
 import Header from "@/widgets/header";
 import NavBar from "@/widgets/NavBar";
 import SearchBar from "@/widgets/SearchBar";
@@ -10,13 +11,14 @@ export default function Home() {
                 <Header />
                 <SearchBar />
             </header>
-            <hr className="my-3" />
+            <hr className="my-6" />
             <main className="container mx-auto">
                 <NavBar />
                 <Accommodations />
             </main>
-            <div className="border-green-500 border-2">Content</div>
-            <footer className="border-purple-500 border-2">footer</footer>
+            <footer className="bg-gray-200">
+                <Footer />
+            </footer>
         </div>
     );
 }
