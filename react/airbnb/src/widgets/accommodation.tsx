@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Accommodation from "@/components/accommodation";
 
 const locations = [
     {
@@ -2031,22 +2032,31 @@ const locations = [
     },
 ];
 
-const Accommodation = () => {
+const Accommodations = () => {
     return (
         <section className="py-6 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {locations.map((location, idx) => (
                 <div key={idx}>
-                    <Image
-                        className="w-full aspect-square object-cover rounded-xl"
-                        src={location.photos[0].source}
-                        alt={location.photos[0].description}
-                        width={300}
-                        height={300}
-                    />
+                    <Accommodation
+                        local={location.location.description}
+                        anfitriao={location.host}
+                        date={location.date}
+                        price={location.price}
+                        avaliacao={location.rating}
+                        preferidoHospede={location.hasBadge}
+                    >
+                        <Image
+                            className="w-full aspect-square object-cover rounded-xl"
+                            src={location.photos[0].source}
+                            alt={location.photos[0].description}
+                            width={300}
+                            height={300}
+                        />
+                    </Accommodation>
                 </div>
             ))}
         </section>
     );
 };
 
-export default Accommodation;
+export default Accommodations;
