@@ -245,7 +245,7 @@ export default async function Page({
                 <SearchBar />
             </header>
             <main className="container mx-auto py-6">
-                <h1 className="text-3xl font-semibold">{location.title}</h1>
+                <h1 className="text-3xl font-semibold pb-2">{location.title}</h1>
                 <Galeria fotos={location.photos} />
                 <div className="flex flex-col md:flex-row">
                     <AccommodationDetails />
