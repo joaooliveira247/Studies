@@ -19,7 +19,7 @@ export default async function Page({
     const { id } = await params;
     const location = await fetchDataById(id);
     if (!location) {
-        notFound()
+        notFound();
     }
     return (
         <div>
@@ -33,8 +33,8 @@ export default async function Page({
                 </h1>
                 <Galeria fotos={location.photos} />
                 <div className="flex flex-col md:flex-row">
-                    <AccommodationDetails />
-                    <AccommodationComments />
+                    <AccommodationDetails accommodation={location} />
+                    <AccommodationComments accommodation={location} />
                 </div>
             </main>
             <footer className="bg-gray-200">
