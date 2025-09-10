@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 from decouple import config
@@ -136,4 +137,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "core.utils.custom_exception.custom_exception_handler",
     "DEFAULT_RENDERER_CLASSES": ["core.utils.renderers.CustomJsonRenderer"],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ],
 }
+
+# Simple JWT Settings
+
+Simple_JWT = {"ACCESS_TOKEN_LIFETIME": timedelta(days=7)}
