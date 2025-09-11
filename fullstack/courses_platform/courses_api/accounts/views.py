@@ -1,4 +1,5 @@
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password, make_password
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -11,6 +12,37 @@ from core.utils.exceptions import ValidationError
 from core.utils.formatters import format_serializer_error
 
 # Create your views here.
+
+
+class SignInView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request: Request):
+        email, password = (
+            request.data.get("email", ""),
+            request.data.get("password", ""),
+        )
+
+        if not email or not password:
+            raise ValidationError
+
+        user = User.objects.filter(email=email).first()
+
+        if not user:
+            raise AuthenticationFailed("Email não encontrado.")
+
+        if not check_password(password, user.password):
+            raise AuthenticationFailed("Senha invalida.")
+        
+        user_data = UserSerializer(user).data
+        access_token = RefreshToken.for_user(user).access_token
+
+        return Response(
+            {
+                "user": user_data,
+                "access_token": str(access_token),
+            }
+        )
 
 
 class SignUpView(APIView):
