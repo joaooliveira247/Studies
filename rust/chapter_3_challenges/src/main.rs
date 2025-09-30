@@ -1,7 +1,9 @@
 use std::io;
 
 fn main() {
-    
+    // temperature_converter();
+    // let fib_sum = fib(21);
+    // println!("{}", fib_sum);
 }
 
 #[allow(dead_code)]
@@ -41,5 +43,13 @@ fn temperature_converter() {
             println!("{} ºF", celcius);
         }
         _ => println!("Invalid option"),
+    }
+}
+
+fn fib(n: u8) -> u32 {
+    match n {
+        0 => 0,
+        1 => 1,
+        _ => fib(n - 1) + fib(n - 2)
     }
 }
