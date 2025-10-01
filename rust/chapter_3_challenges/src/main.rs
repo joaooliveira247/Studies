@@ -4,6 +4,7 @@ fn main() {
     // temperature_converter();
     // let fib_sum = fib(21);
     // println!("{}", fib_sum);
+    christmass_song();;
 }
 
 #[allow(dead_code)]
@@ -46,10 +47,47 @@ fn temperature_converter() {
     }
 }
 
+
+#[allow(dead_code)]
 fn fib(n: u8) -> u32 {
     match n {
         0 => 0,
         1 => 1,
         _ => fib(n - 1) + fib(n - 2)
+    }
+}
+
+fn christmass_song() {
+    let days  = [
+        ("first", "a Partridge in a Pear Tree"),
+        ("second", "two Turtle Doves"),
+        ("third", "three French Hens"),
+        ("fourth", "four Calling Birds"),
+        ("fifth", "five Gold Rings"),
+        ("sixth", "six Geese a Laying"),
+        ("seventh", "seven Swans a Swimming"),
+        ("eighth", "eight Maids a Milking"),
+        ("ninth", "nine Ladies Dancing"),
+        ("tenth", "ten Lords a Leaping"),
+        ("eleventh", "eleven Pipers Piping"),
+        ("twelfth", "twelve Drummers Drumming"),
+    ];
+
+    for (day, (ordinal, _)) in days.iter().enumerate() {
+        println!(
+            "On the {} day of Christmas my true love sent to me:",
+            ordinal
+        );
+
+        // gifts acumulativos (de trás pra frente)
+        for (i, (_, gift)) in days.iter().enumerate().take(day + 1).rev() {
+            if i == 0 && day > 0 {
+                println!("and {}", gift);
+            } else {
+                println!("{}", gift);
+            }
+        }
+
+        println!();
     }
 }
