@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.4-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # Conexões AMQP
+      - "15672:15672" # Painel de administração
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    restart: unless-stopped
