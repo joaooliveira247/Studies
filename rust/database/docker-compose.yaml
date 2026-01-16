@@ -1,0 +1,10 @@
+services:
+  database:
+    image: postgres:alpine3.20
+    restart: "no"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: passwd
+      POSTGRES_DB: database
+    ports:
+      - 5432:5432
