@@ -1,7 +1,7 @@
-use crate::models::{BookActiveModel, BookModel};
+use crate::models::{Book, BookActiveModel, BookModel};
 use anyhow::Ok;
 use async_trait::async_trait;
-use sea_orm::{ActiveModelTrait, ActiveValue::Set, DatabaseConnection};
+use sea_orm::{ActiveModelTrait, ActiveValue::Set, DatabaseConnection, EntityTrait};
 
 #[async_trait]
 pub trait BookRepository: Send + Sync {
@@ -11,6 +11,8 @@ pub trait BookRepository: Send + Sync {
         author: &str,
         publication_year: i32,
     ) -> Result<BookModel, anyhow::Error>;
+
+    async fn get_all(&self) -> Result<Vec<BookModel>, anyhow::Error>;
 }
 
 pub struct BookRepositoryImpl {
