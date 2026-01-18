@@ -8,6 +8,7 @@ async fn main() {
 
     let state = AppState::new(db.clone());
 
+    /*
     let saved = state
         .book_repo
         .create("It", "Stephen King", 1986)
@@ -15,4 +16,13 @@ async fn main() {
         .expect("Error when try create a book.");
 
     println!("Created book: {:?}", saved)
+    */
+
+    let books = state
+        .book_repo
+        .get_all()
+        .await
+        .expect("Error when try find books");
+
+    println!("Books: {:?}", books)
 }
