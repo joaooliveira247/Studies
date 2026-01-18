@@ -44,4 +44,10 @@ impl BookRepository for BookRepositoryImpl {
 
         Ok(inserted)
     }
+
+    async fn get_all(&self) -> Result<Vec<BookModel>, anyhow::Error> {
+        let results = Book::find().all(&self.db).await?;
+
+        Ok(results)
+    }
 }
