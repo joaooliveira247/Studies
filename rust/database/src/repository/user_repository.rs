@@ -2,6 +2,7 @@ use crate::models::{Book, BookActiveModel, BookModel};
 use anyhow::Ok;
 use async_trait::async_trait;
 use sea_orm::{ActiveModelTrait, ActiveValue::Set, DatabaseConnection, EntityTrait};
+use uuid::Uuid;
 
 #[async_trait]
 pub trait BookRepository: Send + Sync {
@@ -13,6 +14,8 @@ pub trait BookRepository: Send + Sync {
     ) -> Result<BookModel, anyhow::Error>;
 
     async fn get_all(&self) -> Result<Vec<BookModel>, anyhow::Error>;
+
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<BookModel>, anyhow::Error>;
 }
 
 pub struct BookRepositoryImpl {
