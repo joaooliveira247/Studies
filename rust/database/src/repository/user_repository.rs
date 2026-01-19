@@ -53,4 +53,10 @@ impl BookRepository for BookRepositoryImpl {
 
         Ok(results)
     }
+
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<BookModel>, anyhow::Error> {
+        let result = Book::find_by_id(id).one(&self.db).await?;
+
+        Ok(result)
+    }
 }
