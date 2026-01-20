@@ -29,6 +29,7 @@ async fn main() {
     println!("Books: {:?}", books)
     */
 
+    /*
     if let Some(book) = state
         .book_repo
         .get_by_id(uuid!("95c431c1-ca73-4fa6-b894-1012d4e263b7"))
@@ -39,4 +40,8 @@ async fn main() {
     } else {
         println!("Book not found")
     }
+    */
+    
+    state.book_repo.update(uuid!("80ba8e52-abb5-4153-8f0b-9fb8669f988d"), Some("Carrie"), None, Some(1974)).await.expect("Error when try update book");
+    
 }
