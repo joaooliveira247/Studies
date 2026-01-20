@@ -67,4 +67,29 @@ impl BookRepository for BookRepositoryImpl {
 
         Ok(result)
     }
+
+    async fn update(
+        &self,
+        id: Uuid,
+        title: Option<&str>,
+        author: Option<&str>,
+        publication_year: Option<i32>,
+    ) -> Result<(), anyhow::Error> {
+        let mut result: BookActiveModel = Book::find_by_id(id).one(&self.db).await?.unwrap().into();
+
+        if let Some(t) = title {
+            result.title = Set(t.to_string());
+        }
+
+        if let Some(a) = author {
+            result.author = Set(a.to_string());
+        }
+
+        if let Some(p) = publication_year {
+            result.publication_year = Set(p);
+        }
+
+        result.update(&self.db).await?;
+        Ok(())
+    }
 }
