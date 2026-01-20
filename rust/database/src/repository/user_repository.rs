@@ -16,6 +16,14 @@ pub trait BookRepository: Send + Sync {
     async fn get_all(&self) -> Result<Vec<BookModel>, anyhow::Error>;
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<BookModel>, anyhow::Error>;
+
+    async fn update(
+        &self,
+        id: Uuid,
+        title: Option<&str>,
+        author: Option<&str>,
+        publication_year: Option<i32>,
+    ) -> Result<(), anyhow::Error>;
 }
 
 pub struct BookRepositoryImpl {
