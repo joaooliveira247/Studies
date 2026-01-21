@@ -1,7 +1,7 @@
 use crate::models::{Book, BookActiveModel, BookModel};
 use anyhow::Ok;
 use async_trait::async_trait;
-use sea_orm::{ActiveModelTrait, ActiveValue::Set, DatabaseConnection, EntityTrait};
+use sea_orm::{ActiveModelTrait, ActiveValue::Set, DatabaseConnection, EntityTrait, ModelTrait};
 use uuid::Uuid;
 
 #[async_trait]
@@ -24,6 +24,8 @@ pub trait BookRepository: Send + Sync {
         author: Option<&str>,
         publication_year: Option<i32>,
     ) -> Result<(), anyhow::Error>;
+
+    async fn delete(&self, id: Uuid) -> Result<(), anyhow::Error>;
 }
 
 pub struct BookRepositoryImpl {
