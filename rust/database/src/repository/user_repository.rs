@@ -94,4 +94,16 @@ impl BookRepository for BookRepositoryImpl {
         result.update(&self.db).await?;
         Ok(())
     }
+
+    async fn delete(&self, id: Uuid) -> Result<(), anyhow::Error> {
+        let result = Book::delete_by_id(id).exec(&self.db).await?;
+
+        println!("{:?}", result);
+
+        if result.rows_affected == 0 {
+            Err(anyhow::anyhow!("Book not found"))
+        } else {
+            Ok(())
+        }
+    }
 }
