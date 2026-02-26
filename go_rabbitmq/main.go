@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
+// Producer
 func main() {
-	fmt.Println("Go RabbitMQ Teste")
+	fmt.Println("Go RabbitMQ Teste Producer")
 
 	conn, err := amqp.Dial("amqp://user:password@localhost:5672/")
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer conn.Close()
@@ -22,14 +24,22 @@ func main() {
 	ch, err := conn.Channel()
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare(
-		"TestQueue",
-		false,
+	// Create DLX
+
+	err = ch.ExchangeDeclare("dlx-exchange", "direct", true, false, false, false, nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = ch.QueueDeclare(
+		"DeadLetterQueue",
+		true,
 		false,
 		false,
 		false,
@@ -37,11 +47,35 @@ func main() {
 	)
 
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = ch.QueueBind("DeadLetterQueue", "dlq-routing", "dlx-exchange", false, nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	args := amqp.Table{
+		"x-dead-letter-exchange":    "dlx-exchange",
+		"x-dead-letter-routing-key": "dlq-routing",
+	}
+
+	q, err := ch.QueueDeclare(
+		"TestQueue",
+		false,
+		false,
+		false,
+		false,
+		args,
+	)
+
+	if err != nil {
 		panic(err)
 	}
-	
+
 	fmt.Println(q)
-	
+
 	err = ch.Publish(
 		"",
 		"TestQueue",
@@ -49,17 +83,14 @@ func main() {
 		false,
 		amqp.Publishing{
 			ContentType: "text/plain",
-			Body: []byte("This is the next message published"),
-			
+			Body:        []byte("ok"),
 		},
 	)
-	
+
 	if err != nil {
 		panic(err)
 	}
-	
+
 	fmt.Println("Successfully Published Message to Queue")
-	
-	
 
 }
