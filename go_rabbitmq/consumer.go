@@ -6,6 +6,7 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
+// Consumer
 func main() {
 	fmt.Println("Go RabbitMQ Teste")
 
@@ -30,7 +31,7 @@ func main() {
 	msgs, err := ch.Consume(
 		"TestQueue",
 		"",
-		true,
+		false,
 		false,
 		false,
 		false,
@@ -42,6 +43,12 @@ func main() {
 	go func() {
 		for d := range msgs {
 			fmt.Printf("Recieved Message: %s\n", d.Body)
+			
+			if string(d.Body) == "error" {
+				fmt.Println("Found Error -> Send to DLQ")
+				d.Nack(false, false)
+				continue
+			}
 		}
 	}()
 	
