@@ -2,32 +2,27 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-// Consumer
+const maxRetries = 3
+
 func main() {
-	fmt.Println("Go RabbitMQ Teste")
 
 	conn, err := amqp.Dial("amqp://user:password@localhost:5672/")
-
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-
 	defer conn.Close()
 
-	fmt.Println("Successfully Connected To RabbitMQ instance.")
-
 	ch, err := conn.Channel()
-
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-
 	defer ch.Close()
-	
+
 	msgs, err := ch.Consume(
 		"TestQueue",
 		"",
@@ -37,22 +32,55 @@ func main() {
 		false,
 		nil,
 	)
-	
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	forever := make(chan bool)
-	
+
 	go func() {
 		for d := range msgs {
-			fmt.Printf("Recieved Message: %s\n", d.Body)
-			
+
+			retryCount := int64(0)
+
+			if deaths, ok := d.Headers["x-death"].([]interface{}); ok {
+				retryCount = deaths[0].(amqp.Table)["count"].(int64)
+			}
+
+			fmt.Printf("Message: %s | Tries: %d\n", d.Body, retryCount+1)
+
 			if string(d.Body) == "error" {
-				fmt.Println("Found Error -> Send to DLQ")
-				d.Nack(false, false)
+
+				if retryCount >= maxRetries {
+					fmt.Println("Max retries → sending to DLQ")
+
+					err := ch.Publish(
+						"dlx.exchange",
+						"dlq",
+						false,
+						false,
+						amqp.Publishing{
+							ContentType: "text/plain",
+							Body:        d.Body,
+						},
+					)
+					if err != nil {
+						log.Println("Erro ao publicar na DLQ:", err)
+					}
+
+					d.Ack(false)
+					continue
+				}
+
+				fmt.Println("Erro → enviando para Retry")
+				d.Nack(false, false) // manda para RetryQueue
 				continue
 			}
+
+			d.Ack(false)
 		}
 	}()
-	
-	fmt.Println("Successfully connectec to our RabbitMQ instance")
-	fmt.Println("[*] - waiting for messages")
+
+	fmt.Println("[*] Waiting for messages")
 	<-forever
 }
