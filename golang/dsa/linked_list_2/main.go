@@ -57,6 +57,28 @@ func (ll *LinkedList) removeAtEnd() {
 	previous.next = nil
 }
 
+func (ll *LinkedList) insertAtGivenPosition(data string, position int) {
+	newNode := &Node{value: data}
+
+	if position == 1 {
+		newNode.next = ll.Head
+		ll.Head = newNode
+		return
+	}
+
+	previous := ll.Head
+	count := 1
+
+	for count < position-1 {
+		previous = previous.next
+		count++
+	}
+
+	current := previous.next
+	newNode.next = current
+	previous.next = newNode
+}
+
 func (ll LinkedList) String() string {
 	values := []string{}
 
@@ -82,5 +104,7 @@ func main() {
 	nodes.removeAtBeginning() // remove instagram
 	fmt.Println(nodes)
 	nodes.removeAtEnd() // remove twitch
+	fmt.Println(nodes)
+	nodes.insertAtGivenPosition("Facebook", 3)
 	fmt.Println(nodes)
 }
