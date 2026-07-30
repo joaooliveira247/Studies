@@ -101,6 +101,21 @@ func (ll *LinkedList) removeNodeGivenPosition(position int) {
 	current = nil
 }
 
+func (ll *LinkedList) findElement(element string) int {
+	current := ll.Head
+	count := 1
+
+	for current != nil {
+		if element == current.value {
+			return count
+		}
+		count++
+		current = current.next
+	}
+
+	return -1
+}
+
 func (ll LinkedList) String() string {
 	values := []string{}
 
@@ -131,4 +146,6 @@ func main() {
 	fmt.Println(nodes)
 	nodes.removeNodeGivenPosition(3)
 	fmt.Println(nodes)
+	fmt.Println(nodes.findElement("Youtube"))
+	fmt.Println(nodes.findElement("Facebook"))
 }
