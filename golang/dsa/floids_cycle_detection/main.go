@@ -41,6 +41,27 @@ func (ll *LinkedList) findWhereLoopStarts() *Node {
 	return temp
 }
 
+func (ll *LinkedList) removeLoop() {
+	fastPointer := ll.Head
+	slowPointer := ll.Head
+
+	for fastPointer != nil && fastPointer.next != nil {
+		fastPointer = fastPointer.next.next
+		slowPointer = slowPointer.next
+
+		if fastPointer == slowPointer {
+			temp := ll.Head
+
+			for temp.next != slowPointer.next {
+				temp = temp.next
+				slowPointer = slowPointer.next
+			}
+
+			slowPointer.next = nil
+		}
+	}
+}
+
 func (ll LinkedList) String() string {
 	values := []string{}
 
@@ -75,5 +96,7 @@ func main() {
 	ll := &LinkedList{Head: node1}
 
 	fmt.Println(ll.findWhereLoopStarts())
+	ll.removeLoop()
+	fmt.Println(ll)
 
 }
