@@ -80,6 +80,21 @@ func (dll *DoublyLinkedList) removeNodeAtBeginning() {
 	dll.Lenght--
 }
 
+func (dll *DoublyLinkedList) removeNodeAtEnd() {
+	if dll.Lenght == 0 {
+		return
+	}
+
+	if dll.Head == dll.Tail {
+		dll.Tail = nil
+		dll.Head = nil
+	}
+
+	dll.Tail.Previous.Next = nil
+	dll.Tail.Previous, dll.Tail = nil, dll.Tail.Previous
+	dll.Lenght--
+}
+
 func main() {
 	// l3 := &ListNode{Data: "X", Next: nil, Previous: nil}
 	// l2 := &ListNode{Data: "Facebook", Next: l3, Previous: nil}
@@ -95,6 +110,7 @@ func main() {
 	ll.insertNodeAtBeginning("Telegram")
 	ll.insertNodeAtEnd("Twitch")
 	ll.removeNodeAtBeginning()
+	ll.removeNodeAtEnd()
 	ll.printList()
 	ll.printListBackward()
 }
