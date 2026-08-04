@@ -48,6 +48,20 @@ func (dll *DoublyLinkedList) insertNodeAtBeginning(data string) {
 	dll.Lenght++
 }
 
+func (dll *DoublyLinkedList) insertNodeAtEnd(data string) {
+	newNode := &ListNode{Data: data, Next: nil, Previous: nil}
+
+	if dll.Lenght == 0 {
+		dll.Head = newNode
+	} else {
+		dll.Tail.Next = newNode
+		newNode.Previous = dll.Tail
+	}
+
+	dll.Tail = newNode
+	dll.Lenght++
+}
+
 func main() {
 	// l3 := &ListNode{Data: "X", Next: nil, Previous: nil}
 	// l2 := &ListNode{Data: "Facebook", Next: l3, Previous: nil}
@@ -61,6 +75,7 @@ func main() {
 	ll.insertNodeAtBeginning("Facebook")
 	ll.insertNodeAtBeginning("Instagram")
 	ll.insertNodeAtBeginning("Telegram")
+	ll.insertNodeAtEnd("Twitch")
 	ll.printList()
 	ll.printListBackward()
 }
