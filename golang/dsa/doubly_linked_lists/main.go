@@ -3,8 +3,9 @@ package main
 import "fmt"
 
 type DoublyLinkedList struct {
-	Head *ListNode
-	Tail *ListNode
+	Head   *ListNode
+	Tail   *ListNode
+	Lenght uint
 }
 
 type ListNode struct {
@@ -33,14 +34,33 @@ func (dll *DoublyLinkedList) printListBackward() {
 	}
 }
 
-func main() {
-	l3 := &ListNode{Data: "X", Next: nil, Previous: nil}
-	l2 := &ListNode{Data: "Facebook", Next: l3, Previous: nil}
-	l1 := &ListNode{Data: "Instagram", Next: l2, Previous: nil}
-	l3.Previous = l2
-	l2.Previous = l1
+func (dll *DoublyLinkedList) insertNodeAtBeginning(data string) {
+	newNode := &ListNode{Data: data}
 
-	ll := DoublyLinkedList{Head: l1, Tail: l3}
+	if dll.Lenght == 0 {
+		dll.Tail = newNode
+	} else {
+		dll.Head.Previous = newNode
+	}
+
+	newNode.Next = dll.Head
+	dll.Head = newNode
+	dll.Lenght++
+}
+
+func main() {
+	// l3 := &ListNode{Data: "X", Next: nil, Previous: nil}
+	// l2 := &ListNode{Data: "Facebook", Next: l3, Previous: nil}
+	// l1 := &ListNode{Data: "Instagram", Next: l2, Previous: nil}
+	// l3.Previous = l2
+	// l2.Previous = l1
+
+	// ll := DoublyLinkedList{Head: l1, Tail: l3}
+	ll := DoublyLinkedList{}
+	ll.insertNodeAtBeginning("X")
+	ll.insertNodeAtBeginning("Facebook")
+	ll.insertNodeAtBeginning("Instagram")
+	ll.insertNodeAtBeginning("Telegram")
 	ll.printList()
 	ll.printListBackward()
 }
