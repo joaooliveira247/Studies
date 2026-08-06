@@ -59,6 +59,21 @@ func (cl *CircularLinkedList) insertNodeAtEnd(data string) {
 	cl.Length++
 }
 
+func (cl *CircularLinkedList) removeNodeAtBeginning() {
+	if cl.Last == nil || cl.Length == 0 {
+		return
+	}
+
+	temp := cl.Last.Next
+	if cl.Last.Next == cl.Last {
+		cl.Last = nil
+	} else {
+		cl.Last.Next = temp.Next
+	}
+	temp.Next = nil
+	cl.Length--
+}
+
 func (cl *CircularLinkedList) removeNodeAtEnd() {
 	if cl.Last == nil || cl.Length == 0 {
 		return
@@ -83,5 +98,7 @@ func main() {
 	cl.insertNodeAtBeginnig("Facebook")
 	fmt.Println(cl)
 	cl.removeNodeAtEnd()
+	fmt.Println(cl)
+	cl.removeNodeAtBeginning()
 	fmt.Println(cl)
 }
