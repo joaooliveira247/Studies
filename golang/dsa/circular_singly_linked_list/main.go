@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type CircularLinkedList struct {
 	Length int
@@ -24,9 +27,13 @@ func (cl *CircularLinkedList) String() string {
 		agg = append(agg, first.Data)
 		first = first.Next
 	}
+	// for last node or cll with one value
+	agg = append(agg, first.Data)
+
 	return strings.Join(agg, " --> ")
 }
 
 func main() {
 	cl := &CircularLinkedList{}
+	fmt.Println(cl)
 }
