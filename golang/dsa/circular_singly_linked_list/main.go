@@ -33,7 +33,23 @@ func (cl *CircularLinkedList) String() string {
 	return strings.Join(agg, " --> ")
 }
 
+func (cl *CircularLinkedList) insertNodeAtBeginnig(data string) {
+	newNode := &ListNode{Data: data}
+
+	if cl.Length == 0 || cl.Last == nil {
+		cl.Last = newNode
+	} else {
+		newNode.Next = cl.Last.Next
+	}
+
+	cl.Last.Next = newNode
+	cl.Length++
+}
+
 func main() {
 	cl := &CircularLinkedList{}
+	cl.insertNodeAtBeginnig("X")
+	cl.insertNodeAtBeginnig("Instagram")
+	cl.insertNodeAtBeginnig("Facebook")
 	fmt.Println(cl)
 }
